@@ -21,20 +21,20 @@ import {
 export default function RouteList() {
   return (
     <Routes>
-      <Route path="/" component={<Home />} />
-      <Route path="/about" component={<About />} />
-      <Route path="/news" component={<News />} />
-      <Route path="/register" component={<Register />} />
-      <Route path="/profile" component={<Profile />} />
-      <Route path="/vaccine" component={<Vaccine />} />
-      <Route path="/ticket" component={<Ticket />} />
-      <Route path="/admin" component={<AdminDashboard />}>
-        <Route path="/admin/profile" component={<AdminProfile />} />
-        <Route path="/admin/vaccine" component={<AdminVaccine />} />
-        <Route path="/admin/session" component={<AdminSession />} />
-        <Route path="/admin/login" component={<AdminLogin />} />
+      <Route path="/" element={<Home />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/news" element={<News />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/profile" element={<Profile />} />
+      <Route path="/vaccine" element={<Vaccine />} />
+      <Route path="/ticket" element={<Ticket />} />
+      <Route path="/admin" element={<AdminDashboard />}>
+        <Route path="/admin/profile" element={<AdminProfile />} />
+        <Route path="/admin/vaccine" element={<AdminVaccine />} />
+        <Route path="/admin/session" element={<AdminSession />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
       </Route>
-      <Route path="*" component={<NotFound />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
