@@ -1,5 +1,6 @@
 import React from "react";
+import { RegisterCitizen } from "../../../components";
 
 export default function Register() {
-  return <div>Register</div>;
+  return <RegisterCitizen />;
 }

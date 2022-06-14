@@ -1,0 +1,34 @@
+/* CSS Login Citizen */
+
+.container {
+    width: 631px;
+    height: 474px;
+    background: #fff;
+    box-shadow: 8px 8px 16px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+  }
+  h1{
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .illustration{
+    display: flex;
+    justify-content: center;
+  }
+
+  .image{
+    width: 100%;
+    /* height: 50%; */
+  }

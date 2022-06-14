@@ -1,0 +1,26 @@
+/* CSS Register Citizen */
+
+.container {
+    width: 631px;
+    
+    background: #fff;
+    box-shadow: 8px 8px 16px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+  }
+
+  .form{
+    padding: 20px;
+  }
+
+  .image{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
