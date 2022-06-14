@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { axiosInstance } from "../../../Networks/apis";
-
+import React, {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {axiosInstance} from "../../../Networks/apis";
+import {Col, Row} from "antd";
+import {CustomButton, CustomInput} from "../../../components";
 export default function Home() {
   const [data, setData] = useState([]);
 
