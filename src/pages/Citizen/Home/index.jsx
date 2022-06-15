@@ -35,6 +35,9 @@ export default function Home() {
           <h3 key={idx}>{value.facility_name}</h3>
         ))}
       </div>
+      <CustomButton variant="primary">Primary</CustomButton>
+      <CustomButton variant="secondary">Secondary</CustomButton>
+      <CustomInput placeholder="test" isDisabled={true} />
     </div>
   );
 }
