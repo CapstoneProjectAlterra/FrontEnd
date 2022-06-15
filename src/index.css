@@ -1,16 +1,23 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
 :root {
   /*base color  */
   --color-primary: #06919d;
+  --color-primary-surface: #cde9eb;
+  --color-primary-hover: #057983;
+  --color-primary-border: #acdade;
+  --color-primary-pressed: #03484e;
+  --color-primary-focus: rgba(6, 145, 157, 0.2);
+  --color-primary-light: #f5fdfe;
+
+  /* another color */
   --color-secondary: #6cc5cd;
-  --color-secondary-low: #bde8ec;
+  --color-secondary-light: #bde8ec;
   --color-tertiary: #06799d;
   --color-disabled: rgba(0, 0, 0, 0.25);
-  /* accent color for buttons */
-  --color-accent: #f58114;
-  --color-accent-med: #f0a258;
-  --color-accent-low: #f6e1cd;
+  --color-gradient-1: linear-gradient(90deg, #06919d 0%, #06799d 100%);
+  --color-gradient-2: linear-gradient(90deg, #06799d 0%, #6cc5cd 100%);
+
   /* status color. this is default from ant design*/
   --color-success: #52c41a;
   --color-danger: #f5222d;
@@ -43,33 +50,49 @@
   --color-border: rgba(0, 0, 0, 0.25);
   /* Typography */
   /* heading 1 */
-  --font-h1-size: 36px;
+  --font-h1-size: 48px;
   --font-h1-weight: 700;
-  --font-h1-lh: 44px;
+  --font-h1-lh: 72px;
   --font-h1-ls: -0.022em;
   /* heading 2 */
-  --font-h2-size: 28px;
+  --font-h2-size: 36px;
   --font-h2-weight: 700;
-  --font-h2-lh: 36px;
-  --font-h2-ls: -0.021em;
+  --font-h2-lh: 54px;
+  --font-h2-ls: -0.022em;
   /* heading 3 */
-  --font-h3-size: 24px;
+  --font-h3-size: 28px;
   --font-h3-weight: 700;
-  --font-h3-lh: 28px;
-  --font-h3-ls: -0.017em;
+  --font-h3-weight-sb: 600;
+  --font-h3-lh: 42px;
+  --font-h3-ls: -0.021em;
+  /* heading 4 */
+  --font-h4-size: 20px;
+  --font-h4-weight: 700;
+  --font-h4-weight-sb: 600;
+  --font-h4-lh: 30px;
+  --font-h4-ls: -0.017em;
+  /* heading 5 */
+  --font-h5-size: 16px;
+  --font-h5-weight: 700;
+  --font-h3-weight-sb: 600;
+  --font-h5-lh: 24px;
+
   /* body 1 */
   --font-body-1-size: 16px;
   --font-body-1-weight: 400;
+  --font-body-1-weight-m: 500;
   --font-body-1-lh: 24px;
   --font-body-1-ls: -0.011em;
   /* body 2 */
   --font-body-2-size: 14px;
   --font-body-2-weight: 400;
+  --font-body-2-weight-m: 500;
   --font-body-2-lh: 20px;
   --font-body-2-ls: -0.006em;
   /* body 3 */
   --font-body-3-size: 12px;
   --font-body-3-weight: 400;
+  --font-body-3-weight-m: 500;
   --font-body-3-lh: 16px;
 
   /* Spacing */
@@ -88,7 +111,7 @@
 }
 
 body {
-  font-family: "Inter", sans-serif !important;
+  font-family: "Poppins", sans-serif;
 }
 
 h1 {
@@ -110,6 +133,19 @@ h3 {
   font-weight: var(--font-h3-weight);
   line-height: var(--font-h3-lh);
   letter-spacing: var(--font-h3-ls);
+  color: var(--color-heading);
+}
+h4 {
+  font-size: var(--font-h4-size);
+  font-weight: var(--font-h4-weight);
+  line-height: var(--font-h4-lh);
+  letter-spacing: var(--font-h4-ls);
+  color: var(--color-heading);
+}
+h5 {
+  font-size: var(--font-h5-size);
+  font-weight: var(--font-h5-weight);
+  line-height: var(--font-h5-lh);
   color: var(--color-heading);
 }
 
