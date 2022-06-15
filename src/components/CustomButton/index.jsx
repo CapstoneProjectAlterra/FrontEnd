@@ -9,7 +9,6 @@ export default function CustomButton({
   isDisabled,
   isBlock,
   width,
-  isLoading,
   onClick,
 }) {
   const variantClass = (variant) => {
