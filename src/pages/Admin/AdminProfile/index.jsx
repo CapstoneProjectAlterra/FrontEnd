@@ -30,19 +30,19 @@ const AdminProfile = () => {
   return (
     <>
       <Row className={style.container}>
-        <Col span={5} style={{ backgroundColor: "white" }}>
+        <Col span={5} style={{ backgroundColor: "#06919D" }}>
           Sidebar
         </Col>
         <Col span={19}>
-          <Header>
+          <Header className={style.header}>
             <p>Path Directoly</p>
             <p>img profile</p>
           </Header>
           <Row>
-            <Col span={22} offset={1} style={{ backgroundColor: "green" }}>
+            <Col span={22} offset={1} className={style.content}>
               <Content>
                 <Row>
-                  <Col span={16} offset={4} style={{ backgroundColor: "orange" }}>
+                  <Col span={16} offset={4}>
                     <h2 className={style.title}>PROFILE</h2>
                     <div className={style.imgThumb}>
                       <Image src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
@@ -51,9 +51,12 @@ const AdminProfile = () => {
 
                     <div>
                       <Form name="profileForm" layout="vertical" requiredMark={false}>
+                        <Divider orientation="left" orientationMargin="0" className={style.titleForm}>
+                          <p className={style.titleForm}>Nama Fasilitas Kesehatan</p>
+                        </Divider>
                         <Form.Item
                           name="fasilitas"
-                          label="Nama Fasilitas Kesehatan"
+                          label=""
                           rules={[
                             {
                               required: true,
@@ -63,8 +66,8 @@ const AdminProfile = () => {
                         >
                           <CustomInput />
                         </Form.Item>
-                        <Divider orientation="left" orientationMargin="0">
-                          <h4>Alamat Fasilitas Kesehatan</h4>
+                        <Divider orientation="left" orientationMargin="0" className={style.titleForm}>
+                          <p className={style.titleForm}>Alamat Fasilitas Kesehatan</p>
                         </Divider>
                         <Row gutter={48}>
                           <Col span={8}>
@@ -152,18 +155,20 @@ const AdminProfile = () => {
                             </Form.Item>
                           </Col>
                         </Row>
-                        <Divider orientation="left" orientationMargin="0">
-                          <h4>Foto Failitas Kesehatan</h4>
+                        <Divider orientation="left" orientationMargin="0" className={style.titleForm}>
+                          <p className={style.titleForm}>Foto Failitas Kesehatan</p>
                         </Divider>
                         <Row>
                           <Col>
                             <Upload {...props}>
-                              <CustomButton icon={<UploadOutlined />}>Click to Upload</CustomButton>
+                              <div className={style.upload}>
+                                <CustomButton icon={<UploadOutlined />}>Click to Upload</CustomButton>
+                              </div>
                             </Upload>
                           </Col>
                         </Row>
                         <Row>
-                          <Col>
+                          <Col span={24}>
                             <h3>Informasi Akun</h3>
                             <Form.Item
                               label="Username"
@@ -204,7 +209,7 @@ const AdminProfile = () => {
               </Content>
             </Col>
           </Row>
-          <Footer>FOoter</Footer>
+          {/* <Footer>FOoter</Footer> */}
         </Col>
       </Row>
     </>
