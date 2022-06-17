@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {axiosInstance} from "../../../Networks/apis";
-import {Col, Row} from "antd";
-import {CustomButton, CustomInput} from "../../../components";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { axiosInstance } from "../../../networks/apis";
+import { Col, Row } from "antd";
+import { CustomButton, CustomInput } from "../../../components";
 export default function Home() {
   const [data, setData] = useState([]);
 
@@ -37,7 +37,7 @@ export default function Home() {
       </div>
       <CustomButton variant="primary">Primary</CustomButton>
       <CustomButton variant="secondary">Secondary</CustomButton>
-      <CustomInput placeholder="test" isDisabled={true} />
+      <CustomInput placeholder="test" />
     </div>
   );
 }

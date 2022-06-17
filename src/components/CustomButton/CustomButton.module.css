@@ -6,7 +6,7 @@
   gap: var(--space-m);
   border-radius: 8px;
   border: 0px !important;
-  font-weight: var(--font-h3-weight);
+  /* font-weight: var(--font-h3-weight); */
   padding: var(--space-m);
 }
 
