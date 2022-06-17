@@ -28,12 +28,11 @@ export default function RouteList() {
       <Route path="/profile" element={<Profile />} />
       <Route path="/vaccine" element={<Vaccine />} />
       <Route path="/ticket" element={<Ticket />} />
-      <Route path="/admin" element={<AdminDashboard />}>
-        <Route path="/admin/profile" element={<AdminProfile />} />
-        <Route path="/admin/vaccine" element={<AdminVaccine />} />
-        <Route path="/admin/session" element={<AdminSession />} />
-        <Route path="/admin/login" element={<AdminLogin />} />
-      </Route>
+      <Route path="/admin" element={<AdminDashboard />} />
+      <Route path="/admin/profile" element={<AdminProfile />} />
+      <Route path="/admin/vaccine" element={<AdminVaccine />} />
+      <Route path="/admin/session" element={<AdminSession />} />
+      <Route path="/admin/login" element={<AdminLogin />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
