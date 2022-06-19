@@ -1,4 +1,5 @@
-import imgLogin from "./imgLogin.png";
-import imgReg from "./imgReg.jpeg";
+import imgLogin from "./illustration/login.png";
+import LogoPrimary from "./logo/logo-primary.png";
+import LogoSecondary from "./logo/logo-secondary.png";
 
-export { imgLogin, imgReg };
+export { LogoPrimary, LogoSecondary, imgLogin };

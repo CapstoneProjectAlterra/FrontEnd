@@ -1,26 +1,31 @@
 /* CSS Login Citizen */
 
 .container {
-    width: 631px;
-    height: 474px;
     background: #fff;
-    box-shadow: 8px 8px 16px 2px rgba(0, 0, 0, 0.25);
-    border-radius: 8px;
+    box-shadow: 2px 4px 50px 1px rgba(6, 145, 157, 0.25);
+    border-radius: 48px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 20px;
   }
-  h1{
-    text-align: center;
-    margin-bottom: 20px;
-  }
 
   .form{
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .form label{
+    font-size: var(--font-h5-size);
+    font-weight: var(--font-h5-weight);
+  }
+
+  .form p{
+    font-size: var(--font-body-1-size);
+    padding-top: 10px;
+    text-align: center;
   }
 
   .illustration{

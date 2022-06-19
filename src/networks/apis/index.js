@@ -1,5 +1,5 @@
 import axios from "axios";
-import CONST from "../../utils/Constant";
+import CONST from "../../utils/constant";
 
 const { baseApi } = CONST;
 

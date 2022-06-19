@@ -1,8 +1,8 @@
-import {Button} from "antd";
+import { Button } from "antd";
 import React from "react";
 import styles from "./CustomButton.module.css";
 
-export default function CustomButton({variant, icon, children, isDisabled}) {
+export default function CustomButton(props) {
   const variantClass = (variant) => {
     if (variant === "primary") {
       return styles.primary;
@@ -16,12 +16,10 @@ export default function CustomButton({variant, icon, children, isDisabled}) {
   };
   return (
     <Button
-      className={`${styles.btn} ${variantClass(variant)}`}
-      disabled={isDisabled}
-      icon={icon}
-      block
+      className={`${styles.btn} ${variantClass(props.variant)}`}
+      {...props}
     >
-      {children}
+      {props.children}
     </Button>
   );
 }
