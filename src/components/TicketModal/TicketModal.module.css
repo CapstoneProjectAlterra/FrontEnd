@@ -1,0 +1,15 @@
+.modal :global(.ant-modal-title) {
+  font-size: var(--font-h5-size);
+  font-weight: var(--font-h5-weight);
+  line-height: var(--font-h5-lh);
+  color: var(--color-heading);
+}
+
+.fieldName,
+.fieldContent {
+  margin-bottom: 8px;
+}
+
+.fieldContent {
+  font-weight: var(--font-h3-weight-sb);
+}
