@@ -1,0 +1,97 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.banner{
+    display: flex;
+    justify-content: center;
+}
+
+.imageBanner{
+    width: 100%;
+}
+
+.title{
+    margin-top: 102px;
+    margin-bottom: 0px;
+    text-align: center;
+}
+
+.search{
+    display: flex;
+    justify-content: center;
+    padding: 48px 0;
+}
+
+.searchInput{
+    width: 883px;
+    border-bottom-right-radius: 0;
+}
+
+.iconSearch{
+    width: 25px;
+    height: 25px;
+}
+
+.cardContent{
+    display: flex;
+    justify-content: center;
+}
+
+/* .cards{
+    display: flex;
+} */
+
+.testCard{
+    width: 342px;
+    height: 470px;
+    margin-right: 76px;
+    margin-bottom: 48px;
+    border-radius: 8px;
+}
+
+.mainCard{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.card{
+    width: 342px;
+    height: 470px;
+    margin-right: 76px;
+    margin-bottom: 48px;
+    background-color: whitesmoke;
+    border-radius: 8px;
+}
+
+.cardImage{
+    background-size: cover;
+    border-radius: 8px 8px 0px 0px;
+    height: 342px;
+}
+
+.titleCard{
+    display: flex;
+    margin-top: 16px;
+    font-weight: var(--font-h4-weight);
+}
+
+.descriptionCard{
+    display: flex;
+    margin-top: 8px;
+    font-size: var(--font-body-2-size);
+}
+
+.descriptionCard p{
+    padding-top: 3px;
+}
+
+.icon1{
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    color: var(--color-primary);
+    /* margin-top: 4px; */
+}
+
