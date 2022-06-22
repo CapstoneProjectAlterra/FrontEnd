@@ -5,11 +5,11 @@ import { CustomButton, CustomInput } from "../../../components";
 import { imgLogin } from "../../../assets";
 
 export default function Login() {
-  // Test Dummy
-  // const data = {
-  //   NIK: "1234567890",
-  //   Password: "User123",
-  // };
+  //Test Dummy
+  const data = {
+    NIK: "1234567890",
+    Password: "User123",
+  };
 
   //Logic Alert
   const [alertToggle, setAlertToggle] = useState(false);
@@ -18,14 +18,14 @@ export default function Login() {
   const onFinish = (values) => {
     console.log("Success:", values);
 
-    // if (values.nik !== data.NIK && values.password !== data.Password) {
-    //   setAlertToggle(true);
-    //   setTimeout(() => {
-    //     setAlertToggle(false);
-    //   }, 2000);
-    // } else {
-    //   console.log("Login Succes");
-    // }
+    if (values.nik !== data.NIK && values.password !== data.Password) {
+      setAlertToggle(true);
+      setTimeout(() => {
+        setAlertToggle(false);
+      }, 2000);
+    } else {
+      console.log("Login Succes");
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -35,16 +35,6 @@ export default function Login() {
   return (
     <>
       <div className={style.container}>
-        {/* {alertToggle && (
-          <Alert
-            message="Username atau Password Salah"
-            type="warning"
-            showIcon
-            style={{
-              marginBottom: "24px",
-            }}
-          />
-        )} */}
         <Row>
           <Col>
             <div className="content">
@@ -93,6 +83,16 @@ export default function Login() {
                     >
                       <Input.Password className="input" />
                     </Form.Item>
+                    {alertToggle && (
+                      <Alert
+                        message="Username atau Password Salah"
+                        type="warning"
+                        showIcon
+                        style={{
+                          marginBottom: "5px",
+                        }}
+                      />
+                    )}
                     <p>
                       Apakah anda belum memiliki akun?
                       <br />
