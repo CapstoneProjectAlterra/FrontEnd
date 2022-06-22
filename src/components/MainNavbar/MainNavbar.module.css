@@ -1,0 +1,33 @@
+.Navbar {
+    background: var(--color-primary);
+    height: 82px;
+    display: flex;
+    justify-content: space-between;
+    padding-left:48px;
+}
+
+.logo{
+    height: 80%;
+    width: auto;
+    margin-top: 5px;
+}
+
+.link{
+    color: var(--color-white);
+}
+
+.navlink{
+    font-size:var(--font-body-1-size);
+    font-weight: var(--font-body-1-weight) ;
+    padding-top: 30px;
+    padding-right: 48px;
+    display: flex;
+    justify-content: space-around;
+    gap: 2rem
+}
+
+.navicon{
+    color: var(--color-white);
+    padding-bottom: 25px;
+    padding-right: 5px;
+}
