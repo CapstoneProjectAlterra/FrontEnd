@@ -25,24 +25,6 @@ function Alertt() {
       }
       closable
     />
-
-    {/* <Alert
-      message=
-      {<div className={style.container}>
-        <div>
-          <h4>
-             Mau daftar vaksin?
-          </h4>
-          <h5>
-            Yuk, segera lengkapi data profilmu terlebih dahulu
-          </h5>
-        </div>
-        <CustomButton variant="primary">Lengkapi Profilmu</CustomButton>
-      </div>}
-      type="info"
-      closable= {<CloseOutlined/>}
-      onClose={onClose}
-    /> */}
       </>
     );
   }
