@@ -15,17 +15,20 @@ export default function Login() {
   const [alertToggle, setAlertToggle] = useState(false);
 
   //Logic Form
-  const onFinish = (values) => {
-    console.log("Success:", values);
+  const [form] = Form.useForm();
+  const handleSubmit = ({ nik, password }) => {
+    console.log("Success:", nik, password);
 
-    if (values.nik !== data.NIK && values.password !== data.Password) {
+    if (nik === data.NIK && password === data.Password) {
+      console.log("Login Succes");
+    } else {
       setAlertToggle(true);
       setTimeout(() => {
         setAlertToggle(false);
-      }, 2000);
-    } else {
-      console.log("Login Succes");
+      }, 3000);
     }
+
+    form.resetFields();
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -34,20 +37,21 @@ export default function Login() {
 
   return (
     <>
-      <div className={style.container}>
-        <Row>
+      <div className={style.body}>
+        <Row className={style.container}>
           <Col>
             <div className="content">
               <Row>
                 <Col span={14} className={style.form}>
                   <Form
                     name="basic"
+                    form={form}
                     layout="vertical"
                     requiredMark={false}
                     initialValues={{
                       remember: true,
                     }}
-                    onFinish={onFinish}
+                    onFinish={handleSubmit}
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
                   >
@@ -89,7 +93,7 @@ export default function Login() {
                         type="warning"
                         showIcon
                         style={{
-                          marginBottom: "5px",
+                          marginBottom: "6px",
                         }}
                       />
                     )}

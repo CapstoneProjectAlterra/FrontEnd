@@ -1,5 +1,11 @@
 /* CSS Login Citizen */
 
+.body{
+  width: auto;
+  height: 100vh;
+  background-color: var(--color-primary-light);
+}
+
 .container {
     background: #fff;
     box-shadow: 2px 4px 50px 1px rgba(6, 145, 157, 0.25);

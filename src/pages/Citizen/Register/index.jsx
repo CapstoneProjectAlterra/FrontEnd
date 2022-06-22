@@ -6,9 +6,11 @@ import style from "./RegisterCitizen.module.css";
 
 const RegisterCitizen = () => {
   //Logic Form
+  const [form] = Form.useForm();
   const onFinish = (values) => {
     console.log("Success:", values);
     // setvalues('')
+    form.resetFields();
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -25,6 +27,7 @@ const RegisterCitizen = () => {
                 <Col span={14} className={style.form}>
                   <Form
                     name="basic"
+                    form={form}
                     layout="vertical"
                     initialValues={{
                       remember: true,
@@ -99,7 +102,7 @@ const RegisterCitizen = () => {
                         },
                         {
                           type: "email",
-                          message: "Email tidak valid!",
+                          message: "Format Email tidak valid!",
                         },
                       ]}
                       hasFeedback
