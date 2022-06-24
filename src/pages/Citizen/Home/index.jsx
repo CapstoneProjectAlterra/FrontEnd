@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { axiosInstance } from "../../../networks/apis";
-import { Col, Row } from "antd";
-import { CustomButton, CustomInput } from "../../../components";
+import React, {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {axiosInstance} from "../../../networks/apis";
+import {Col, Row} from "antd";
+import {CustomButton, CustomInput, Navbar} from "../../../components";
 export default function Home() {
   const [data, setData] = useState([]);
 
@@ -28,6 +28,7 @@ export default function Home() {
 
   return (
     <div>
+      <Navbar />
       <div>Home</div>
       <div className="getData">
         <h1>Axios Fetching</h1>``
