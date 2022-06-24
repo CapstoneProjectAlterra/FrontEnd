@@ -5,6 +5,17 @@ import Register from "./Register";
 import NotFound from "./NotFound";
 import Profile from "./Profile";
 import Vaccine from "./Vaccine";
+import VaccineDetails from "./VaccineDetails";
 import Ticket from "./Ticket";
 
-export { About, Home, News, Register, NotFound, Profile, Vaccine, Ticket };
+export {
+  About,
+  Home,
+  News,
+  Register,
+  NotFound,
+  Profile,
+  Vaccine,
+  VaccineDetails,
+  Ticket,
+};
