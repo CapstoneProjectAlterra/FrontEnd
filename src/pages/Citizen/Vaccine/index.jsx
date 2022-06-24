@@ -1,9 +1,9 @@
-import { Col, Row, Input, Card, Pagination } from "antd";
+import { Col, Row, Input, Card, Pagination, Form } from "antd";
 import React from "react";
-import banner from "../../../assets/illustration/banner.png";
-import faskes from "../../../assets/illustration/faskes.png";
+import { banner, faskes, imgCard } from "../../../assets";
 import { CustomInput, CustomButton } from "../../../components";
 import { IoDocumentTextOutline } from "react-icons/io5";
+import { FaHospitalAlt } from "react-icons/fa";
 import { AiOutlineBank, AiOutlineSearch } from "react-icons/ai";
 import style from "./Vaccine.module.css";
 import Item from "antd/lib/list/Item";
@@ -38,7 +38,7 @@ export default function Vaccine() {
     },
     {
       id: 4,
-      src: faskes,
+      src: imgCard,
       title: "Rumah Sakit D",
       kuota: "kuota sudah habis",
       kota: "Surabaya",
@@ -54,7 +54,7 @@ export default function Vaccine() {
     },
     {
       id: 6,
-      src: faskes,
+      src: imgCard,
       title: "Rumah Sakit F",
       kuota: "kuota tersedia",
       kota: "Semarang",
@@ -202,7 +202,6 @@ export default function Vaccine() {
 
   //Logic Pagination
   const [state, setState] = useState({
-    value: 0,
     minValue: 0,
     maxValue: 9,
   });
@@ -223,15 +222,42 @@ export default function Vaccine() {
 
   //Logic Search
   const [search, setSearch] = useState("");
+  const [dataRS, setDataRS] = useState(data);
+  const { form } = Form.useForm();
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
     console.log(search);
   };
 
-  // const handleClickSearch = (e) => {
+  const handleClickSearch = (e) => {
+    console.log(search);
+    dataRS.filter((val) => {
+      if (search === "") {
+        return e;
+      } else if (val.title.toLowerCase() == search.toLowerCase()) {
+        console.log(val);
+        setDataRS([val]);
+        console.log(dataRS);
+        return dataRS;
+      } else {
+        console.log("Data Tidak Ada");
+        // return <p>Data Tidak Tersedia</p>;
+      }
+    });
 
-  // };
+    // data.filter((val) => {
+    //   if (search === "") {
+    //     return val;
+    //   } else if (val.title.toLowerCase().includes(search.toLowerCase())) {
+    //     return val;
+    //   } else {
+    //     console.log("Data Tidak Ada");
+    //     console.log(val.title.toLowerCase());
+    //     // return <p>Data Tidak Tersedia</p>;
+    //   }
+    // });
+  };
 
   return (
     <div className="container">
@@ -265,28 +291,16 @@ export default function Vaccine() {
               borderTopLeftRadius: "0",
               borderBottomLeftRadius: "0",
             }}
-            // onClick={handleClickSearch}
+            onClick={handleClickSearch}
           >
             <AiOutlineSearch className={style.iconSearch} />
           </CustomButton>
         </div>
 
         <Row className={style.mainCardContainer}>
-          {data.length > 0 &&
-            data.slice(state.minValue, state.maxValue) &&
-            data
-              .filter((val) => {
-                if (search === "") {
-                  return val;
-                } else if (
-                  val.title.toLowerCase().includes(search.toLowerCase())
-                ) {
-                  return val;
-                } else {
-                  console.log("Data Tidak Ada");
-                  // return <p>Data Tidak Tersedia</p>;
-                }
-              })
+          {dataRS.length > 0 &&
+            dataRS
+              .slice(state.minValue, state.maxValue)
               .map((item, itemTdx) => {
                 return (
                   <Col
@@ -299,13 +313,12 @@ export default function Vaccine() {
                     </div>
                     <div className={style.cardDetails}>
                       <span className={style.titleCard}>
-                        <AiOutlineBank className={style.icon} />
+                        <FaHospitalAlt className={style.icon} />
                         <h4>{item.title}</h4>
                       </span>
                       <span className={style.descriptionCard}>
                         <IoDocumentTextOutline className={style.icon} />
                         <p style={{ paddingTop: "5px" }}>{item.kuota}</p>
-                        <p>{item.id}</p>
                       </span>
                     </div>
                   </Col>
