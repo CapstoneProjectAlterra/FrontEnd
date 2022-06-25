@@ -1,0 +1,14 @@
+.modal :global(.ant-modal-title) {
+  font-size: var(--font-h5-size);
+  font-weight: var(--font-h5-weight);
+  line-height: var(--font-h5-lh);
+  color: var(--color-heading);
+}
+
+.modal
+  :global(.ant-select:not(.ant-select-customize-input) .ant-select-selector) {
+  height: 40px;
+  padding: 8px 16px;
+  align-items: center;
+  border-radius: 8px;
+}
