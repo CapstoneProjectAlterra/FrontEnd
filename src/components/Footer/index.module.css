@@ -28,7 +28,7 @@
   color: var(--color-white);
 }
 .link:hover {
-  color: var(--color-primary-light);
+  color: var(--color-primary-pressed);
 }
 
 h4 {
