@@ -8,6 +8,7 @@ import {
   Register,
   Ticket,
   Vaccine,
+  VaccineDetails,
 } from "../pages/Citizen";
 
 import {
@@ -27,6 +28,7 @@ export default function RouteList() {
       <Route path="/register" element={<Register />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/vaccine" element={<Vaccine />} />
+      <Route path="/vaccineDetails" element={<VaccineDetails />} />
       <Route path="/ticket" element={<Ticket />} />
       <Route path="/admin" element={<AdminDashboard />} />
       <Route path="/admin/profile" element={<AdminProfile />} />
