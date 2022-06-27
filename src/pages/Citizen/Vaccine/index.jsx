@@ -6,8 +6,7 @@ import { IoDocumentTextOutline } from "react-icons/io5";
 import { FaHospitalAlt } from "react-icons/fa";
 import { AiOutlineBank, AiOutlineSearch } from "react-icons/ai";
 import style from "./Vaccine.module.css";
-import Item from "antd/lib/list/Item";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Vaccine() {
   // Data Card
@@ -236,9 +235,9 @@ export default function Vaccine() {
       if (search === "") {
         return e;
       } else if (val.title.toLowerCase() == search.toLowerCase()) {
-        console.log(val);
+        // console.log(val);
         setDataRS([val]);
-        console.log(dataRS);
+        // console.log(dataRS);
         return dataRS;
       } else {
         console.log("Data Tidak Ada");
@@ -309,7 +308,11 @@ export default function Vaccine() {
                     // onClick={handleCard}
                   >
                     <div className={style.cardImage}>
-                      <img src={item.src} alt="Card Image" />
+                      <img
+                        src={item.src}
+                        alt="Card Image"
+                        className={style.cardImage}
+                      />
                     </div>
                     <div className={style.cardDetails}>
                       <span className={style.titleCard}>
