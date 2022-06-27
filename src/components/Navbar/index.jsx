@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import {LogoPrimary, LogoSecondary} from "../../assets";
 import style from "./MainNavbar.module.css";
 import {MenuOutlined, UserOutlined} from "@ant-design/icons";
-import {Button, Divider, Drawer, Dropdown, Menu, Space} from "antd";
+import {Button, Divider, Drawer, Dropdown, Menu} from "antd";
 
 function MainNavbar({type}) {
   const menu = (
