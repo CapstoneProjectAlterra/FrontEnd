@@ -1,5 +1,5 @@
 import { DeleteFilled, ExclamationCircleOutlined } from "@ant-design/icons";
-import { Button, Modal } from "antd";
+import { Button, Modal, Tooltip } from "antd";
 import styles from "./SessionModalDelete.module.css";
 
 export default function SessionModalDelete({ data }) {
@@ -24,12 +24,14 @@ export default function SessionModalDelete({ data }) {
   };
 
   return (
-    <Button
-      type="danger"
-      className={styles.button}
-      onClick={showPromiseConfirm}
-    >
-      <DeleteFilled />
-    </Button>
+    <Tooltip placement="top" title="Delete">
+      <Button
+        type="danger"
+        className={styles.button}
+        onClick={showPromiseConfirm}
+      >
+        <DeleteFilled />
+      </Button>
+    </Tooltip>
   );
 }

@@ -115,9 +115,7 @@ export default function SessionDetailTable({ sessionId }) {
           key="action"
           render={(_, record) => (
             <div className={styles.actionContainer}>
-              <Tooltip placement="top" title="Detail">
-                <SessionDetailModal data={record} />
-              </Tooltip>
+              <SessionDetailModal data={record} />
             </div>
           )}
         />

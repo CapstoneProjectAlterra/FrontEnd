@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { CustomButton } from "..";
-import { Row, Col, Modal, Button } from "antd";
+import { Row, Col, Modal, Button, Tooltip } from "antd";
 import styles from "./SessionDetailModal.module.css";
 import dateFormat from "../../utils/helpers/dateFormat";
 import { BiDetail } from "react-icons/bi";
@@ -23,12 +23,14 @@ export default function SessionDetailModal(props) {
 
   return (
     <>
-      <Button
-        className={styles.button + " " + styles.secondary}
-        onClick={showModal}
-      >
-        <BiDetail />
-      </Button>
+      <Tooltip placement="top" title="Detail">
+        <Button
+          className={styles.button + " " + styles.secondary}
+          onClick={showModal}
+        >
+          <BiDetail />
+        </Button>
+      </Tooltip>
 
       <Modal
         title="Detail Tiket"

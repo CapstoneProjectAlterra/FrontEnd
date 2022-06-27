@@ -130,18 +130,15 @@ export default function SessionTable() {
             <div className={styles.actionContainer}>
               <Tooltip placement="top" title="Detail">
                 <Button className={styles.button + " " + styles.secondary}>
-                  {/* <BiDetail /> */}
                   <Link to={"/admin/session/" + record.id}>
                     <BiDetail />
                   </Link>
                 </Button>
               </Tooltip>
-              <Tooltip placement="top" title="Edit">
-                <SessionModalEdit data={record} />
-              </Tooltip>
-              <Tooltip placement="top" title="Delete">
-                <SessionModalDelete data={record.id} />
-              </Tooltip>
+
+              <SessionModalEdit data={record} />
+
+              <SessionModalDelete data={record.id} />
             </div>
           )}
         />

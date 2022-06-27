@@ -10,6 +10,7 @@ import {
   Row,
   Select,
   TimePicker,
+  Tooltip,
 } from "antd";
 import { useState } from "react";
 import CustomButton from "../CustomButton";
@@ -43,12 +44,14 @@ export default function SessionModalEdit({ data }) {
 
   return (
     <>
-      <Button
-        className={styles.button + " " + styles.primary}
-        onClick={showModal}
-      >
-        <EditFilled />
-      </Button>
+      <Tooltip placement="top" title="Edit">
+        <Button
+          className={styles.button + " " + styles.primary}
+          onClick={showModal}
+        >
+          <EditFilled />
+        </Button>
+      </Tooltip>
       <Modal
         title="Edit Sesi Vaksinasi"
         visible={visible}
