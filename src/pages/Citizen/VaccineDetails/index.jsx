@@ -54,11 +54,23 @@ export default function VaccineDetails() {
                   />
                 </div>
                 <div className={style.cardVaccine}>
-                  <Row justify="center">
-                    <Col span={12}>
+                  <Row gutter={[48, 30]} justify="center">
+                    <Col span={17} className="gutter-row">
+                      <CardBooking />
+                    </Col>
+                    <Col span={17} className="gutter-row">
+                      <CardBooking />
+                    </Col>
+                    <Col span={17} className="gutter-row">
                       <CardBooking />
                     </Col>
                   </Row>
+                </div>
+                <div className={style.family}>
+                  <h4>Daftar Anggota Keluarga</h4>
+                  <div className={style.listFamily}>
+                    <Row></Row>
+                  </div>
                 </div>
               </div>
             </Col>
