@@ -19,28 +19,40 @@ export default function CardBooking() {
           <p>09.00 - 10.00</p>
         </span>
 
-        <Row gutter={[24, 24]}>
-          <Col span={12} style={{ display: "flex" }}>
-            <Col
-              flex="12px"
-              style={{ padding: "0px", margin: "0px 8px 0px 0px" }}
-            >
-              <TbVaccine />
-            </Col>
-            <Col flex="auto" style={{ padding: "0px" }}>
-              <p style={{ fontSize: "12px" }}>Sinovac</p>
-            </Col>
+        <Row>
+          <Col span={12} className="gutter-row">
+            <Row gutter={8}>
+              <Col flex="12px" className="gutter-row">
+                <TbVaccine
+                  style={{ padding: "0px !important", color: "#06919d" }}
+                />
+              </Col>
+              <Col flex="auto" className="gutter-row">
+                <p style={{ marginBottom: "4px", fontSize: "12px" }}>Sinovac</p>
+              </Col>
+            </Row>
           </Col>
-          <Col span={12} style={{ display: "flex" }}>
-            <Col
-              flex="12px"
-              style={{ padding: "0px", margin: "0px 8px 0px 19px" }}
-            >
-              <TbVaccineBottle />
-            </Col>
-            <Col flex="auto">
-              <p style={{ padding: "0px", fontSize: "12px" }}>Dosis 1</p>
-            </Col>
+          <Col span={12} className="gutter-row">
+            <Row gutter={8}>
+              <Col flex="12px" className="gutter-row">
+                <TbVaccineBottle style={{ color: "#06919d" }} />
+              </Col>
+              <Col flex="auto" className="gutter-row">
+                <p style={{ padding: "0px", fontSize: "12px" }}>Dosis 1</p>
+              </Col>
+            </Row>
+          </Col>
+          <Col span={12} className="gutter-row">
+            <Row gutter={8}>
+              <Col flex="12px" className="gutter-row">
+                <TbVaccineBottle
+                  style={{ padding: "0px !important", color: "#06919d" }}
+                />
+              </Col>
+              <Col flex="auto" className="gutter-row">
+                <p style={{ margin: "0px", fontSize: "12px" }}>Sinovac</p>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Col>
