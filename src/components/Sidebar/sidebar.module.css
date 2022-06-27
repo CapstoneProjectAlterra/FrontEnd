@@ -1,0 +1,11 @@
+.menu {
+  display: flex;
+  align-items: center;
+  gap: var(--space-l);
+  font-size: 24px;
+  color: var(--color-white);
+  font-weight: 700;
+}
+.menu:hover {
+  color: var(--color-white);
+}
