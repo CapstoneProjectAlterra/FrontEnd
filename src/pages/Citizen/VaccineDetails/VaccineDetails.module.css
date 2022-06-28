@@ -7,9 +7,7 @@
     border-radius: 20px;
 }
 
-.content{
-    margin: 40px 20px;
-}
+
 
 .location{
     display: flex;
@@ -36,9 +34,11 @@
     line-height: 30px;
 }
 
-.listFamily{
+.rowFamily{
     width: 640px;
     margin-top: 24px;
     border: 1px solid #ACDADE;
     border-radius: 8px;
 }
+
+
