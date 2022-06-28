@@ -7,6 +7,7 @@ import { FaHospitalAlt } from "react-icons/fa";
 import { AiOutlineBank, AiOutlineSearch } from "react-icons/ai";
 import style from "./Vaccine.module.css";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export default function Vaccine() {
   // Data Card
@@ -307,23 +308,25 @@ export default function Vaccine() {
                     key={itemTdx}
                     // onClick={handleCard}
                   >
-                    <div className={style.cardImage}>
-                      <img
-                        src={item.src}
-                        alt="Card Image"
-                        className={style.cardImage}
-                      />
-                    </div>
-                    <div className={style.cardDetails}>
-                      <span className={style.titleCard}>
-                        <FaHospitalAlt className={style.icon} />
-                        <h4>{item.title}</h4>
-                      </span>
-                      <span className={style.descriptionCard}>
-                        <IoDocumentTextOutline className={style.icon} />
-                        <p style={{ paddingTop: "5px" }}>{item.kuota}</p>
-                      </span>
-                    </div>
+                    <Link to={"/vaccineDetails/" + item.id}>
+                      <div className={style.cardImage}>
+                        <img
+                          src={item.src}
+                          alt="Card Image"
+                          className={style.cardImage}
+                        />
+                      </div>
+                      <div className={style.cardDetails}>
+                        <span className={style.titleCard}>
+                          <FaHospitalAlt className={style.icon} />
+                          <h4>{item.title}</h4>
+                        </span>
+                        <span className={style.descriptionCard}>
+                          <IoDocumentTextOutline className={style.icon} />
+                          <p style={{ paddingTop: "5px" }}>{item.kuota}</p>
+                        </span>
+                      </div>
+                    </Link>
                   </Col>
                 );
               })}

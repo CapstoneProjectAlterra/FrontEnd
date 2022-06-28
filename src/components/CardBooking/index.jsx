@@ -3,61 +3,80 @@ import { Row, Col } from "antd";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { TbVaccine, TbVaccineBottle } from "react-icons/tb";
 import style from "./CardBooking.module.css";
+import { useState } from "react";
 
-export default function CardBooking() {
+export default function CardBooking({ book, setBook }) {
   const data = [
     {
-      jam: "09.00 - 10.00",
+      id: 1,
+      time: "09.00 - 10.00",
       typeVaksin: "Sinovac",
-      jenisVaksin: "Dosis 1",
+      doseVaksin: "Dosis 1",
       kuota: "100 Dosis",
     },
     {
-      jam: "10.00 - 12.00",
+      id: 2,
+      time: "10.00 - 12.00",
       typeVaksin: "Astrazeneca",
-      jenisVaksin: "Dosis 2",
+      doseVaksin: "Dosis 2",
       kuota: "200 Dosis",
     },
     {
-      jam: "12.00 - 14.00",
+      id: 3,
+      time: "12.00 - 14.00",
       typeVaksin: "Moderna",
-      jenisVaksin: "Dosis 3",
+      doseVaksin: "Dosis 3",
       kuota: "100 Dosis",
     },
     {
-      jam: "09.00 - 10.00",
+      id: 4,
+      time: "09.00 - 10.00",
       typeVaksin: "Sinovac",
-      jenisVaksin: "Dosis 1",
+      doseVaksin: "Dosis 1",
       kuota: "100 Dosis",
     },
     {
-      jam: "10.00 - 12.00",
+      id: 5,
+      time: "10.00 - 12.00",
       typeVaksin: "Astrazeneca",
-      jenisVaksin: "Dosis 2",
+      doseVaksin: "Dosis 2",
       kuota: "200 Dosis",
     },
     {
-      jam: "12.00 - 14.00",
+      id: 6,
+      time: "12.00 - 14.00",
       typeVaksin: "Moderna",
-      jenisVaksin: "Dosis 3",
+      doseVaksin: "Dosis 3",
       kuota: "100 Dosis",
     },
   ];
+
+  //logic select session
+  const handleClickBooking = (itemIdx) => {
+    // setBooking(e.target.value);
+    console.log(itemIdx);
+  };
+
   return (
     <Row gutter={[20, 30]}>
-      {data.map((item) => {
+      {data.map((item, itemIdx) => {
         return (
-          <Col span={8}>
-            <div className={style.cardBooking}>
+          <Col span={8} key={item.id}>
+            <div
+              className={style.cardBooking}
+              value={item.id}
+              onClick={() => handleClickBooking(item.id)}
+            >
               <span className={style.cardTime}>
                 <AiOutlineClockCircle
                   style={{
-                    width: "10px",
+                    width: "12px",
+                    height: "12px",
                     color: "#06919d",
                     marginRight: "8px",
                   }}
                 />
-                <p>{item.jam}</p>
+                <p>{item.time}</p>
               </span>
 
               <Row>
@@ -82,7 +101,7 @@ export default function CardBooking() {
                     </Col>
                     <Col flex="auto" className="gutter-row">
                       <p style={{ padding: "0px", fontSize: "12px" }}>
-                        {item.jenisVaksin}
+                        {item.doseVaksin}
                       </p>
                     </Col>
                   </Row>
