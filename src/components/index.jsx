@@ -8,6 +8,10 @@ import Navbar from "./Navbar";
 import CustomAlert from "./CustomAlert";
 import Footer from "./Footer";
 import BreadCrumbAdmin from "./BreadCrumbAdmin";
+import Chart from "./Chart";
+import DashboardCard from "./DashboardCard";
+import DashboardRecentTable from "./DashboardRecentTable";
+import DashboardRegistrantTable from "./DashboardRegistrantTable";
 
 export {
   CustomButton,
@@ -20,4 +24,8 @@ export {
   Footer,
   Sidebar,
   BreadCrumbAdmin,
+  Chart,
+  DashboardCard,
+  DashboardRecentTable,
+  DashboardRegistrantTable,
 };

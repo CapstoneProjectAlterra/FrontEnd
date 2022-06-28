@@ -1,0 +1,12 @@
+.container {
+  background-color: #fff;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 2px 4px 8px 1px rgba(6, 145, 157, 0.25);
+  width: 100%;
+}
+
+.title {
+  font-weight: var(--font-h5-weight-sb);
+  color: var(--color-text);
+}
