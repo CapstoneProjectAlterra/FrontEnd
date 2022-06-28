@@ -94,6 +94,8 @@ function Footer() {
             </Col>
           </Row>
         </Col>
+      </Row>
+      <Row>
         <Col span={24}>
           <div className={style.copyright}>
             <span className={style.body1}>Kelompok 16 - Copyright 2022</span>
