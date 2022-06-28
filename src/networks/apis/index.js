@@ -1,14 +1,23 @@
 import axios from "axios";
 import CONST from "../../utils/constant";
 
-const { baseApi } = CONST;
+const { BASE_API } = CONST;
 
-const config = {
-  baseURL: baseApi,
-  // headers: {
-  //   "app-id": "624a11d46b0e26728639c458",
-  //   "access-token": accessToken
-  // }
+const isDev = process.env.NODE_ENV === "development";
+
+const isLocalDev = (isDev) => {
+  let axiosConfig;
+  axiosConfig = axios.create();
+  if (isDev) {
+    const config = {
+      baseURL: BASE_API,
+    };
+    axiosConfig = axios.create(config);
+  }
+  return axiosConfig;
 };
 
-export const axiosInstance = axios.create(config);
+const axiosInstance = isLocalDev(isDev);
+axiosInstance.defaults.headers["Content-Type"] = "application/json";
+
+export default axiosInstance;
