@@ -4,12 +4,12 @@ import moment from "moment";
 import { imgCard } from "../../../assets";
 import { HiLocationMarker } from "react-icons/hi";
 import style from "./VaccineDetails.module.css";
-import { CardBooking } from "../../../components";
+import { CardBooking, ListFamily } from "../../../components";
 
 export default function VaccineDetails() {
   // change background color only on this page with useEffect
   useEffect(() => {
-    document.body.style.backgroundColor = "#BDE8EC";
+    document.body.style.backgroundColor = "#f5fdfe";
   }, []);
 
   //data dummy
@@ -27,11 +27,11 @@ export default function VaccineDetails() {
     <div>
       <Row justify="center">
         <Col span={20} className={style.body}>
-          <Row className={style.content}>
+          <Row justify="space-between" style={{ margin: "40px 20px" }}>
             <Col span={7}>
               <img src={imgCard} alt="Image" className={style.image} />
             </Col>
-            <Col span={16} offset={1}>
+            <Col span={16}>
               <div className={style.detail}>
                 <h2>Rumah Sakit Umum Majalaya</h2>
                 <span className={style.location}>
@@ -54,22 +54,16 @@ export default function VaccineDetails() {
                   />
                 </div>
                 <div className={style.cardVaccine}>
-                  <Row gutter={[48, 30]} justify="center">
-                    <Col span={17} className="gutter-row">
-                      <CardBooking />
-                    </Col>
-                    <Col span={17} className="gutter-row">
-                      <CardBooking />
-                    </Col>
-                    <Col span={17} className="gutter-row">
+                  <Row gutter={[52, 30]}>
+                    <Col span={24} className="gutter-row">
                       <CardBooking />
                     </Col>
                   </Row>
                 </div>
                 <div className={style.family}>
                   <h4>Daftar Anggota Keluarga</h4>
-                  <div className={style.listFamily}>
-                    <Row></Row>
+                  <div className={style.rowFamily}>
+                    <ListFamily />
                   </div>
                 </div>
               </div>

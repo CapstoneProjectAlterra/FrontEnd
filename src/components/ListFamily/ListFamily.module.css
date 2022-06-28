@@ -1,0 +1,15 @@
+.familyName{
+    display: flex;
+    padding-bottom: 0px !important;
+    margin: 12px 0px 12px 16px;
+}
+
+.familyName h4{
+    padding-right: 16px;
+}
+
+.action{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
