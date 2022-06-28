@@ -10,12 +10,12 @@ import {
   AndroidFilled,
 } from "@ant-design/icons";
 import {Link} from "react-router-dom";
-import {CustomButton} from "..";
+import CustomButton from "../CustomButton";
 
 function Footer() {
   return (
     <>
-      <Row className={style.footer} gutter={[16, 16]}>
+      <Row className={style.footer} gutter={[0, 16]}>
         <Col lg={12} md={24} sm={24} xs={24} className="gutter-row">
           <img src={LogoPrimary} alt="logo" />
           <h5 className={style.body1}>Dapatkan vaksin dengan mudah tanpa mengganggu kesibukanmu</h5>
@@ -96,9 +96,11 @@ function Footer() {
         </Col>
       </Row>
       <Row>
-        <div className={style.copyright}>
-          <span className={style.body1}>Kelompok 16 - Copyright 2022</span>
-        </div>
+        <Col span={24}>
+          <div className={style.copyright}>
+            <span className={style.body1}>Kelompok 16 - Copyright 2022</span>
+          </div>
+        </Col>
       </Row>
     </>
   );
