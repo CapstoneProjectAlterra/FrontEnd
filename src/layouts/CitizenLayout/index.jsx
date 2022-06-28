@@ -4,7 +4,7 @@ export default function CitizenLayouts(props) {
   return (
     <>
       <nav>
-        <Navbar type={props.type} />
+        <Navbar auth={props.auth} />
       </nav>
       <main>{props.children}</main>
       <footer>Footer</footer>

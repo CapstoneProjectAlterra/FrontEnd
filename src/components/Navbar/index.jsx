@@ -2,10 +2,11 @@ import {Link} from "react-router-dom";
 import React, {useState} from "react";
 import {LogoPrimary, LogoSecondary} from "../../assets";
 import style from "./MainNavbar.module.css";
-import {MenuOutlined, UserOutlined} from "@ant-design/icons";
+import {BiUserCircle} from "react-icons/bi";
+import {MenuOutlined} from "@ant-design/icons";
 import {Button, Divider, Drawer, Dropdown, Menu} from "antd";
 
-function MainNavbar({type}) {
+function MainNavbar({auth}) {
   const menu = (
     <Menu
       items={[
@@ -55,7 +56,7 @@ function MainNavbar({type}) {
         <Link to="/">
           <img src={LogoPrimary} alt="logo" className={style.logo} />
         </Link>
-        {type === "home" ? (
+        {auth === true ? (
           <nav className={style.navlink}>
             {homeMenu.map((menu) => {
               return (
@@ -69,7 +70,7 @@ function MainNavbar({type}) {
               className={style.navicon}
               style={{marginTop: "var(--space-l)"}}
             >
-              <UserOutlined />
+              <BiUserCircle style={{fontSize: "var(--space-xl)"}} />
             </Dropdown>
             <Drawer
               title={<img src={LogoSecondary} alt="logo" className={style.logo} />}
