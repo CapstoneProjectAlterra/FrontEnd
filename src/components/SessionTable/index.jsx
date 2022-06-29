@@ -62,14 +62,7 @@ export default function SessionTable() {
   };
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          margin: "24px 0",
-        }}
-      >
+      <div className={styles.searchWrapper}>
         <SessionModalAdd />
 
         <Form className={styles.searchForm} onFinish={search}>
@@ -87,62 +80,66 @@ export default function SessionTable() {
           </Form.Item>
         </Form>
       </div>
-      <Table
-        dataSource={data}
-        pagination={{ position: ["bottomCenter"] }}
-        scroll={{ x: 240 }}
-        rowKey="id"
-      >
-        <Column title="Id Sesi" dataIndex="id" key="id" />
-        <Column
-          title="Jenis Vaksin"
-          dataIndex="vaccine_name"
-          key="vaccine_name"
-        />
-        <Column
-          title="Tanggal"
-          dataIndex="vaccination_date"
-          key="vaccination_date"
-        />
-        <Column
-          title="Jam Operasional"
-          dataIndex={["operational_hour_start", "operational_hour_end"]}
-          key="operational_hour"
-          render={(_, record) =>
-            record.operational_hour_start + " - " + record.operational_hour_end
-          }
-        />
-        <Column title="Kuota" dataIndex="quota" key="quota" />
-        <Column
-          title="Dosis"
-          dataIndex="dose"
-          key="dose"
-          render={(_, record) => {
-            if (record.dose === "DOSIS_1") return "Dosis 1";
-            if (record.dose === "DOSIS_2") return "Dosis 2";
-            if (record.dose === "BOOSTER") return "Booster";
-          }}
-        />
-        <Column
-          title="Action"
-          key="action"
-          render={(_, record) => (
-            <div className={styles.actionContainer}>
-              <Tooltip placement="top" title="Detail">
-                <Button className={styles.button + " " + styles.secondary}>
-                  <Link to={"/admin/session/" + record.id}>
-                    <BiDetail />
-                  </Link>
-                </Button>
-              </Tooltip>
+      <div className={styles.tableWrapper}>
+        <Table
+          dataSource={data}
+          pagination={{ position: ["bottomCenter"] }}
+          scroll={{ x: 240 }}
+          rowKey="id"
+        >
+          <Column title="Id Sesi" dataIndex="id" key="id" />
+          <Column
+            title="Jenis Vaksin"
+            dataIndex="vaccine_name"
+            key="vaccine_name"
+          />
+          <Column
+            title="Tanggal"
+            dataIndex="vaccination_date"
+            key="vaccination_date"
+          />
+          <Column
+            title="Jam Operasional"
+            dataIndex={["operational_hour_start", "operational_hour_end"]}
+            key="operational_hour"
+            render={(_, record) =>
+              record.operational_hour_start +
+              " - " +
+              record.operational_hour_end
+            }
+          />
+          <Column title="Kuota" dataIndex="quota" key="quota" />
+          <Column
+            title="Dosis"
+            dataIndex="dose"
+            key="dose"
+            render={(_, record) => {
+              if (record.dose === "DOSIS_1") return "Dosis 1";
+              if (record.dose === "DOSIS_2") return "Dosis 2";
+              if (record.dose === "BOOSTER") return "Booster";
+            }}
+          />
+          <Column
+            title="Action"
+            key="action"
+            render={(_, record) => (
+              <div className={styles.actionContainer}>
+                <Tooltip placement="top" title="Detail">
+                  <Button className={styles.button + " " + styles.secondary}>
+                    <Link to={"/admin/session/" + record.id}>
+                      <BiDetail />
+                    </Link>
+                  </Button>
+                </Tooltip>
 
-              <SessionModalEdit data={record} />
+                <SessionModalEdit data={record} />
 
-              <SessionModalDelete data={record.id} />
-            </div>
-          )}
-        />
-      </Table>
+                <SessionModalDelete data={record.id} />
+              </div>
+            )}
+          />
+        </Table>
+      </div>
     </>
   );
 }

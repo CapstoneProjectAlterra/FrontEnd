@@ -42,7 +42,7 @@ export default function SessionModalAdd() {
   return (
     <>
       <CustomButton variant="primary" onClick={showModal}>
-        +Tambah Data
+        Tambah Data +
       </CustomButton>
       <Modal
         title="Tambah Sesi Vaksinasi"
