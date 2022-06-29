@@ -15,6 +15,7 @@ import {
   AdminLogin,
   AdminProfile,
   AdminSession,
+  AdminSessionDetail,
   AdminVaccine,
 } from "../pages/Admin";
 
@@ -32,6 +33,10 @@ export default function RouteList() {
       <Route path="/admin/profile" element={<AdminProfile />} />
       <Route path="/admin/vaccine" element={<AdminVaccine />} />
       <Route path="/admin/session" element={<AdminSession />} />
+      <Route
+        path="/admin/session/:sessionId"
+        element={<AdminSessionDetail />}
+      />
       <Route path="/admin/login" element={<AdminLogin />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

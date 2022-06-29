@@ -1,3 +1,9 @@
+.nav {
+  display: flex;
+  position: fixed;
+  width: 300px;
+}
+
 .menu {
   display: flex;
   align-items: center;
@@ -5,7 +11,21 @@
   font-size: 24px;
   color: var(--color-white);
   font-weight: 700;
+  width: 100%;
+  padding: 8px 16px;
+}
+
+.active {
+  background: var(--color-secondary-light);
+  border-radius: 100px 0 0 100px;
+}
+.active .menu {
+  color: var(--color-primary);
 }
 .menu:hover {
-  color: var(--color-white);
+  color: var(--color-primary-pressed);
+}
+.pt {
+  padding-top: 16px;
+  border: 1px solid #000;
 }

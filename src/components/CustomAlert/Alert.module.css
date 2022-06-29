@@ -1,0 +1,10 @@
+/* .spaceAlignContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+.spaceAlignBlock {
+  flex: none;
+  margin: auto 4px;
+  padding: 4px;
+} */

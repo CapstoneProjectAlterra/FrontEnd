@@ -4,69 +4,69 @@ import Sider from "antd/lib/layout/Sider";
 import React, {useState} from "react";
 import style from "./sidebar.module.css";
 import {LogoPrimary} from "../../assets";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
+import {BiLineChart} from "react-icons/bi";
+import {FaBusinessTime, FaSyringe, FaUser} from "react-icons/fa";
 
 export default function Sidebar() {
-  const [collapsed, setCollapsed] = useState(false);
+  const location = useLocation();
 
+  const allMenu = [
+    {
+      id: 1,
+      route: "/admin",
+      icon: <BiLineChart />,
+      text: "Overview",
+    },
+    {
+      id: 2,
+      route: "/admin/session",
+      icon: <FaBusinessTime />,
+      text: "Kelola Sesi",
+    },
+    {
+      id: 3,
+      route: "/admin/vaccine",
+      icon: <FaSyringe />,
+      text: "Kelola Vaksin",
+    },
+    {
+      id: 4,
+      route: "/admin/profile",
+      icon: <FaUser />,
+      text: "Profil Admin",
+    },
+  ];
+
+  console.log(location.pathname);
   return (
-    <Row gutter={16}>
-      <Col
-        className="gutter-row"
-        span={5}
-        style={{background: "var(--color-primary)", minHeight: "100vh"}}
-      >
-        <Row>
+    <Row gutter={[0, 80]} className={style.nav}>
+      <Col span={24}>
+        <div className={style.image} style={{width: "100%"}}>
+          <img src={LogoPrimary} alt="logo" />
+        </div>
+      </Col>
+      <Col span={24}>
+        <ul style={{listStyleType: "none", margin: "0", padding: "0"}}>
           <Space
             direction="vertical"
-            size={80}
+            size={40}
             style={{
               display: "flex",
             }}
           >
-            <Col span={18}>
-              <div className={style.image} style={{width: "100%"}}>
-                <img src={LogoPrimary} alt="logo" />
-              </div>
-            </Col>
-            <Col span={24}>
-              <ul style={{listStyleType: "none", margin: "0", padding: "0"}}>
-                <Space
-                  direction="vertical"
-                  size={40}
-                  style={{
-                    display: "flex",
-                  }}
-                >
-                  <li>
-                    <Link to="/admin" className={style.menu}>
-                      <UserOutlined />
-                      <span>Overview</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/admin/session" className={style.menu}>
-                      <UserOutlined />
-                      <span>Kelola Sesi</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/admin/vaccine" className={style.menu}>
-                      <UserOutlined />
-                      <span>Kelola Vaksin</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/admin/profile" className={style.menu}>
-                      <UserOutlined />
-                      <span>Profil Admin</span>
-                    </Link>
-                  </li>
-                </Space>
-              </ul>
-            </Col>
+            {allMenu.map((menu) => {
+              return (
+                <li className={location.pathname === menu.route && style.active} key={menu.id}>
+                  <Link to={menu.route} className={style.menu}>
+                    {menu.icon}
+                    <span>{menu.text}</span>
+                  </Link>
+                </li>
+              );
+            })}
           </Space>
-        </Row>
+        </ul>
       </Col>
     </Row>
   );
