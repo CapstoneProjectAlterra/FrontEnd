@@ -53,8 +53,8 @@ export default function CardBooking({ book, setBook }) {
 
   //logic select session
   const handleClickBooking = (itemIdx) => {
-    // setBooking(e.target.value);
-    console.log(itemIdx);
+    setBook(itemIdx);
+    // console.log(itemIdx);
   };
 
   return (

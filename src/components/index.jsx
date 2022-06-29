@@ -16,6 +16,7 @@ import ReactHelmet from "./ReactHelmet";
 import ListDashboardCard from "./ListDashboardCard";
 import CardBooking from "./CardBooking";
 import ListFamily from "./ListFamily";
+import AddFamily from "./AddFamily";
 
 export {
   CustomButton,
@@ -36,4 +37,5 @@ export {
   ListDashboardCard,
   CardBooking,
   ListFamily,
+  AddFamily,
 };
