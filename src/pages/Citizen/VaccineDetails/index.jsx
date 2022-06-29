@@ -29,7 +29,7 @@ export default function VaccineDetails() {
     document.body.style.backgroundColor = "#f5fdfe";
   }, []);
 
-  const [date, setDate] = useState(moment());
+  const [date, setDate] = useState(moment().format("DD-MM-YYYY"));
   const [session, setSession] = useState();
   const [listFams, setListFams] = useState([]);
 
@@ -65,7 +65,7 @@ export default function VaccineDetails() {
   };
 
   //logic handleClick
-  const handleClickFams = (values) => {
+  const handleClickFams = () => {
     // console.log(values);
     console.log(session);
     console.log(date);
@@ -112,7 +112,7 @@ export default function VaccineDetails() {
                 <div>
                   <DatePicker
                     className="input"
-                    defaultValue={date}
+                    defaultValue={moment()}
                     format="DD-MM-YYYY"
                     style={{ width: "638px" }}
                     onChange={onChangeDate}
