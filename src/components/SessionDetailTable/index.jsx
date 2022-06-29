@@ -71,14 +71,7 @@ export default function SessionDetailTable({ sessionId }) {
   };
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          margin: "24px 0",
-        }}
-      >
+      <div className={styles.searchWrapper}>
         <CustomButton variant="primary">Download</CustomButton>
 
         <Form className={styles.searchForm} onFinish={search}>
@@ -96,30 +89,32 @@ export default function SessionDetailTable({ sessionId }) {
           </Form.Item>
         </Form>
       </div>
-      <Table
-        dataSource={data}
-        pagination={{ position: ["bottomCenter"] }}
-        scroll={{ x: 240 }}
-        rowKey="booking_id"
-      >
-        <Column title="Id Sesi" dataIndex="booking_id" key="booking_id" />
-        <Column title="Nama User" dataIndex="full_name" key="full_name" />
-        <Column
-          title="No Antrian"
-          dataIndex="booking_pass"
-          key="booking_pass"
-        />
+      <div className={styles.tableWrapper}>
+        <Table
+          dataSource={data}
+          pagination={{ position: ["bottomCenter"] }}
+          scroll={{ x: 240 }}
+          rowKey="booking_id"
+        >
+          <Column title="Id Sesi" dataIndex="booking_id" key="booking_id" />
+          <Column title="Nama User" dataIndex="full_name" key="full_name" />
+          <Column
+            title="No Antrian"
+            dataIndex="booking_pass"
+            key="booking_pass"
+          />
 
-        <Column
-          title="Action"
-          key="action"
-          render={(_, record) => (
-            <div className={styles.actionContainer}>
-              <SessionDetailModal data={record} />
-            </div>
-          )}
-        />
-      </Table>
+          <Column
+            title="Action"
+            key="action"
+            render={(_, record) => (
+              <div className={styles.actionContainer}>
+                <SessionDetailModal data={record} />
+              </div>
+            )}
+          />
+        </Table>
+      </div>
     </>
   );
 }

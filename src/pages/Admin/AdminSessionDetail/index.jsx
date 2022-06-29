@@ -25,18 +25,18 @@ export default function AdminSessionDetail() {
             Detail Sesi
           </h3>
           <Row gutter={16} className={styles.container}>
-            <Col span={12}>
+            <Col lg={12}>
               <h4 className={styles.subTitle}>Jenis Vaksin: Sinovac</h4>
             </Col>
-            <Col span={12}>
+            <Col lg={12}>
               <h4 className={styles.subTitle}>
                 Jam Operasional: 08:00 - 10:00
               </h4>
             </Col>
-            <Col span={12}>
+            <Col lg={12}>
               <h4 className={styles.subTitle}>Tanggal: 03-05-2022</h4>
             </Col>
-            <Col span={12}>
+            <Col lg={12}>
               <h4 className={styles.subTitle}>Kuota: 200</h4>
             </Col>
           </Row>
