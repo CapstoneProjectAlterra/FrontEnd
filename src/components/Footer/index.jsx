@@ -25,7 +25,7 @@ function Footer() {
           </CustomButton>
         </Col>
         <Col lg={6} md={12} sm={12} xs={24} className="gutter-row">
-          <h4>Information</h4>
+          <h4 className={style.white}>Information</h4>
           <p className={style.body1}>
             <Link to="/news" className={style.link}>
               Berita
@@ -48,7 +48,7 @@ function Footer() {
           </p>
         </Col>
         <Col lg={6} md={12} sm={12} xs={24} className="gutter-row">
-          <h4>Hubungi Kami </h4>
+          <h4 className={style.white}>Hubungi Kami </h4>
           <Row gutter={[0, 16]}>
             <Col className="gutter-row" span={24}>
               <Row gutter={8}>

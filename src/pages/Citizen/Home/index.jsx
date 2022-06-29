@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import axiosInstance from "../../../networks/apis";
 import {Col, Row} from "antd";
-import {CustomButton, CustomInput} from "../../../components";
+import {CustomAlert, CustomButton, CustomInput} from "../../../components";
 import Cookies from "js-cookie";
 import axios from "axios";
 import CitizenLayout from "../../../layouts/CitizenLayout";
@@ -53,6 +53,7 @@ export default function Home() {
       <CustomButton variant="primary">Primary</CustomButton>
       <CustomButton variant="secondary">Secondary</CustomButton>
       <CustomInput placeholder="test" />
+      <CustomAlert />
     </CitizenLayout>
   );
 }
