@@ -1,9 +1,12 @@
-import { Breadcrumb, Button, Col, Row } from "antd";
-import BreadcrumbItem from "antd/lib/breadcrumb/BreadcrumbItem";
-import React from "react";
-import { useState } from "react";
+/** React */
+import React, { useState } from "react";
+/** React Router */
 import { useNavigate } from "react-router-dom";
-import CustomButton from "../../../components/CustomButton";
+/** Ant Design */
+import { Breadcrumb, Col, Row } from "antd";
+import BreadcrumbItem from "antd/lib/breadcrumb/BreadcrumbItem";
+
+import { Footer, Navbar, CustomButton } from "../../../components";
 import style from "./Profile.module.css";
 
 const Profile = () => {
@@ -29,6 +32,11 @@ const Profile = () => {
   };
   return (
     <>
+      <Row className={style.navbar}>
+        <Col span={24}>
+          <Navbar />
+        </Col>
+      </Row>
       <Row>
         <Col span={20} offset={2}>
           <Breadcrumb className={style.linkPath}>
@@ -54,14 +62,14 @@ const Profile = () => {
                 <p>NIK</p>
                 <h3>{data.nik}</h3>
               </div>
-              <Row>
-                <Col span={12}>
+              <Row justify="space-between">
+                <Col>
                   <div className={style.label}>
                     <p>Tempat Lahir</p>
                     <h3>{data.tempatLahir}</h3>
                   </div>
                 </Col>
-                <Col span={12}>
+                <Col>
                   <div className={style.label}>
                     <p>Tanggal Lahir</p>
                     <h3>{data.tanggalLahir}</h3>
@@ -94,14 +102,18 @@ const Profile = () => {
               </div>
               <Row className={style.btnEdit}>
                 <Col span={24}>
-                  {/* <CustomButton variant="primary" width="100%" onClick={() => handleEdit(1, data)}>
+                  <CustomButton variant="primary" block="true" onClick={() => handleEdit(1, data)}>
                     Edit Profile
-                  </CustomButton> */}
-                  <Button onClick={() => handleEdit(1, data)}>Edit Data</Button>
+                  </CustomButton>
                 </Col>
               </Row>
             </Col>
           </Row>
+        </Col>
+      </Row>
+      <Row>
+        <Col span={24}>
+          <Footer />
         </Col>
       </Row>
     </>

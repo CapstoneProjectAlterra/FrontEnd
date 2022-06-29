@@ -1,6 +1,6 @@
 import { Col, DatePicker, Form, Row, Input, Button, Breadcrumb } from "antd";
 import BreadcrumbItem from "antd/lib/breadcrumb/BreadcrumbItem";
-import { CustomButton, CustomInput } from "../../../components";
+import { CustomButton, CustomInput, Footer, Navbar } from "../../../components";
 import React from "react";
 import style from "./EditProfile.module.css";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -22,6 +22,11 @@ const EditProfile = () => {
 
   return (
     <>
+      <Row className={style.navbar}>
+        <Col span={24}>
+          <Navbar />
+        </Col>
+      </Row>
       <Row>
         <Col span={20} offset={2}>
           <Breadcrumb className={style.linkPath}>
@@ -31,7 +36,7 @@ const EditProfile = () => {
           </Breadcrumb>
         </Col>
       </Row>
-      <Row>
+      <Row className={style.contentForm}>
         <Col span={16} offset={4}>
           <Row>
             <Col>
@@ -41,6 +46,7 @@ const EditProfile = () => {
           <Row>
             <Col span={24}>
               <Form
+                className={style.form}
                 form={form}
                 layout="vertical"
                 initialValues={{
@@ -55,14 +61,13 @@ const EditProfile = () => {
                   alamatKtp: state.data.alamatKtp,
                   alamatSekarang: state.data.alamatSekarang,
                 }}
+                requiredMark={false}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
               >
-                <label>
-                  <p className={style.label}>Nama</p>
-                </label>
                 <Form.Item
                   name="nama"
+                  label="Nama"
                   rules={[
                     {
                       required: true,
@@ -70,14 +75,12 @@ const EditProfile = () => {
                     },
                   ]}
                 >
-                  {/* <CustomInput /> */}
-                  <Input />
+                  <CustomInput />
                 </Form.Item>
-                <label>
-                  <p className={style.label}>NIK</p>
-                </label>
+
                 <Form.Item
                   name="nik"
+                  label="NIK"
                   rules={[
                     {
                       required: true,
@@ -85,16 +88,13 @@ const EditProfile = () => {
                     },
                   ]}
                 >
-                  {/* <CustomInput /> */}
-                  <Input />
+                  <CustomInput />
                 </Form.Item>
                 <Row>
                   <Col span={10}>
-                    <label>
-                      <p className={style.label}>Tempat Lahir</p>
-                    </label>
                     <Form.Item
                       name="tempatLahir"
+                      label="Tempat Lahir"
                       rules={[
                         {
                           required: true,
@@ -102,16 +102,13 @@ const EditProfile = () => {
                         },
                       ]}
                     >
-                      {/* <CustomInput /> */}
-                      <Input />
+                      <CustomInput />
                     </Form.Item>
                   </Col>
                   <Col span={10} offset={4}>
-                    <label>
-                      <p className={style.label}>Tanggal Lahir</p>
-                    </label>
                     <Form.Item
                       name="tanggalLahir"
+                      label="Tempat Lahir"
                       rules={[
                         {
                           required: true,
@@ -123,11 +120,9 @@ const EditProfile = () => {
                     </Form.Item>
                   </Col>
                 </Row>
-                <label>
-                  <p className={style.label}>Jenis Kelamin</p>
-                </label>
                 <Form.Item
                   name="jenisKelamin"
+                  label="Jenis Kelamin"
                   rules={[
                     {
                       required: true,
@@ -135,14 +130,11 @@ const EditProfile = () => {
                     },
                   ]}
                 >
-                  {/* <CustomInput /> */}
-                  <Input />
+                  <CustomInput />
                 </Form.Item>
-                <label>
-                  <p className={style.label}>Status dalam Keluarga</p>
-                </label>
                 <Form.Item
                   name="status"
+                  label="Status dalam Keluarga"
                   rules={[
                     {
                       required: true,
@@ -150,14 +142,11 @@ const EditProfile = () => {
                     },
                   ]}
                 >
-                  {/* <CustomInput /> */}
-                  <Input />
+                  <CustomInput />
                 </Form.Item>
-                <label>
-                  <p className={style.label}>Email</p>
-                </label>
                 <Form.Item
                   name="email"
+                  label="Email"
                   rules={[
                     {
                       required: true,
@@ -165,14 +154,11 @@ const EditProfile = () => {
                     },
                   ]}
                 >
-                  {/* <CustomInput /> */}
-                  <Input />
+                  <CustomInput />
                 </Form.Item>
-                <label>
-                  <p className={style.label}>No.HP</p>
-                </label>
                 <Form.Item
                   name="noHp"
+                  label="NO. Hp"
                   rules={[
                     {
                       required: true,
@@ -180,14 +166,11 @@ const EditProfile = () => {
                     },
                   ]}
                 >
-                  {/* <CustomInput /> */}
-                  <Input />
+                  <CustomInput />
                 </Form.Item>
-                <label>
-                  <p className={style.label}>Alamat Rumah di KTP</p>
-                </label>
                 <Form.Item
                   name="alamatKtp"
+                  label="Alamat Rumah di KTP"
                   rules={[
                     {
                       required: true,
@@ -195,14 +178,11 @@ const EditProfile = () => {
                     },
                   ]}
                 >
-                  {/* <CustomInput /> */}
-                  <Input />
+                  <CustomInput />
                 </Form.Item>
-                <label>
-                  <p className={style.label}>Alamat Rumah Saat ini</p>
-                </label>
                 <Form.Item
                   name="alamatSekarang"
+                  label="Alamat Rumah Saat ini"
                   rules={[
                     {
                       required: true,
@@ -210,18 +190,21 @@ const EditProfile = () => {
                     },
                   ]}
                 >
-                  {/* <CustomInput /> */}
-                  <Input />
+                  <CustomInput />
                 </Form.Item>
-                <Form.Item>
-                  {/* <CustomButton htmlType="submit" variant="primary" width="100%">
+                <Form.Item className={style.btnEdit}>
+                  <CustomButton htmlType="submit" variant="primary" block="true">
                     Simpan
-                  </CustomButton> */}
-                  <Button htmlType="submit">Submit</Button>
+                  </CustomButton>
                 </Form.Item>
               </Form>
             </Col>
           </Row>
+        </Col>
+      </Row>
+      <Row>
+        <Col span={24}>
+          <Footer />
         </Col>
       </Row>
     </>

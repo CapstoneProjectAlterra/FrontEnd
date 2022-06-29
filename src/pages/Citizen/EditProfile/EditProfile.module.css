@@ -1,3 +1,7 @@
+.navbar {
+  margin-bottom: 36px;
+}
+
 .datepicker {
   width: 100%;
   padding: 8px 16px;
@@ -15,7 +19,14 @@
   color: #06919D;
 }
 
-.label {
+.contentForm {
+  margin-bottom: 86px;
+}
+
+.form :global(.ant-form-item-label>label) {
   font-size: 28px;
-  margin-bottom: 8px;
+}
+
+.btnEdit {
+  margin-top: 36px;
 }
