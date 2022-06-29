@@ -1,12 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, DatePicker, Breadcrumb } from "antd";
+import { useParams } from "react-router-dom";
+import {
+  Row,
+  Col,
+  DatePicker,
+  Breadcrumb,
+  Modal,
+  Button,
+  Form,
+  Input,
+} from "antd";
+import {
+  CardBooking,
+  CustomButton,
+  ListFamily,
+  CustomInput,
+  AddFamily,
+} from "../../../components";
 import moment from "moment";
 import { imgCard } from "../../../assets";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { HiLocationMarker } from "react-icons/hi";
 import style from "./VaccineDetails.module.css";
-import { CardBooking, CustomButton, ListFamily } from "../../../components";
-import { useParams } from "react-router-dom";
 
 export default function VaccineDetails() {
   // change background color only on this page with useEffect
@@ -14,9 +29,24 @@ export default function VaccineDetails() {
     document.body.style.backgroundColor = "#f5fdfe";
   }, []);
 
+  const [date, setDate] = useState(moment());
   const [session, setSession] = useState();
-  const [listFams, setListFams] = useState({});
-  const [booking, setBooking] = useState();
+  const [listFams, setListFams] = useState([]);
+
+  //Logic Modal Add Family
+  const [visible, setVisible] = useState(false);
+
+  const showModal = () => {
+    setVisible(true);
+  };
+
+  const handleOk = (values) => {
+    console.log("Success:", values);
+  };
+
+  const handleCancel = () => {
+    setVisible(false);
+  };
 
   //sessionDetail
   let { HospitalId } = useParams();
@@ -28,14 +58,17 @@ export default function VaccineDetails() {
   };
 
   //Logic DatePicker
-  const onChange = (date, dateString) => {
-    // setSession({reserveDate: date, });
-    console.log("value", date, "date string", dateString);
+  const onChangeDate = (date, dateString) => {
+    // console.log(date);
+    // console.log(dateString);
+    setDate(dateString);
   };
 
   //logic handleClick
-  const handleClickFams = () => {
-    // console.log(session);
+  const handleClickFams = (values) => {
+    // console.log(values);
+    console.log(session);
+    console.log(date);
     console.log(listFams);
   };
 
@@ -79,16 +112,16 @@ export default function VaccineDetails() {
                 <div>
                   <DatePicker
                     className="input"
-                    defaultValue={moment()}
+                    defaultValue={date}
                     format="DD-MM-YYYY"
                     style={{ width: "638px" }}
-                    onChange={onChange}
+                    onChange={onChangeDate}
                   />
                 </div>
                 <div className={style.cardVaccine}>
                   <Row gutter={[52, 30]}>
                     <Col span={23} className="gutter-row">
-                      <CardBooking book={booking} setBook={setBooking} />
+                      <CardBooking book={session} setBook={setSession} />
                       <div className={style.family}>
                         <h4>Daftar Anggota Keluarga</h4>
                         <div>
@@ -99,6 +132,26 @@ export default function VaccineDetails() {
                         </div>
                       </div>
                       <div style={{ marginTop: "32px" }}>
+                        <Button type="primary" onClick={showModal}>
+                          Tambah Keluarga
+                        </Button>
+                        <Modal
+                          visible={visible}
+                          title="Tambahkan Anggota Keluarga"
+                          onOk={handleOk}
+                          onCancel={handleCancel}
+                          footer={[
+                            <Button
+                              key="submit"
+                              type="primary"
+                              onClick={handleOk}
+                            >
+                              Tambahkan
+                            </Button>,
+                          ]}
+                        >
+                          <AddFamily />
+                        </Modal>
                         <CustomButton variant="secondary" block>
                           <AiOutlineUserAdd
                             style={{

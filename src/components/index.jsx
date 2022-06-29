@@ -5,6 +5,7 @@ import TicketCard from "./TicketCard";
 import TicketList from "./TicketList";
 import CardBooking from "./CardBooking";
 import ListFamily from "./ListFamily";
+import AddFamily from "./AddFamily";
 
 export {
   CustomButton,
@@ -14,4 +15,5 @@ export {
   TicketList,
   CardBooking,
   ListFamily,
+  AddFamily,
 };

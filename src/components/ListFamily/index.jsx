@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Button, Checkbox } from "antd";
+import { Row, Col, Button, Checkbox, Form } from "antd";
 import { CustomButton } from "../../components";
 import { BiDetail } from "react-icons/bi";
 import { FaTrash } from "react-icons/fa";
@@ -36,19 +36,22 @@ export default function ListFamily({ list, setListFams }) {
     },
   ];
 
-  const handleChangeFams = (prop) => (e) => {
-    if (e.target.checked) {
-      setListFams({ ...list, [prop]: e.target.value });
-    } else {
-      setListFams({ ...list, [prop]: "" });
-    }
+  const handleChangeFams = (checkedValues) => {
+    setListFams(checkedValues);
+    console.log("checked = ", checkedValues);
+    // if (e.target.checked) {
+    //   setListFams({ ...list, [prop]: e.target.value });
+    // } else {
+    //   setListFams({ ...list, [prop]: "" });
+    // }
   };
 
   return (
-    <div>
+    <Checkbox.Group onChange={handleChangeFams}>
       {listFam.map((list, key) => {
         return (
-          <Checkbox key={list.id} onChange={handleChangeFams}>
+          // <Checkbox key={list.id} onChange={handleChangeFams}>
+          <Checkbox key={list.id} value={list.name}>
             <Row className={style.rowFamily}>
               <Col span={18}>
                 <div className={style.familyName}>
@@ -69,6 +72,6 @@ export default function ListFamily({ list, setListFams }) {
           </Checkbox>
         );
       })}
-    </div>
+    </Checkbox.Group>
   );
 }
