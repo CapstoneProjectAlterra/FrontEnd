@@ -20,10 +20,7 @@ export default function AdminLogin() {
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
 
-    if (
-      values.username !== data.username &&
-      values.password !== data.password
-    ) {
+    if (values.username !== data.username && values.password !== data.password) {
       setAlertToggle(true);
       setTimeout(() => {
         setAlertToggle(false);
@@ -79,12 +76,7 @@ export default function AdminLogin() {
         </Row>
 
         <Form.Item>
-          <CustomButton
-            variant="primary"
-            htmlType="submit"
-            block
-            style={{ marginTop: "48px" }}
-          >
+          <CustomButton variant="primary" htmlType="submit" block style={{ marginTop: "48px" }}>
             Login
           </CustomButton>
         </Form.Item>
