@@ -3,9 +3,11 @@ import CustomInput from "./CustomInput";
 import TicketModal from "./TicketModal";
 import TicketCard from "./TicketCard";
 import TicketList from "./TicketList";
+import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 import CustomAlert from "./CustomAlert";
 import Footer from "./Footer";
+import BreadCrumbAdmin from "./BreadCrumbAdmin";
 
 export {
   CustomButton,
@@ -16,4 +18,6 @@ export {
   Navbar,
   CustomAlert,
   Footer,
+  Sidebar,
+  BreadCrumbAdmin,
 };

@@ -247,3 +247,18 @@ p {
     padding: var(--space-l);
   }
 }
+.layout-admin {
+  padding: 40px 48px 0;
+  background: var(--color-primary);
+}
+@media screen and (max-width: 1000px) {
+  .layout-admin {
+    padding: 24px 24px 0;
+  }
+}
+.layout-main-admin {
+  background-color: var(--color-secondary-light);
+  border-radius: 40px 0 0 0;
+  min-height: 100vh;
+  padding: 40px;
+}

@@ -1,0 +1,44 @@
+.nav {
+  display: flex;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: var(--space-l);
+  font-size: 24px;
+  color: var(--color-white);
+  font-weight: 700;
+  width: 100%;
+  padding: 8px 16px;
+}
+
+.active {
+  background: var(--color-secondary-light);
+  border-radius: 100px 0 0 100px;
+}
+.active .menu {
+  color: var(--color-primary);
+}
+.menu:hover {
+  color: var(--color-primary-pressed);
+}
+.pt {
+  padding-top: 16px;
+  border: 1px solid #000;
+}
+.image {
+  width: 80%;
+}
+
+@media screen and (max-width: 1000px) {
+  .textMenu {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .image {
+    width: 100%;
+  }
+}
