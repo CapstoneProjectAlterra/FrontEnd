@@ -1,4 +1,6 @@
-body:has(.container) {
+.loginPage {
+  width: 100vw;
+  height: 100vh;
   background: var(--color-gradient-2);
 }
 
