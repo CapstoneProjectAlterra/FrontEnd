@@ -16,10 +16,10 @@ export default function AdminLayout(props) {
   );
   return (
     <Row className="layout-admin">
-      <Col span={5} style={{background: "var(--color-primary)", height: "100vh"}}>
+      <Col lg={5} md={8} sm={12} style={{background: "var(--color-primary)", height: "100vh"}}>
         <Sidebar />
       </Col>
-      <Col span={19}>
+      <Col lg={19} md={16} sm={12}>
         <main className="layout-main-admin">
           <Row>
             <Col
