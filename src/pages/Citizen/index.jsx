@@ -7,6 +7,7 @@ import Profile from "./Profile";
 import Vaccine from "./Vaccine";
 import VaccineDetails from "./VaccineDetails";
 import Ticket from "./Ticket";
+import EditProfile from "./EditProfile";
 
 export {
   About,
@@ -18,4 +19,5 @@ export {
   Vaccine,
   VaccineDetails,
   Ticket,
+  EditProfile,
 };

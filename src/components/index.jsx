@@ -6,6 +6,11 @@ import TicketList from "./TicketList";
 import CardBooking from "./CardBooking";
 import ListFamily from "./ListFamily";
 import AddFamily from "./AddFamily";
+import Sidebar from "./Sidebar";
+import Navbar from "./Navbar";
+import CustomAlert from "./CustomAlert";
+import Footer from "./Footer";
+import BreadCrumbAdmin from "./BreadCrumbAdmin";
 
 export {
   CustomButton,
@@ -16,4 +21,9 @@ export {
   CardBooking,
   ListFamily,
   AddFamily,
+  Navbar,
+  CustomAlert,
+  Footer,
+  Sidebar,
+  BreadCrumbAdmin,
 };
