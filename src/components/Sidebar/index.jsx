@@ -38,12 +38,11 @@ export default function Sidebar() {
     },
   ];
 
-  console.log(location.pathname);
   return (
     <Row gutter={[0, 80]} className={style.nav}>
       <Col span={24}>
-        <div className={style.image} style={{width: "100%"}}>
-          <img src={LogoPrimary} alt="logo" />
+        <div className={style.image}>
+          <img src={LogoPrimary} alt="logo" style={{width: "100%"}} />
         </div>
       </Col>
       <Col span={24}>
@@ -57,10 +56,13 @@ export default function Sidebar() {
           >
             {allMenu.map((menu) => {
               return (
-                <li className={location.pathname === menu.route && style.active} key={menu.id}>
+                <li
+                  className={location.pathname === menu.route ? style.active : undefined}
+                  key={menu.id}
+                >
                   <Link to={menu.route} className={style.menu}>
                     {menu.icon}
-                    <span>{menu.text}</span>
+                    <span className={style.textMenu}>{menu.text}</span>
                   </Link>
                 </li>
               );

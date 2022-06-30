@@ -1,7 +1,8 @@
-import { Col, Row } from "antd";
+import {Col, Row} from "antd";
 import React from "react";
-import { useEffect } from "react";
+import {useEffect} from "react";
 import SessionTable from "../../../components/SessionTable";
+import AdminLayout from "../../../layouts/AdminLayout";
 import styles from "./AdminSession.module.css";
 
 export default function AdminSession() {
@@ -11,21 +12,18 @@ export default function AdminSession() {
   }, []);
 
   return (
-    <Row>
-      <Col span={4}>Sidebar</Col>
-      <Col span={20}>
-        <div className={styles.content}>
-          <h3
-            style={{
-              fontWeight: "var(--font-h3-weight)",
-            }}
-          >
-            Daftar Sesi Tersedia
-          </h3>
+    <AdminLayout>
+      <div className={styles.content}>
+        <h3
+          style={{
+            fontWeight: "var(--font-h3-weight)",
+          }}
+        >
+          Daftar Sesi Tersedia
+        </h3>
 
-          <SessionTable />
-        </div>
-      </Col>
-    </Row>
+        <SessionTable />
+      </div>
+    </AdminLayout>
   );
 }

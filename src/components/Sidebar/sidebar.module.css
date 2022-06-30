@@ -1,7 +1,5 @@
 .nav {
   display: flex;
-  position: fixed;
-  width: 300px;
 }
 
 .menu {
@@ -28,4 +26,19 @@
 .pt {
   padding-top: 16px;
   border: 1px solid #000;
+}
+.image {
+  width: 80%;
+}
+
+@media screen and (max-width: 1000px) {
+  .textMenu {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .image {
+    width: 100%;
+  }
 }
