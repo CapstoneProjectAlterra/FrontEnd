@@ -1,0 +1,14 @@
+.content {
+  background: #fff;
+  padding: 16px;
+  margin-top: 40px;
+  border-radius: 16px;
+}
+
+.subTitle {
+  color: var(--color-text);
+}
+
+.container {
+  margin: 24px 0;
+}

@@ -37,9 +37,9 @@ export default function dateFormat(date, format) {
     case "year":
       return year;
     case "date-month":
-      return `${dateObj.getDate()}, ${month}`;
+      return `${dateObj.getDate()} ${month}`;
     case "date-month-year":
-      return `${dateObj.getDate()}, ${month} ${year}`;
+      return `${dateObj.getDate()} ${month} ${year}`;
     default:
       return `${day}, ${dateObj.getDate()} ${month} ${year}`;
   }
