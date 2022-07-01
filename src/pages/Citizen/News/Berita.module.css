@@ -1,0 +1,61 @@
+.pagination{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 43px;
+}
+
+.col{
+  border-radius: 8px;
+  display:flex;
+  justify-content:center;
+  padding:16px;
+  box-shadow:  0 3px 5px 0 rgba(0, 0, 0, 0.19);
+  background-color: var(--color-white);
+}
+
+.img{
+  width:100%;
+  height:auto;
+  margin-bottom:5px;
+  border-radius:8px;
+}
+
+.icon{
+  color:var(--color-primary);
+}
+
+.description{
+  color: var(--color-heading);
+  text-align: justify;
+}
+
+h4 {
+    font-size: var(--font-h4-size);
+    font-weight: var(--font-h4-weight);
+    line-height: var(--font-h4-lh);
+    letter-spacing: var(--font-h4-ls);
+    color: var(--color-heading);
+    margin-bottom: 16px;
+  }
+
+  h5 {
+    font-size: var(--font-body-3-size);
+    font-weight: var(--font-body-3-weight);
+    color: var(--color-gray-50);
+    margin-bottom: 0;
+  }
+
+  .texth1{
+    margin-left: 16px;
+  }
+
+  .linkPath {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+  
+  .linkPathBold {
+    color: #06919D;
+  }
