@@ -98,7 +98,7 @@ export default function EditFamily({visible, onCreate, onCancel, member}) {
             ]}
             hasFeedback
           >
-            <CustomInput placeholder="Masukkan NIK Anda" className="input" disabled={disabled} />
+            <CustomInput placeholder="Masukkan NIK Anda" disabled={disabled} />
           </Form.Item>
 
           <Form.Item
@@ -124,11 +124,7 @@ export default function EditFamily({visible, onCreate, onCancel, member}) {
             ]}
             hasFeedback
           >
-            <CustomInput
-              placeholder="Masukkan Nama Lengkap Anda"
-              className="input"
-              disabled={disabled}
-            />
+            <CustomInput placeholder="Masukkan Nama Lengkap Anda" disabled={disabled} />
           </Form.Item>
 
           <Form.Item
@@ -144,7 +140,7 @@ export default function EditFamily({visible, onCreate, onCancel, member}) {
               width: "calc(50% - 8px)",
             }}
           >
-            <CustomInput placeholder="Kota / Kabupaten" className="input" disabled={disabled} />
+            <CustomInput placeholder="Kota / Kabupaten" disabled={disabled} />
           </Form.Item>
           <Form.Item
             label="Tanggal Lahir"
@@ -182,7 +178,6 @@ export default function EditFamily({visible, onCreate, onCancel, member}) {
             <Select placeholder="Pilih Jenis Kelamin Anda" disabled={disabled}>
               <Option value="male">Laki - Laki</Option>
               <Option value="female">Perempuan</Option>
-              <Option value="other">Other</Option>
             </Select>
           </Form.Item>
 
