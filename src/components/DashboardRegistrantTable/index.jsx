@@ -1,5 +1,5 @@
 import { SearchOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Table } from "antd";
+import { Button, Col, Form, Input, Row, Table } from "antd";
 import Column from "antd/lib/table/Column";
 import { useState } from "react";
 import moment from "moment";
@@ -32,23 +32,33 @@ export default function DashboardRegistrantTable() {
   };
   return (
     <div className={styles.container}>
-      <div className={styles.searchWrapper}>
-        <h3>Aktivitas Pendaftar Vaksinasi</h3>
-        <Form className={styles.searchForm} onFinish={search}>
-          <Form.Item name="keyword">
-            <Input
-              type="search"
-              placeholder="Search"
-              className={styles.search}
-            />
-          </Form.Item>
-          <Form.Item>
-            <Button htmlType="submit">
-              <SearchOutlined />
-            </Button>
-          </Form.Item>
-        </Form>
-      </div>
+      <Row
+        justify="space-between"
+        align="middle"
+        style={{ margin: "24px 0px" }}
+      >
+        <Col xs={24} md={12}>
+          <h3>Aktivitas Pendaftar Vaksinasi</h3>
+        </Col>
+        <Col xs={24} md={6}>
+          <div className={styles.searchWrapper}>
+            <Form className={styles.searchForm} onFinish={search}>
+              <Form.Item name="keyword">
+                <Input
+                  type="search"
+                  placeholder="Search"
+                  className={styles.search}
+                />
+              </Form.Item>
+              <Form.Item>
+                <Button htmlType="submit">
+                  <SearchOutlined />
+                </Button>
+              </Form.Item>
+            </Form>
+          </div>
+        </Col>
+      </Row>
       <Table
         dataSource={data}
         pagination={{ position: ["bottomCenter"] }}

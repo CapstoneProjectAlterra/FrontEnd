@@ -6,12 +6,12 @@ import { Row, Col } from "antd";
 export default function DashboardCard({ icons, title, value }) {
   return (
     <div className={style.container}>
-      <Row>
-        <Col span={6} className={style.col}>
+      <Row justify="space-between" align="middle">
+        <Col span={6}>
           <div className={style.icons}>{icons}</div>
         </Col>
-        <Col span={18} className={style.col}>
-          <div>
+        <Col md={18} lg={16} xl={18}>
+          <div style={{ padding: "0 12px" }}>
             <h3 className={style.title}>{value}</h3>
             <p className={style.description}>{title}</p>
           </div>

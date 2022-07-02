@@ -63,7 +63,7 @@ export default function Chart() {
   return (
     <div className={style.container}>
       <h5 className={style.title}>Aktivitas 7 Hari Terakhir</h5>
-      <Line options={options} data={data} />
+      <Line options={options} data={data} updateMode="resize" />
     </div>
   );
 }
