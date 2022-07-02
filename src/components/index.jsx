@@ -11,6 +11,7 @@ import Navbar from "./Navbar";
 import CustomAlert from "./CustomAlert";
 import Footer from "./Footer";
 import BreadCrumbAdmin from "./BreadCrumbAdmin";
+import EditFamily from "./EditFamily";
 
 export {
   CustomButton,
@@ -26,4 +27,5 @@ export {
   Footer,
   Sidebar,
   BreadCrumbAdmin,
+  EditFamily,
 };

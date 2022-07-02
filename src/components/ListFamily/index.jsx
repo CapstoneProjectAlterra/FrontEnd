@@ -1,13 +1,13 @@
 import React from "react";
-import { Row, Col, Button, Checkbox, Form } from "antd";
-import { CustomButton } from "../../components";
-import { BiDetail } from "react-icons/bi";
-import { FaTrash } from "react-icons/fa";
+import {Row, Col, Button, Checkbox, Form, Modal} from "antd";
+import {CustomButton, EditFamily} from "../../components";
+import {BiDetail} from "react-icons/bi";
+import {FaTrash} from "react-icons/fa";
 import style from "./ListFamily.module.css";
 import Item from "antd/lib/list/Item";
-import { useState } from "react";
+import {useState} from "react";
 
-export default function ListFamily({ list, setListFams }) {
+export default function ListFamily(props) {
   //data dummy famiy
   const listFam = [
     {
@@ -34,16 +34,26 @@ export default function ListFamily({ list, setListFams }) {
       role: "Anak kedua",
       nik: "1234567890",
     },
+    {
+      id: 5,
+      name: "Ehsan",
+      role: "Anak kedua",
+      nik: "1234567890",
+    },
   ];
 
   const handleChangeFams = (checkedValues) => {
-    setListFams(checkedValues);
+    props.setListFams(checkedValues);
     console.log("checked = ", checkedValues);
     // if (e.target.checked) {
     //   setListFams({ ...list, [prop]: e.target.value });
     // } else {
     //   setListFams({ ...list, [prop]: "" });
     // }
+  };
+  const onCreate = (values) => {
+    console.log("Received values of form: ", values);
+    props.cancel();
   };
 
   return (
@@ -58,14 +68,12 @@ export default function ListFamily({ list, setListFams }) {
                   <h4>{list.name}</h4>
                   <p>{list.role}</p>
                 </div>
-                <p style={{ padding: "0px 0px 0px 16px" }}>{list.nik}</p>
+                <p style={{padding: "0px 0px 0px 16px"}}>{list.nik}</p>
               </Col>
               <Col span={6} className={style.action}>
-                <CustomButton variant="primary" style={{ margin: "16px" }}>
-                  <BiDetail style={{ width: "18px" }} />
-                </CustomButton>
+                <EditFamily onCreate={onCreate} member={list} />
                 <Button type="primary" danger className={style.delete}>
-                  <FaTrash style={{ width: "18px" }} />
+                  <FaTrash style={{width: "18px"}} />
                 </Button>
               </Col>
             </Row>
