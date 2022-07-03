@@ -1,12 +1,12 @@
 import "./App.css";
-import { About } from "./pages/Citizen";
+import Faq from "./pages/Citizen/Faq";
 import RouteList from "./routes";
 
 function App() {
   return (
     <>
       <RouteList />
-      <About />
+      <Faq />
     </>
   );
 }
