@@ -1,5 +1,6 @@
 import axios from "axios";
 import CONST from "../../utils/constant";
+import { getToken } from "../../utils/helpers/Auth";
 
 const { BASE_API } = CONST;
 
@@ -11,6 +12,10 @@ const isLocalDev = (isDev) => {
   if (isDev) {
     const config = {
       baseURL: BASE_API,
+      headers: {
+        "Content-Type": "application/json",
+        ...(getToken() && { Authorization: `Bearer ${getToken()}` }),
+      },
     };
     axiosConfig = axios.create(config);
   }
@@ -18,6 +23,5 @@ const isLocalDev = (isDev) => {
 };
 
 const axiosInstance = isLocalDev(isDev);
-axiosInstance.defaults.headers["Content-Type"] = "application/json";
 
 export default axiosInstance;
