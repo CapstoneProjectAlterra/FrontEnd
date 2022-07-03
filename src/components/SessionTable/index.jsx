@@ -1,6 +1,6 @@
 import { SearchOutlined } from "@ant-design/icons";
 import { BiDetail } from "react-icons/bi";
-import { Button, Form, Input, Table, Tooltip } from "antd";
+import { Button, Form, Input, Table, Tooltip, Row, Col } from "antd";
 import Column from "antd/lib/table/Column";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -62,24 +62,30 @@ export default function SessionTable() {
   };
   return (
     <>
-      <div className={styles.searchWrapper}>
-        <SessionModalAdd />
+      <Row justify="space-between" align="middle">
+        <Col xs={24} md={12}>
+          <SessionModalAdd />
+        </Col>
+        <Col xs={24} md={6}>
+          <div className={styles.searchWrapper}>
+            <Form className={styles.searchForm} onFinish={search}>
+              <Form.Item name="keyword">
+                <Input
+                  type="search"
+                  placeholder="Search"
+                  className={styles.search}
+                />
+              </Form.Item>
+              <Form.Item>
+                <Button htmlType="submit">
+                  <SearchOutlined />
+                </Button>
+              </Form.Item>
+            </Form>
+          </div>
+        </Col>
+      </Row>
 
-        <Form className={styles.searchForm} onFinish={search}>
-          <Form.Item name="keyword">
-            <Input
-              type="search"
-              placeholder="Search"
-              className={styles.search}
-            />
-          </Form.Item>
-          <Form.Item>
-            <Button htmlType="submit">
-              <SearchOutlined />
-            </Button>
-          </Form.Item>
-        </Form>
-      </div>
       <div className={styles.tableWrapper}>
         <Table
           dataSource={data}
