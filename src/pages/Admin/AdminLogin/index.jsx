@@ -115,7 +115,7 @@ export default function AdminLogin() {
               variant="primary"
               htmlType="submit"
               block
-              style={{ marginTop: "48px" }}
+              style={{ marginTop: "24px" }}
             >
               Login
             </CustomButton>

@@ -1,9 +1,5 @@
 import { SearchOutlined } from "@ant-design/icons";
-<<<<<<< HEAD
 import { Button, Col, Form, Input, Row, Table } from "antd";
-=======
-import { Button, Form, Input, Table } from "antd";
->>>>>>> 0424ccd (Add DashboardRecentTable, DashboardRegistrantTable, fix styling on DashboardCard and Chart, add row breakpoint on AdminDashboard pages)
 import Column from "antd/lib/table/Column";
 import { useState } from "react";
 import moment from "moment";
