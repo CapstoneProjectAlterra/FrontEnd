@@ -1,3 +1,17 @@
+.breadcrumb:global(.ant-breadcrumb a) {
+  color: var(--color-text-link-disabled);
+  font-weight: var(--font-body-1-weight);
+  line-height: var(--font-body-1-lh);
+  font-size: var(--font-body-1-size);
+}
+
+.breadcrumb:global(.ant-breadcrumb li:last-child a) {
+  color: var(--color-primary);
+  font-weight: var(--font-h5-weight);
+  line-height: var(--font-h5-lh);
+  font-size: var(--font-h5-size);
+}
+
 .pagination{
   display: flex;
   justify-content: center;
@@ -25,37 +39,12 @@
   color:var(--color-primary);
 }
 
-.description{
-  color: var(--color-heading);
-  text-align: justify;
+.linkPath {
+  font-size: var(--font-body-2-size);
+  font-weight: var(--font-body-2-weight);
+  margin-bottom: 16px;
 }
-
-h4 {
-    font-size: var(--font-h4-size);
-    font-weight: var(--font-h4-weight);
-    line-height: var(--font-h4-lh);
-    letter-spacing: var(--font-h4-ls);
-    color: var(--color-heading);
-    margin-bottom: 16px;
-  }
-
-  h5 {
-    font-size: var(--font-body-3-size);
-    font-weight: var(--font-body-3-weight);
-    color: var(--color-gray-50);
-    margin-bottom: 0;
-  }
-
-  .texth1{
-    margin-left: 16px;
-  }
-
-  .linkPath {
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 16px;
-  }
   
-  .linkPathBold {
-    color: #06919D;
-  }
+.linkPathBold {
+  color: var(--color-primary);
+}

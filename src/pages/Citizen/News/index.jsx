@@ -5,7 +5,7 @@ import { UserOutlined } from '@ant-design/icons';
 import { useState, useEffect } from "react";
 import axios from "axios";
 import dateFormat from '../../../utils/helpers/dateFormat';
-import BreadcrumbItem from "antd/lib/breadcrumb/BreadcrumbItem";
+import { Link } from "react-router-dom";
 
 export default function News() {
 
@@ -38,16 +38,24 @@ export default function News() {
     };
     loadNews();
   }, []);
+
+  let sorted1 = news.sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt));
+  let sorted2 = news.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
+  let sorted3 = news.sort((a, b) => new Date(b.publishedAt).getTime() -  new Date(a.publishedAt).getTime());
   
   return(
     <>
     <Col span={20} offset={2}>
-          <Breadcrumb className={style.linkPath} style={{marginLeft:"16px"}}>
-            <BreadcrumbItem>Home</BreadcrumbItem>
-            <BreadcrumbItem className={style.linkPathBold}>Berita</BreadcrumbItem>
-          </Breadcrumb>
+    <Breadcrumb className={style.breadcrumb}>
+          <Breadcrumb.Item>
+            <Link to="/">Home</Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>
+            <Link to="/news">News</Link>
+          </Breadcrumb.Item>
+        </Breadcrumb>
 
-          <h1 className={style.texth1}>Berita Hari Ini</h1>
+          <h1 style={{marginBottom:"16px"}}>Berita Terbaru</h1>
         </Col>
     <Row justify="center" gutter={[0,24]} style={{ gap:"8px"}}> 
     {news.length > 0 &&
@@ -56,15 +64,13 @@ export default function News() {
         .map((item, itemTdx) => {
         return (
     <Col lg= {{span: 5}} xs={{span: 16}} key={itemTdx} className={style.col}>
-      <a href={item.url} target="_blank" style={{color:"black"}}>
+      <a href={item.url} target="_blank">
     <Col>
      <img src={item.urlToImage} alt="berita" className={style.img}/>
-     <div className={style.text}>
-     <h5>{dateFormat(item.publishedAt, "date-month-year")}</h5>
+     <p className={style.body3} style={{marginTop:"8px"}}>{dateFormat(item.publishedAt, "date-month-year")}</p>
      <h4 style={{marginBottom:"16px"}}>{item.title}</h4>
-     <h5 className={style.description}><a href={item.url} target="_blank" style={{color:"black"}}>{item.description.slice(0,70) + (item.description.length > 70 ? ' . . .' : '')}</a></h5>
-     <h5 style={{verticalAlign:"text-bottom"}}><UserOutlined className={style.icon}/> {item.author}</h5>
-     </div>
+     <p className={style.body2} style={{textAlign:"justify"}}>{item.description.slice(0,90) + (item.description.length > 90 ? ' . . .' : '')}</p>
+     <p className={style.body3}><UserOutlined className={style.icon}/> {item.author}</p>
     </Col>
     </a>
     </Col>
