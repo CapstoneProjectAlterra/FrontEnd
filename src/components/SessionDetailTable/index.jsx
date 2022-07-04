@@ -18,11 +18,13 @@ export default function SessionDetailTable({ sessionId, scheduleData }) {
   useEffect(() => {
     setLoading(true);
     axiosInstance
-      .get("/booking", { data: "" })
+      .get("/detail", { data: "" })
       .then((response) => {
         setRawData(
           // Filter booking by schedule id
-          response.data.data.filter((item) => item.schedule.id == sessionId)
+          response.data.data.filter(
+            (item) => item.booking.schedule.id == sessionId
+          )
         );
       })
       .catch((error) => {
@@ -34,9 +36,9 @@ export default function SessionDetailTable({ sessionId, scheduleData }) {
   useEffect(() => {
     const filteredData = rawData.map((value) => {
       return {
-        id: value.id,
-        booking_pass: value.booking_pass,
-        name: value.user.name,
+        nik: value.family?.nik,
+        booking_pass: value.booking?.booking_pass,
+        name: value.family?.name,
       };
     });
     setLoading(false);
@@ -86,10 +88,10 @@ export default function SessionDetailTable({ sessionId, scheduleData }) {
           dataSource={tableData}
           pagination={{ position: ["bottomCenter"] }}
           scroll={{ x: 240 }}
-          rowKey="id"
+          rowKey="nik"
           id="registrantTable"
         >
-          <Column title="Id Sesi" dataIndex="id" key="id" />
+          <Column title="NIK" dataIndex="nik" key="nik" />
           <Column title="Nama User" dataIndex="name" key="name" />
           <Column
             title="No Antrian"

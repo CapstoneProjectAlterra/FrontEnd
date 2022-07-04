@@ -28,9 +28,9 @@ export default function PDFLink({ registrantData, scheduleData, loading }) {
 
     autoTable(doc, {
       margin: { top: 140 },
-      head: [["Id Sesi", "Nama", "No Antrian"]],
+      head: [["NIK", "Nama", "No Antrian"]],
       body: registrantData.map((item) => [
-        item.id,
+        item.nik,
         item.name,
         item.booking_pass,
       ]),

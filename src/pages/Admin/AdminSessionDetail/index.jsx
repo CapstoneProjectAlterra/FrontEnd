@@ -37,9 +37,14 @@ export default function AdminSessionDetail() {
         >
           Detail Sesi
         </h3>
-        <Row gutter={16} className={styles.container} justify="center">
+        <Row gutter={16} className={styles.container}>
           {loading ? (
-            <Spin />
+            <Col
+              span={24}
+              style={{ display: "flex", justifyContent: "center" }}
+            >
+              <Spin />
+            </Col>
           ) : (
             <>
               <Col lg={12}>
