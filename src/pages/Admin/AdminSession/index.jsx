@@ -1,6 +1,5 @@
-import {Col, Row} from "antd";
 import React from "react";
-import {useEffect} from "react";
+import { useEffect } from "react";
 import SessionTable from "../../../components/SessionTable";
 import AdminLayout from "../../../layouts/AdminLayout";
 import styles from "./AdminSession.module.css";
