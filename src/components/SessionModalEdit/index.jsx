@@ -11,30 +11,70 @@ import {
   Select,
   TimePicker,
   Tooltip,
+  message,
 } from "antd";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CustomButton from "../CustomButton";
 import moment from "moment";
 
 import styles from "./SessionModalEdit.module.css";
+import axiosInstance from "../../networks/apis";
 
-export default function SessionModalEdit({ data }) {
+export default function SessionModalEdit({
+  data,
+  refetchToggle,
+  setRefetchToggle,
+}) {
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
+  const [vaccine, setVaccine] = useState([]);
   const [form] = Form.useForm();
+
+  // Fetch vaccine type API
+  useEffect(() => {
+    axiosInstance
+      .get("/vaccine", { data: "" })
+      .then((response) => {
+        setVaccine(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const showModal = () => {
     setVisible(true);
   };
 
   const handleOk = (values) => {
+    const updatedData = {
+      vaccination_date: values.vaccination_date.format("DD-MM-YYYY"),
+      operational_hour_start: values.operational_hour_start.format("HH:mm:ss"),
+      operational_hour_end: values.operational_hour_end.format("HH:mm:ss"),
+      quota: values.quota,
+      dose: values.dose,
+      facility: {
+        id: data.facility.id,
+      },
+      vaccine: {
+        id: values.vaccine_id,
+      },
+    };
     setConfirmLoading(true);
-    console.log(values);
-    setTimeout(() => {
-      setVisible(false);
-      setConfirmLoading(false);
-      form.resetFields();
-    }, 2000);
+
+    axiosInstance
+      .put(`/schedule/${data.id}`, updatedData)
+      .then((response) => {
+        setConfirmLoading(false);
+        setVisible(false);
+        setRefetchToggle(!refetchToggle);
+        message.success("Data berhasil diubah");
+      })
+      .catch((error) => {
+        console.log(error);
+        setConfirmLoading(false);
+        message.error("Data gagal diubah");
+      });
   };
 
   const handleCancel = () => {
@@ -60,7 +100,7 @@ export default function SessionModalEdit({ data }) {
         className={styles.modal}
         footer={[
           <div
-            key={data.id}
+            key={data?.id}
             style={{
               display: "flex",
               justifyContent: "right",
@@ -93,15 +133,18 @@ export default function SessionModalEdit({ data }) {
           id="addForm"
           requiredMark={false}
           initialValues={{
-            vaccine_id: data.vaccine_id,
-            vaccination_date: moment(data.vaccination_date, "DD/MM/YYYY"),
+            vaccine_id: data?.vaccine.id,
+            vaccination_date: moment(data?.vaccination_date, "DD-MM-YYYY"),
             operational_hour_start: moment(
-              data.operational_hour_start,
+              data?.operational_hour_start,
               "HH:mm:ss"
             ),
-            operational_hour_end: moment(data.operational_hour_end, "HH:mm:ss"),
-            dose: data.dose,
-            quota: data.quota,
+            operational_hour_end: moment(
+              data?.operational_hour_end,
+              "HH:mm:ss"
+            ),
+            dose: data?.dose,
+            quota: data?.quota,
           }}
         >
           <Form.Item
@@ -115,8 +158,11 @@ export default function SessionModalEdit({ data }) {
             ]}
           >
             <Select>
-              <Select.Option value={1}>Sinovac</Select.Option>
-              <Select.Option value={2}>Astra Zeneca</Select.Option>
+              {vaccine.map((item) => (
+                <Select.Option key={item.id} value={item.id}>
+                  {item.vaccine_name}
+                </Select.Option>
+              ))}
             </Select>
           </Form.Item>
           <Row gutter={24}>
