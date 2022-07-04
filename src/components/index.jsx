@@ -12,20 +12,6 @@ import Chart from "./Chart";
 import DashboardCard from "./DashboardCard";
 import DashboardRecentTable from "./DashboardRecentTable";
 import DashboardRegistrantTable from "./DashboardRegistrantTable";
+import VaccineTable from "./VaccineTable";
 
-export {
-  CustomButton,
-  CustomInput,
-  TicketModal,
-  TicketCard,
-  TicketList,
-  Navbar,
-  CustomAlert,
-  Footer,
-  Sidebar,
-  BreadCrumbAdmin,
-  Chart,
-  DashboardCard,
-  DashboardRecentTable,
-  DashboardRegistrantTable,
-};
+export { CustomButton, CustomInput, TicketModal, TicketCard, TicketList, Navbar, CustomAlert, Footer, Sidebar, BreadCrumbAdmin, Chart, DashboardCard, DashboardRecentTable, DashboardRegistrantTable, VaccineTable };
