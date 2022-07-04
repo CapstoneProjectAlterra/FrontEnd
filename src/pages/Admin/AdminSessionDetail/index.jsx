@@ -76,7 +76,7 @@ export default function AdminSessionDetail() {
           Data Pendaftar
         </h3>
 
-        <SessionDetailTable sessionId={sessionId} />
+        <SessionDetailTable sessionId={sessionId} scheduleData={data} />
       </div>
     </AdminLayout>
   );

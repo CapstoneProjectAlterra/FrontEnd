@@ -7,8 +7,9 @@ import styles from "./SessionDetailTable.module.css";
 import CustomButton from "../CustomButton";
 import SessionDetailModal from "../SessionDetailModal";
 import axiosInstance from "../../networks/apis";
+import PDFLink from "../PDFLink";
 
-export default function SessionDetailTable({ sessionId }) {
+export default function SessionDetailTable({ sessionId, scheduleData }) {
   const [rawData, setRawData] = useState([]);
   const [data, setData] = useState([]);
   const [tableData, setTableData] = useState([]);
@@ -23,8 +24,6 @@ export default function SessionDetailTable({ sessionId }) {
           // Filter booking by schedule id
           response.data.data.filter((item) => item.schedule.id == sessionId)
         );
-
-        setLoading(false);
       })
       .catch((error) => {
         setLoading(false);
@@ -40,6 +39,7 @@ export default function SessionDetailTable({ sessionId }) {
         name: value.user.name,
       };
     });
+    setLoading(false);
     setData(filteredData);
     setTableData(filteredData);
   }, [rawData]);
@@ -59,7 +59,7 @@ export default function SessionDetailTable({ sessionId }) {
     <>
       <Row justify="space-between" align="middle">
         <Col xs={24} md={12}>
-          <CustomButton variant="primary">Download</CustomButton>
+          <PDFLink registrantData={data} scheduleData={scheduleData} />
         </Col>
         <Col xs={24} md={6}>
           <div className={styles.searchWrapper}>
@@ -87,6 +87,7 @@ export default function SessionDetailTable({ sessionId }) {
           pagination={{ position: ["bottomCenter"] }}
           scroll={{ x: 240 }}
           rowKey="id"
+          id="registrantTable"
         >
           <Column title="Id Sesi" dataIndex="id" key="id" />
           <Column title="Nama User" dataIndex="name" key="name" />
