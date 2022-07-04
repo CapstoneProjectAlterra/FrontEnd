@@ -8,16 +8,6 @@ import Navbar from "./Navbar";
 import CustomAlert from "./CustomAlert";
 import Footer from "./Footer";
 import BreadCrumbAdmin from "./BreadCrumbAdmin";
+import VaccineTable from "./VaccineTable";
 
-export {
-  CustomButton,
-  CustomInput,
-  TicketModal,
-  TicketCard,
-  TicketList,
-  Navbar,
-  CustomAlert,
-  Footer,
-  Sidebar,
-  BreadCrumbAdmin,
-};
+export { CustomButton, CustomInput, TicketModal, TicketCard, TicketList, Navbar, CustomAlert, Footer, Sidebar, BreadCrumbAdmin, VaccineTable };
