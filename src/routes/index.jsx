@@ -1,6 +1,7 @@
-import { Route, Routes } from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import {
   About,
+  DataPrivacy,
   EditProfile,
   Home,
   News,
@@ -31,14 +32,12 @@ export default function RouteList() {
       <Route path="/editprofile/:id" element={<EditProfile />} />
       <Route path="/vaccine" element={<Vaccine />} />
       <Route path="/ticket" element={<Ticket />} />
+      <Route path="/privacy" element={<DataPrivacy />} />
       <Route path="/admin" element={<AdminDashboard />} />
       <Route path="/admin/profile" element={<AdminProfile />} />
       <Route path="/admin/vaccine" element={<AdminVaccine />} />
       <Route path="/admin/session" element={<AdminSession />} />
-      <Route
-        path="/admin/session/:sessionId"
-        element={<AdminSessionDetail />}
-      />
+      <Route path="/admin/session/:sessionId" element={<AdminSessionDetail />} />
       <Route path="/admin/login" element={<AdminLogin />} />
       <Route path="/admin/*" element={<NotFound />} />
       <Route path="*" element={<NotFound />} />

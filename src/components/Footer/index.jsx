@@ -42,7 +42,7 @@ function Footer() {
             </Link>
           </p>
           <p className={style.body1}>
-            <Link to="/kebijakan" className={style.link}>
+            <Link to="/privacy" className={style.link}>
               Kebijakan Privasi Data
             </Link>
           </p>

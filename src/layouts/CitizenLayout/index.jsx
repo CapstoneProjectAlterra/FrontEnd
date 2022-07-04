@@ -5,7 +5,10 @@ export default function CitizenLayouts(props) {
   return (
     <>
       <Navbar auth={props.auth} />
-      <main className="layout-padding" style={{background: "var(--color-primary-light)"}}>
+      <main
+        className={props.padding === false ? "layout" : "layout-padding"}
+        style={{background: "var(--color-primary-light)"}}
+      >
         {props.children}
       </main>
       <Footer />
