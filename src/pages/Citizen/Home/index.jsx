@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import axiosInstance from "../../../networks/apis";
-import {Col, Row} from "antd";
-import {CustomAlert, CustomButton, CustomInput} from "../../../components";
+import { Col, Row } from "antd";
+import { CustomAlert, CustomButton, CustomInput } from "../../../components";
 import Cookies from "js-cookie";
 import axios from "axios";
 import CitizenLayout from "../../../layouts/CitizenLayout";
-import {isAuthenticated} from "../../../utils/helpers/Auth";
+import { isAuthenticatedUser } from "../../../utils/helpers/Auth";
 export default function Home() {
   const [data, setData] = useState([]);
 
@@ -41,7 +41,7 @@ export default function Home() {
   // console.log(count);
 
   return (
-    <CitizenLayout auth={isAuthenticated()}>
+    <CitizenLayout auth={isAuthenticatedUser()}>
       <div>Home</div>
       <div className="getData">
         <h1>Axios Fetching</h1>
