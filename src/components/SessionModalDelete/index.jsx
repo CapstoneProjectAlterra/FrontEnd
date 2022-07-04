@@ -1,8 +1,13 @@
 import { DeleteFilled, ExclamationCircleOutlined } from "@ant-design/icons";
-import { Button, Modal, Tooltip } from "antd";
+import { Button, Modal, Tooltip, message } from "antd";
+import axiosInstance from "../../networks/apis";
 import styles from "./SessionModalDelete.module.css";
 
-export default function SessionModalDelete({ data }) {
+export default function SessionModalDelete({
+  id,
+  setRefetchToggle,
+  refetchToggle,
+}) {
   const { confirm } = Modal;
 
   const showPromiseConfirm = () => {
@@ -14,9 +19,16 @@ export default function SessionModalDelete({ data }) {
       cancelText: "No",
 
       onOk() {
-        return new Promise((resolve, reject) => {
-          setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
-        }).catch(() => console.log("Oops errors!"));
+        return axiosInstance
+          .delete(`/schedule/${id}`, { data: "" })
+          .then((response) => {
+            message.success("Data berhasil dihapus");
+            setRefetchToggle(!refetchToggle);
+          })
+          .catch((error) => {
+            console.log(error);
+            message.error("Data gagal dihapus");
+          });
       },
 
       onCancel() {},

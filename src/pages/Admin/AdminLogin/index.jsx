@@ -37,6 +37,7 @@ export default function AdminLogin() {
           Cookies.set(
             "user",
             JSON.stringify({
+              user_id: response.data.data.user_id,
               username: response.data.data.username,
               roles: response.data.data.roles[0],
             })

@@ -11,3 +11,7 @@ export function isAuthenticated() {
   }
   return false;
 }
+
+export function getUserId() {
+  return JSON.parse(Cookies.get("user")).user_id;
+}

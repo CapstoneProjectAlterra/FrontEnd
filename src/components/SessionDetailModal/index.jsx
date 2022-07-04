@@ -55,11 +55,11 @@ export default function SessionDetailModal(props) {
         <Row gutter={[0, 24]}>
           <Col span={24}>
             <p className={styles.fieldName}>Nama Lengkap</p>
-            <p className={styles.fieldContent}>{data.full_name}</p>
+            <p className={styles.fieldContent}>{data.user.name}</p>
           </Col>
           <Col span={24}>
             <p className={styles.fieldName}>NIK</p>
-            <p className={styles.fieldContent}>{data.nik}</p>
+            <p className={styles.fieldContent}>{data.user.nik}</p>
           </Col>
           <Col span={24}>
             <p className={styles.fieldName}>Tanggal Lahir</p>
