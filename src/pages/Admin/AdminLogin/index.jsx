@@ -20,7 +20,7 @@ export default function AdminLogin() {
     ) {
       navigate("/admin");
     }
-  }, []);
+  });
 
   const onFinish = (values) => {
     const { username, password } = values;
