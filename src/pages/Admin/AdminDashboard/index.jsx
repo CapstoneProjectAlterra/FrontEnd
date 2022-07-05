@@ -18,7 +18,9 @@ export default function AdminDashboard() {
   useEffect(() => {
     setLoading(true);
     axiosInstance
-      .get("/schedule", { data: "" })
+      .get("/schedule", {
+        data: "",
+      })
       .then((response) => {
         setSchedule(
           response.data.data.filter(
@@ -28,13 +30,14 @@ export default function AdminDashboard() {
       })
       .catch((error) => {
         console.log(error);
-        setLoading(false);
       });
   }, []);
 
   useEffect(() => {
     axiosInstance
-      .get("/detail", { data: "" })
+      .get("/detail", {
+        data: "",
+      })
       .then((response) => {
         const scheduleIds = schedule.map((item) => item.id);
         setActivities(
@@ -46,7 +49,6 @@ export default function AdminDashboard() {
       })
       .catch((error) => {
         console.log(error);
-        setLoading(false);
       });
   }, [schedule]);
 
