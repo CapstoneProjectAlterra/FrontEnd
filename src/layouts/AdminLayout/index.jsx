@@ -1,10 +1,10 @@
-import { Col, Dropdown, Menu, Row } from "antd";
+import {Col, Dropdown, Menu, Row} from "antd";
 import Cookies from "js-cookie";
-import { useEffect } from "react";
-import { useState } from "react";
-import { BiUserCircle } from "react-icons/bi";
-import { Link, useNavigate } from "react-router-dom";
-import { BreadCrumbAdmin, Sidebar } from "../../components";
+import {useEffect} from "react";
+import {useState} from "react";
+import {BiUserCircle} from "react-icons/bi";
+import {Link, useNavigate} from "react-router-dom";
+import {BreadCrumbAdmin, Sidebar, ReactHelmet} from "../../components";
 
 export default function AdminLayout(props) {
   const [width, setWidth] = useState(window.innerWidth);
@@ -35,16 +35,17 @@ export default function AdminLayout(props) {
   );
   return (
     <Row className="layout-admin">
+      <ReactHelmet />
       <Col
         lg={5}
         md={3}
         sm={3}
         xs={3}
-        style={{ background: "var(--color-primary)", height: "100vh" }}
+        style={{background: "var(--color-primary)", height: "100vh"}}
       >
         <Sidebar />
       </Col>
-      <Col lg={19} md={21} sm={21} xs={21} style={{ position: "relative" }}>
+      <Col lg={19} md={21} sm={21} xs={21} style={{position: "relative"}}>
         <main className="layout-main-admin">
           <Row>
             <Col
@@ -58,10 +59,10 @@ export default function AdminLayout(props) {
               <BreadCrumbAdmin />
               <Dropdown
                 overlay={menu}
-                style={{ marginTop: "var(--space-s)" }}
+                style={{marginTop: "var(--space-s)"}}
                 placement="bottomRight"
               >
-                <BiUserCircle style={{ fontSize: "var(--space-xl)" }} />
+                <BiUserCircle style={{fontSize: "var(--space-xl)"}} />
               </Dropdown>
             </Col>
             <Col span={24}>{props.children}</Col>

@@ -12,6 +12,7 @@ import Chart from "./Chart";
 import DashboardCard from "./DashboardCard";
 import DashboardRecentTable from "./DashboardRecentTable";
 import DashboardRegistrantTable from "./DashboardRegistrantTable";
+import ReactHelmet from "./ReactHelmet";
 
 export {
   CustomButton,
@@ -28,4 +29,5 @@ export {
   DashboardCard,
   DashboardRecentTable,
   DashboardRegistrantTable,
+  ReactHelmet,
 };
