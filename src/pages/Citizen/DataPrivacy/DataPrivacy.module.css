@@ -1,0 +1,12 @@
+.headContent {
+  padding-block: 80px;
+}
+
+.text {
+  color: var(--color-text);
+}
+
+.content {
+  background: var(--color-secondary-light);
+  padding-block: 80px;
+}
