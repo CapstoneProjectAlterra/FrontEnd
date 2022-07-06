@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Form, Input, Row, Col, Alert } from "antd";
 import style from "./LoginCitizen.module.css";
+import { useNavigate } from "react-router-dom";
 import { CustomButton, CustomInput } from "../../../components";
 import { imgLogin } from "../../../assets";
+import { axiosInstance } from "../../../networks/apis";
 
 export default function Login() {
   //Test Dummy
@@ -12,27 +14,39 @@ export default function Login() {
   };
 
   //Logic Alert
-  const [alertToggle, setAlertToggle] = useState(false);
+  const navigate = useNavigate();
+  const [isAlertTriggered, setIsAlertTriggered] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   //Logic Form
   const [form] = Form.useForm();
-  const handleSubmit = ({ nik, password }) => {
-    console.log("Success:", nik, password);
 
-    if (nik === data.NIK && password === data.Password) {
-      console.log("Login Succes");
-    } else {
-      setAlertToggle(true);
-      setTimeout(() => {
-        setAlertToggle(false);
-      }, 3000);
-    }
-
-    form.resetFields();
-  };
-
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+  const handleSubmit = (values) => {
+    const { nik, password } = values;
+    axiosInstance
+      .post("/auth/login", {
+        username: nik,
+        password: password,
+      })
+      .then((response) => {
+        if (response.data.data.roles[0] === "USER") {
+          navigate = "/";
+          // set cookies, need to merge from development branch first
+          // then navigate to dashboard
+        } else {
+          setIsAlertTriggered(true);
+          setTimeout(() => {
+            setIsAlertTriggered(false);
+          }, 2000);
+        }
+      })
+      .catch((error) => {
+        setIsAlertTriggered(true);
+        setTimeout(() => {
+          setIsAlertTriggered(false);
+        }, 2000);
+      })
+      .finally(() => setIsLoading(false));
   };
 
   return (
@@ -52,7 +66,6 @@ export default function Login() {
                       remember: true,
                     }}
                     onFinish={handleSubmit}
-                    onFinishFailed={onFinishFailed}
                     autoComplete="off"
                   >
                     <Form.Item style={{ marginBottom: "16px" }}>
@@ -87,9 +100,9 @@ export default function Login() {
                     >
                       <Input.Password className="input" />
                     </Form.Item>
-                    {alertToggle && (
+                    {isAlertTriggered && (
                       <Alert
-                        message="Username atau Password Salah"
+                        message="NIK atau Password Salah"
                         type="warning"
                         showIcon
                         style={{
@@ -105,6 +118,7 @@ export default function Login() {
 
                     <Form.Item>
                       <CustomButton
+                        loading={isLoading}
                         variant="primary"
                         key="submit"
                         htmlType="submit"

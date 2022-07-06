@@ -1,20 +1,47 @@
 import React from "react";
-import { Form, Input, Button, Row, Col } from "antd";
+import { Form, Input, Button, Row, Col, Alert } from "antd";
 import { CustomButton, CustomInput } from "../../../components";
 import { imgLogin } from "../../../assets";
 import style from "./RegisterCitizen.module.css";
+import { axiosInstance } from "../../../networks/apis";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const RegisterCitizen = () => {
   //Logic Form
   const [form] = Form.useForm();
-  const onFinish = (values) => {
-    console.log("Success:", values);
-    // setvalues('')
-    form.resetFields();
-  };
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isAlertTriggered, setIsAlertTriggered] = useState(false);
 
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+  // pending due to incompatibilty in API docs.
+  const handleSubmit = (values) => {
+    const { nik, fullname, email, password } = values;
+    setIsLoading(true);
+
+    axiosInstance
+      .post("/auth/register", {
+        username: nik,
+        name: fullname,
+        email: email,
+        password: password,
+        profile: {
+          role: "USER",
+        },
+      })
+      .then((response) => {
+        // navigate to login page, because register currently
+        // don't have a token data in reponse payload. to get
+        // it, user must log in manually.
+        navigate("/login");
+      })
+      .catch((error) => {
+        setIsAlertTriggered(true);
+        setTimeout(() => {
+          setIsAlertTriggered(false);
+        }, 3000);
+      })
+      .finally(() => setIsLoading(false));
   };
 
   return (
@@ -32,8 +59,7 @@ const RegisterCitizen = () => {
                     initialValues={{
                       remember: true,
                     }}
-                    onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
+                    onFinish={handleSubmit}
                     requiredMark={false}
                     autoComplete="off"
                   >
@@ -77,11 +103,11 @@ const RegisterCitizen = () => {
                         {
                           whitespace: true,
                         },
-                        // {
-                        //   pattern: /^(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]+$/,
-                        //   message:
-                        //     "Nama Lengkap harus Kombinasi Huruf Besar dan Huruf Kecil",
-                        // },
+                        {
+                          pattern: /^(?=.*[a-z])(?=.*[A-Z])[a-zA-Z ]+$/,
+                          message:
+                            "Karakter yang diizinkan: [spasi], huruf kapital dan huruf biasa.",
+                        },
                         {
                           min: 4,
                           message: "Masukkan minimal 4 karakter",
@@ -119,9 +145,14 @@ const RegisterCitizen = () => {
                           message: "Masukkan Password",
                         },
                         {
-                          pattern: /^(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]+$/,
+                          min: 8,
+                          message: "Password minimal 8 karakter.",
+                        },
+                        {
+                          pattern:
+                            /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$/,
                           message:
-                            "Password harus berupa kombinasi huruf besar dan huruf kecil",
+                            "Password harus berupa kombinasi huruf besar, huruf kecil dan angka",
                         },
                       ]}
                       hasFeedback
@@ -159,8 +190,20 @@ const RegisterCitizen = () => {
                       />
                     </Form.Item>
 
+                    {isAlertTriggered && (
+                      <Alert
+                        message="Registrasi Gagal"
+                        type="warning"
+                        showIcon
+                        style={{
+                          marginBottom: "24px",
+                        }}
+                      />
+                    )}
+
                     <Form.Item>
                       <CustomButton
+                        loading={isLoading}
                         variant="primary"
                         key="submit"
                         htmlType="submit"
