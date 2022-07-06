@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { Form, Input, Row, Col, Alert } from "antd";
+import Cookies from "js-cookie";
 import style from "./LoginCitizen.module.css";
 import { useNavigate } from "react-router-dom";
 import { CustomButton, CustomInput } from "../../../components";
 import { imgLogin } from "../../../assets";
-import { axiosInstance } from "../../../networks/apis";
+import axiosInstance from "../../../networks/apis";
+import CitizenLayout from "../../../layouts/CitizenLayout";
+import { isAuthenticatedUser } from "../../../utils/helpers/Auth";
 
 export default function Login() {
   //Test Dummy
@@ -30,7 +33,17 @@ export default function Login() {
       })
       .then((response) => {
         if (response.data.data.roles[0] === "USER") {
-          navigate = "/";
+          setIsLoading(false);
+          Cookies.set("token", response.data.data.token);
+          Cookies.set(
+            "user",
+            JSON.stringify({
+              user_id: response.data.data.user_id,
+              username: response.data.data.username,
+              roles: response.data.data.roles[0],
+            })
+          );
+          navigate("/");
           // set cookies, need to merge from development branch first
           // then navigate to dashboard
         } else {
@@ -41,16 +54,17 @@ export default function Login() {
         }
       })
       .catch((error) => {
+        console.log(error);
         setIsAlertTriggered(true);
         setTimeout(() => {
           setIsAlertTriggered(false);
         }, 2000);
-      })
-      .finally(() => setIsLoading(false));
+      });
+    // .finally(() => setIsLoading(false));
   };
 
   return (
-    <>
+    <CitizenLayout auth={isAuthenticatedUser}>
       <div className={style.body}>
         <Row className={style.container}>
           <Col>
@@ -142,6 +156,6 @@ export default function Login() {
           </Col>
         </Row>
       </div>
-    </>
+    </CitizenLayout>
   );
 }

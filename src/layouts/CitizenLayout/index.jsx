@@ -1,10 +1,17 @@
+import {Navbar} from "../../components";
+import {Footer} from "../../components";
+
 export default function CitizenLayouts(props) {
   return (
     <>
-      <nav>Navbar</nav>
-      <aside>Sidebar</aside>
-      <main>{props.children}</main>
-      <footer>Footer</footer>
+      <Navbar auth={props.auth} />
+      <main
+        className={props.padding === false ? "layout" : "layout-padding"}
+        style={{background: "var(--color-primary-light)"}}
+      >
+        {props.children}
+      </main>
+      <Footer />
     </>
   );
 }

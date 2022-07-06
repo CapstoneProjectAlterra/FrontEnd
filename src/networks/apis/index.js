@@ -1,14 +1,37 @@
 import axios from "axios";
 import CONST from "../../utils/constant";
+import { getToken } from "../../utils/helpers/Auth";
+import { errorHandler, requestHandler, successHandler } from "./interceptors";
 
-const { baseApi } = CONST;
+const { BASE_API } = CONST;
 
-const config = {
-  baseURL: baseApi,
-  // headers: {
-  //   "app-id": "624a11d46b0e26728639c458",
-  //   "access-token": accessToken
-  // }
+const isDev = process.env.NODE_ENV === "development";
+
+const isLocalDev = (isDev) => {
+  let axiosConfig;
+  axiosConfig = axios.create();
+  if (isDev) {
+    const config = {
+      baseURL: BASE_API,
+      headers: {
+        "Content-Type": "application/json",
+        ...(!!getToken() && { Authorization: `Bearer ${getToken()}` }),
+      },
+    };
+    axiosConfig = axios.create(config);
+  }
+  return axiosConfig;
 };
 
-export const axiosInstance = axios.create(config);
+const axiosInstance = isLocalDev(isDev);
+
+// Handle request process
+axiosInstance.interceptors.request.use((request) => requestHandler(request));
+
+// Handle response process
+axiosInstance.interceptors.response.use(
+  (response) => successHandler(response),
+  (error) => errorHandler(error)
+);
+
+export default axiosInstance;

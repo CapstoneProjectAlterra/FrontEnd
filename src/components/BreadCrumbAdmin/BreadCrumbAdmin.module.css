@@ -1,0 +1,13 @@
+.breadcrumb:global(.ant-breadcrumb a) {
+  color: var(--color-text-link-disabled);
+  font-weight: var(--font-body-1-weight);
+  line-height: var(--font-body-1-lh);
+  font-size: var(--font-body-1-size);
+}
+
+.breadcrumb:global(.ant-breadcrumb li:last-child a) {
+  color: var(--color-primary);
+  font-weight: var(--font-h5-weight);
+  line-height: var(--font-h5-lh);
+  font-size: var(--font-h5-size);
+}

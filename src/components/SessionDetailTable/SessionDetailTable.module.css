@@ -1,0 +1,91 @@
+.searchWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 24px 0;
+}
+
+.tableWrapper :global(.ant-table-thead > tr > th) {
+  background: #f1f1f1;
+  font-size: var(--font-h5-size);
+  font-weight: var(--font-h5-weight-sb);
+  line-height: var(--font-h5-lh);
+  padding: 10px;
+}
+
+.tableWrapper :global(.ant-table-tbody > tr:nth-child(odd)) {
+  background: #f1f1f1;
+}
+
+.tableWrapper :global(.ant-table-tbody > tr:nth-child(even)) {
+  background: #fff;
+}
+
+.tableWrapper :global(.ant-table-tbody > tr > td) {
+  font-size: var(--font-body-2-size);
+  font-weight: var(--font-h5-weight-sb);
+  line-height: var(--font-body-2-lh);
+  letter-spacing: var(--font-body-2-ls);
+  color: var(--color-text-secondary);
+  padding: 10px;
+}
+
+.actionContainer {
+  display: flex;
+  gap: 8px;
+}
+
+.button {
+  color: white;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  font-size: 12.5px;
+  padding: 5px;
+}
+.button a {
+  display: flex;
+}
+
+.button.primary {
+  background: var(--color-primary);
+}
+
+.button.primary:hover {
+  background: var(--color-primary-hover);
+  color: white;
+}
+
+.button.secondary {
+  background: var(--color-secondary);
+}
+
+.button.secondary:hover {
+  background: rgb(82, 152, 158);
+  color: white;
+  border: 0;
+}
+
+.search,
+.searchForm button {
+  border: 0;
+}
+
+.searchForm {
+  display: flex;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  padding: 1px;
+  border-radius: 8px;
+}
+
+.searchForm > :global(.ant-form-item) {
+  margin-bottom: 0;
+}
+
+.searchForm :global(.ant-input:focus) {
+  border: 0px;
+  box-shadow: none;
+}

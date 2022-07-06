@@ -1,0 +1,31 @@
+.container {
+  background-color: #fff;
+  padding: 24px;
+  border-radius: 16px;
+  border-left: 16px solid #06919d;
+  width: 100%;
+  box-shadow: 2px 4px 8px 1px rgba(6, 145, 157, 0.25);
+}
+
+.title {
+  font-weight: bolder;
+  font-size: 2em;
+}
+
+.title,
+.description {
+  margin-bottom: 0px;
+}
+
+/* .col {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+} */
+
+.icons {
+  display: flex;
+  align-items: center;
+  font-size: 48px;
+  color: var(--color-secondary);
+}

@@ -74,7 +74,7 @@
   /* heading 5 */
   --font-h5-size: 16px;
   --font-h5-weight: 700;
-  --font-h3-weight-sb: 600;
+  --font-h5-weight-sb: 600;
   --font-h5-lh: 24px;
 
   /* body 1 */
@@ -149,12 +149,74 @@ h5 {
   color: var(--color-heading);
 }
 
+.h3-sb {
+  font-size: var(--font-h3-size);
+  font-weight: var(--font-h3-weight-sb);
+  line-height: var(--font-h3-lh);
+  letter-spacing: var(--font-h3-ls);
+  color: var(--color-heading);
+}
+
+.h4-sb {
+  font-size: var(--font-h4-size);
+  font-weight: var(--font-h4-weight-sb);
+  line-height: var(--font-h4-lh);
+  letter-spacing: var(--font-h4-ls);
+  color: var(--color-heading);
+}
+
+.h5-sb {
+  font-size: var(--font-h5-size);
+  font-weight: var(--font-h5-weight-sb);
+  line-height: var(--font-h5-lh);
+  letter-spacing: var(--font-h5-ls);
+  color: var(--color-heading);
+}
+
 p {
   font-size: var(--font-body-2-size);
   font-weight: var(--font-body-2-weight);
   line-height: var(--font-body-2-lh);
   letter-spacing: var(--font-body-2-ls);
   color: var(--color-text);
+}
+
+.body1 {
+  font-size: var(--font-body-1-size);
+  font-weight: var(--font-body-1-weight);
+  line-height: var(--font-body-1-lh);
+  letter-spacing: var(--font-body-1-ls);
+}
+.body1-m {
+  font-size: var(--font-body-1-size);
+  font-weight: var(--font-body-1-weight-m);
+  line-height: var(--font-body-1-lh);
+  letter-spacing: var(--font-body-1-ls);
+}
+
+.body2 {
+  font-size: var(--font-body-2-size);
+  font-weight: var(--font-body-2-weight);
+  line-height: var(--font-body-2-lh);
+  letter-spacing: var(--font-body-2-ls);
+}
+.body2-m {
+  font-size: var(--font-body-2-size);
+  font-weight: var(--font-body-2-weight-m);
+  line-height: var(--font-body-2-lh);
+  letter-spacing: var(--font-body-2-ls);
+}
+.body3 {
+  font-size: var(--font-body-3-size);
+  font-weight: var(--font-body-3-weight);
+  line-height: var(--font-body-3-lh);
+  letter-spacing: var(--font-body-3-ls);
+}
+.body3-m {
+  font-size: var(--font-body-3-size);
+  font-weight: var(--font-body-3-weight-m);
+  line-height: var(--font-body-3-lh);
+  letter-spacing: var(--font-body-3-ls);
 }
 
 /* Global class for custom input */
@@ -174,4 +236,32 @@ p {
   background: rgba(0, 0, 0, 0.05);
   color: var(--color-white);
   border: 1px solid var(--color-border);
+}
+
+/* global layout for padding */
+.layout {
+  padding: 0;
+}
+.layout-padding {
+  padding-inline: 48px;
+}
+@media screen and (max-width: 576px) {
+  .layout-padding {
+    padding: var(--space-l);
+  }
+}
+.layout-admin {
+  padding: 40px 48px 0;
+  background: var(--color-primary);
+}
+@media screen and (max-width: 1000px) {
+  .layout-admin {
+    padding: 24px 24px 0;
+  }
+}
+.layout-main-admin {
+  background-color: var(--color-secondary-light);
+  border-radius: 40px 0 0 0;
+  min-height: 100vh;
+  padding: 40px;
 }

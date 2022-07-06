@@ -7,8 +7,11 @@ import NotFound from "./NotFound";
 import Profile from "./Profile";
 import Vaccine from "./Vaccine";
 import Ticket from "./Ticket";
+import EditProfile from "./EditProfile";
+import DataPrivacy from "./DataPrivacy";
 
 export {
+  Login,
   About,
   Home,
   News,
@@ -17,5 +20,6 @@ export {
   Profile,
   Vaccine,
   Ticket,
-  Login,
+  EditProfile,
+  DataPrivacy,
 };
