@@ -1,11 +1,11 @@
-import {Form, Input, Row, Col, Alert} from "antd";
-import {useEffect, useState} from "react";
-import {LogoSecondary} from "../../../assets";
-import {CustomButton, CustomInput} from "../../../components";
+import { Form, Input, Row, Col, Alert } from "antd";
+import { useEffect, useState } from "react";
+import { LogoSecondary } from "../../../assets";
+import { CustomButton, CustomInput } from "../../../components";
 import style from "./AdminLogin.module.css";
 
 import axiosInstance from "../../../networks/apis";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import ReactHelmet from "../../../components/ReactHelmet";
 
@@ -14,19 +14,13 @@ export default function AdminLogin() {
   const [alertToggle, setAlertToggle] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (Cookies.get("token") && JSON.parse(Cookies.get("user")).roles === "ADMIN") {
-      navigate("/admin");
-    }
-  });
-
   const onFinish = (values) => {
-    const {username, password} = values;
+    const { username, password } = values;
 
     setLoading(true);
 
     axiosInstance
-      .post("/auth/login", {username: username.toLowerCase(), password})
+      .post("/auth/login", { username: username.toLowerCase(), password })
       .then((response) => {
         setLoading(false);
         if (response.data.data.roles[0] === "ADMIN") {
@@ -62,7 +56,11 @@ export default function AdminLogin() {
     <div className={style.loginPage}>
       <ReactHelmet />
       <div className={style.container}>
-        <img src={LogoSecondary} alt="website-logo" className={style.imageLogo} />
+        <img
+          src={LogoSecondary}
+          alt="website-logo"
+          className={style.imageLogo}
+        />
         {alertToggle && (
           <Alert
             message="Username atau Password Salah"
@@ -111,7 +109,7 @@ export default function AdminLogin() {
               variant="primary"
               htmlType="submit"
               block
-              style={{marginTop: "24px"}}
+              style={{ marginTop: "24px" }}
             >
               Login
             </CustomButton>

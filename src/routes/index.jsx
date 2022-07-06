@@ -24,16 +24,22 @@ import {
 
 import PrivateRouteAdmin from "./PrivateRouteAdmin";
 import PrivateRouteCitizen from "./PrivateRouteCitizen";
+import ProtectedRouteCitizen from "./ProtectedRouteCitizen";
+import ProtectedRouteAdmin from "./ProtectedRouteAdmin";
 
 export default function RouteList() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
       <Route path="/about" element={<About />} />
       <Route path="/news" element={<News />} />
-      <Route path="/register" element={<Register />} />
       <Route path="/privacy" element={<DataPrivacy />} />
+
+      {/* Protected Routing for Citizen */}
+      <Route element={<ProtectedRouteCitizen />}>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Route>
 
       {/* Private Routing for Citizen */}
       <Route element={<PrivateRouteCitizen />}>
@@ -54,7 +60,11 @@ export default function RouteList() {
           element={<AdminSessionDetail />}
         />
       </Route>
-      <Route path="/admin/login" element={<AdminLogin />} />
+
+      <Route element={<ProtectedRouteAdmin />}>
+        <Route path="/admin/login" element={<AdminLogin />} />
+      </Route>
+
       <Route path="/admin/*" element={<NotFound />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
