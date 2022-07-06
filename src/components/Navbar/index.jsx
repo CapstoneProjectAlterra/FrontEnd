@@ -44,7 +44,7 @@ function MainNavbar({ auth }) {
     {
       key: "tiket",
       name: "Tiket",
-      route: "ticket",
+      route: "/ticket",
     },
   ];
 
