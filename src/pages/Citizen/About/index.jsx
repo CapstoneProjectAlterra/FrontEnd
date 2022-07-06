@@ -96,7 +96,7 @@ const team = [
       key: "9",
       name: "Moch Nasichun Amin",
       role: "Front End React JS",
-      description: "Mahasiswa Teknologi Industri Pertanian Unpad. Bertanggung jawab dalam merancang design system sekaligus membuat komponennya menggunakan React dan Ant Design",
+      description: "Mahasiswa Universitas Pembangunan Veteran Jawa Timur. Dalam Project ini saya sebagai salah satu team front end website menggunakan react js.",
       img: "assets/illustration/amin.png",
       linkedin: "https://www.linkedin.com/in/nasichun-amin-b2ba42161/"
   },
@@ -132,7 +132,7 @@ export default function About() {
   return (
   <>
   <Col span={20} offset={2}>
-      <Breadcrumb className={style.breadcrumb} style={{marginBottom:"16px"}}>
+      <Breadcrumb className={style.breadcrumb} style={{marginBottom:"24px"}}>
           <Breadcrumb.Item>
             <Link to="/">Home</Link>
           </Breadcrumb.Item>
@@ -142,15 +142,15 @@ export default function About() {
       </Breadcrumb>
   </Col>
 
-      <Row justify="center">
+      <Row justify="center" style={{marginBottom:"100px"}}>
       <Col lg= {{span:8 , offset: 1}} xs={{span: 20}} justify="end">
       <img src={AboutUs} alt="aboutus" className={style.img}/>
       </Col>
       <Col lg= {{span: 9}} xs={{span: 20}}>
-      <h1 style={{marginTop:"30px"}}>Tentang Kami</h1>
-      <p className={style.body1} style={{marginTop:"30px"}}>GetVaccine merupakan aplikasi yang dibangun untuk membantu pemerintah
+      <h1 style={{marginTop:"24px"}}>Tentang Kami</h1>
+      <p className="body1" style={{marginTop:"48px"}}>GetVaccine merupakan aplikasi yang dibangun untuk membantu pemerintah
       dalam penyelenggaraan vaksinasi COVID-19.</p>
-      <p className={style.body1} style={{marginTop:"30px"}}>
+      <p className="body1" style={{marginTop:"30px"}}>
       GetVaccine memberikan fasilitas bagi masyarakat dalam rangka kemudahan 
       pelayanan booking sesi vaksinasi. Selain itu, GetVaccine dibangun sebagai 
       layanan yang dapat digunakan sesuai kebutuhan pengguna baik dari segi masyarakat 
@@ -159,7 +159,7 @@ export default function About() {
       </Col>
       </Row >
 
-      <span className={style.span}><h2 style={{margin:"24px"}}>Layanan</h2> </span>
+      <span className={style.span}><h2 style={{margin:"48px"}}>Layanan</h2> </span>
       <Row className={style.layanan} justify="center" gutter={[0,48]} style={{paddingLeft:"48px", paddingRight:"48px", gap:"64px"}}>
             {layanan.map(item => {
               return (
@@ -167,27 +167,25 @@ export default function About() {
                   <Col>
                   <img src={require(`../../../${item.img}`)} alt="layanan" className={style.img}/>
                   <h4 className={style.textcontent}>{item.title}</h4>
-                  <p className={style.body1}>{item.content}</p>
+                  <p className="body1" style={{marginBotton:"16px"}}>{item.content}</p>
                   </Col>
                 </Col>
               );
             })}
       </Row>
 
-      <br/>      
-      <br/>      
-      <br/>
+      <h2 className={style.textabout} >Meet The Team</h2>
 
       <Row justify="center" gutter={[0,48]} style={{paddingLeft:"48px", paddingRight:"48px", gap:"64px"}}>   
       {team.map(item => {
         return (
-          <Col lg= {{span: 6}} md={{span:10}} xs={{span: 20}} key={item.key} justify="center">
+          <Col lg= {{span: 6}} md={{span:10}} xs={{span: 24}} key={item.key} justify="center">
             <Col>
             <img src={require(`../../../${item.img}`)} alt="team" className={style.img}/>
             <div>
-            <h4>{item.name} <a href ={item.linkedin} target="_blank" style={{color:"var(--color-primary)"}}><LinkedinFilled/></a></h4>
-            <p className={style.body1}>{item.role}</p> 
-            <p className={style.body2}>{item.description}</p>
+            <h4 style={{marginTop:"16px"}}>{item.name} <a href ={item.linkedin} target="_blank" style={{color:"var(--color-primary)"}}><LinkedinFilled/></a></h4>
+            <p className="body1" style={{marginTop:"4px"}}>{item.role}</p> 
+            <p className="body2" style={{marginTop:"8px"}}>{item.description}</p>
             </div>
             </Col>
           </Col>
