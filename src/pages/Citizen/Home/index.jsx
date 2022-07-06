@@ -3,8 +3,12 @@ import { Row, Col } from "antd";
 import { LandingPage } from "../../../assets";
 import style from './Home.module.css'
 import CustomButton from "../../../components/CustomButton";
+import { UserOutlined } from '@ant-design/icons';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import dateFormat from '../../../utils/helpers/dateFormat';
 
-export const alur = [
+const alur = [
   {
       key: '1',
       title: 'Registrasi',
@@ -107,9 +111,38 @@ const faskes = [
 ]
 
 export default function Home() {
-  return(
+  const [state, setState] = useState({
+    minValue: 0,
+    maxValue: 3,
+  });
+  const handleChange = (value) => {
+    if (value <= 1) {
+      setState({
+        minValue: 0,
+        maxValue: 3,
+      });
+    }
+    };
+  
+  const [news, setNews] = useState([]);
+  
+  useEffect(() => {
+    const loadNews = async () => {
+      const response = await axios.get(
+        "https://newsapi.org/v2/everything?q=covid&language=id&apiKey=23b92eb137c74f6eab5f15055aa1de69"
+      );
+      setNews(response.data.articles);
+    };
+    loadNews();
+  }, []);
+
+  let sorted1 = news.sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt));
+  let sorted2 = news.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
+  let sorted3 = news.sort((a, b) => new Date(b.publishedAt).getTime() -  new Date(a.publishedAt).getTime());
+
+  return( 
     <>
-      <Row justify="center">
+      <Row justify="center" style={{marginTop:"88px"}}>
       <Col className={style.colflex} lg= {{span: 10}} xs={{span: 20}}> 
         <h1 className={style.textdaftar} style={{marginBottom:"0px"}}>Alternatif</h1>
         <h1 className={style.textdaftar} style={{color:"var(--color-primary)", marginBottom:"0px"}}>Pesan Vaksinasi</h1>
@@ -121,7 +154,7 @@ export default function Home() {
       </Col>
       </Row >
     
-      <h2 className={style.textalur}>Alur Pendaftaran</h2>
+      <h2 className={style.textjudul}>Alur Pendaftaran</h2>
           <Row justify="space-evenly" gutter={[0,48]}>   
             {alur.map(item => {
               return (
@@ -153,6 +186,29 @@ export default function Home() {
             })}
           </Row>
           </Row>
+
+    <h2 className={style.textjudul}>Berita Terbaru</h2>
+
+    <Row justify="center" gutter={[0,24]} style={{gap:"77px"}}> 
+        {news.length > 0 &&
+        news
+        .slice(state.minValue, state.maxValue) 
+        .map((item, itemTdx) => {
+        return (
+    <Col lg= {{span: 5}} xs={{span: 16}} key={itemTdx} className={style.col}>
+      <a href={item.url} target="_blank">
+    <Col>
+     <img src={item.urlToImage} alt="berita" className={style.imgberita}/>
+     <p className={style.body3} style={{marginTop:"8px"}}>{dateFormat(item.publishedAt, "date-month-year")}</p>
+     <h4 style={{marginBottom:"16px"}}>{item.title}</h4>
+     <p className={style.body2} style={{textAlign:"justify"}}>{item.description.slice(0,90) + (item.description.length > 90 ? ' . . .' : '')}</p>
+     <p className={style.body3} style={{marginBottom:"0"}}><UserOutlined className={style.icon}/> {item.author}</p>
+    </Col>
+    </a>
+    </Col>
+    );
+  })}
+    </Row>
     
     </>
   );
