@@ -54,10 +54,10 @@ export default function News() {
             <Link to="/news">News</Link>
           </Breadcrumb.Item>
         </Breadcrumb>
+    <h1 style={{marginTop:"24px", marginBottom:"48px"}}>Berita Terbaru</h1>
+    </Col>
 
-          <h1 style={{marginBottom:"16px"}}>Berita Terbaru</h1>
-        </Col>
-    <Row justify="center" gutter={[0,24]} style={{ gap:"8px"}}> 
+    <Row justify="center" gutter={[0,24]} style={{ gap:"16px"}}> 
     {news.length > 0 &&
       news
         .slice(state.minValue, state.maxValue) 
@@ -67,10 +67,10 @@ export default function News() {
       <a href={item.url} target="_blank">
     <Col>
      <img src={item.urlToImage} alt="berita" className={style.img}/>
-     <p className={style.body3} style={{marginTop:"8px"}}>{dateFormat(item.publishedAt, "date-month-year")}</p>
+     <p className="body3" style={{marginTop:"14px", marginBottom:"8px"}}>{dateFormat(item.publishedAt, "date-month-year")}</p>
      <h4 style={{marginBottom:"16px"}}>{item.title}</h4>
-     <p className={style.body2} style={{textAlign:"justify"}}>{item.description.slice(0,90) + (item.description.length > 90 ? ' . . .' : '')}</p>
-     <p className={style.body3}><UserOutlined className={style.icon}/> {item.author}</p>
+     <p className="body2" style={{textAlign:"justify", marginBottom:"8px"}}>{item.description.slice(0,90) + (item.description.length > 90 ? ' . . .' : '')}</p>
+     <p className="body3" style={{marginBottom:"8px"}}><UserOutlined className={style.icon}/> {item.author}</p>
     </Col>
     </a>
     </Col>
