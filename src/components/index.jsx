@@ -13,6 +13,7 @@ import DashboardCard from "./DashboardCard";
 import DashboardRecentTable from "./DashboardRecentTable";
 import DashboardRegistrantTable from "./DashboardRegistrantTable";
 import ReactHelmet from "./ReactHelmet";
+import ListDashboardCard from "./ListDashboardCard";
 
 export {
   CustomButton,
@@ -30,4 +31,5 @@ export {
   DashboardRecentTable,
   DashboardRegistrantTable,
   ReactHelmet,
+  ListDashboardCard,
 };

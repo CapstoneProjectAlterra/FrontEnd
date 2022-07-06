@@ -1,35 +1,52 @@
 import { SearchOutlined } from "@ant-design/icons";
 import { Button, Col, Form, Input, Row, Table } from "antd";
 import Column from "antd/lib/table/Column";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import moment from "moment";
 
 import styles from "./DashboardRegistrantTable.module.css";
 
-const dataList = [];
+export default function DashboardRegistrantTable({ activities }) {
+  const [data, setData] = useState([]);
+  const [rawData, setRawData] = useState([]);
+  const [tableData, setTableData] = useState([]);
 
-for (let i = 1; i <= 100; i++) {
-  dataList.push({
-    id: i,
-    schedule_id: i,
-    full_name: "John Brown " + i,
-    booking_date: "01-01-2020 08:00:00",
-    booking_pass: i,
-  });
-}
+  useEffect(() => {
+    setRawData(activities);
+  }, [activities]);
 
-export default function DashboardRegistrantTable() {
-  const [data, setData] = useState(dataList);
+  useEffect(() => {
+    const filteredData = rawData.map((value) => {
+      return {
+        booking_id: value.booking_id,
+        nik: value.family?.nik,
+        name: value.family?.name,
+        booking_time: moment(value.booking?.booking_date, "hh:mm").format(
+          "HH:mm"
+        ),
+        booking_date: moment(value.booking?.booking_date, "dd-mm-yyy").format(
+          "DD-MM-YYYY"
+        ),
+        schedule_id: value.booking?.schedule?.id,
+        booking_pass: value.booking?.booking_pass,
+      };
+    });
+
+    setData(filteredData);
+    setTableData(filteredData);
+  }, [rawData]);
+
   const search = (values) => {
     const lowerCaseValue = values.keyword.toLowerCase().trim();
-    const filteredData = dataList.filter((value) =>
+    const filteredData = data.filter((value) =>
       Object.keys(value).some((key) =>
         value[key].toString().toLowerCase().includes(lowerCaseValue)
       )
     );
 
-    setData(filteredData);
+    setTableData(filteredData);
   };
+
   return (
     <div className={styles.container}>
       <Row
@@ -60,24 +77,22 @@ export default function DashboardRegistrantTable() {
         </Col>
       </Row>
       <Table
-        dataSource={data}
+        dataSource={tableData}
         pagination={{ position: ["bottomCenter"] }}
         scroll={{ x: 240 }}
-        rowKey="id"
+        rowKey="booking_id"
       >
-        <Column title="Id Pemesan" dataIndex="id" key="id" />
-        <Column title="Nama Pemesan" dataIndex="full_name" key="full_name" />
+        <Column title="NIK" dataIndex="nik" key="nik" />
+        <Column title="Nama Pemesan" dataIndex="name" key="name" />
         <Column
           title="Waktu Pesan"
-          dataIndex="booking_date"
+          dataIndex="booking_time"
           key="booking_time"
-          render={(value) => moment(value).format("HH:mm")}
         />
         <Column
           title="Tanggal Pesan"
           dataIndex="booking_date"
           key="booking_date"
-          render={(value) => moment(value).format("DD-MM-YYYY")}
         />
         <Column title="Id Sesi" dataIndex="schedule_id" key="schedule_id" />
         <Column

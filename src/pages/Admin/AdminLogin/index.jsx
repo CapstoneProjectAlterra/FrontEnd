@@ -18,7 +18,7 @@ export default function AdminLogin() {
     if (Cookies.get("token") && JSON.parse(Cookies.get("user")).roles === "ADMIN") {
       navigate("/admin");
     }
-  }, []);
+  });
 
   const onFinish = (values) => {
     const {username, password} = values;
