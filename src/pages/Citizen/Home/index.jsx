@@ -36,13 +36,14 @@ export default function Home() {
       });
   }, []);
 
-  // const count = useSelector((state) => state.counter.value);
-  // const dispatch = useDispatch();
-  // console.log(count);
+  const count = useSelector((state) => state.counter.value);
+  const dispatch = useDispatch();
+  console.log(count);
 
   return (
     <CitizenLayout auth={isAuthenticatedUser()}>
       <div>Home</div>
+      /*{" "}
       <div className="getData">
         <h1>Axios Fetching</h1>
         {data.map((value, idx) => (

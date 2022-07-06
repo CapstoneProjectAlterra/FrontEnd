@@ -10,6 +10,7 @@ import {
   Register,
   Ticket,
   Vaccine,
+  Login,
 } from "../pages/Citizen";
 
 import {
@@ -28,6 +29,7 @@ export default function RouteList() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/about" element={<About />} />
       <Route path="/news" element={<News />} />
       <Route path="/register" element={<Register />} />
