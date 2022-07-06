@@ -12,7 +12,7 @@ export default function DataPrivacy() {
         <Col span={20}>
           <Row justify="space-between" align="middle" className={styles.headContent}>
             <Col span={8}>
-              <h1>Kebijakan Privasi Data</h1>
+              <span className={styles.heading}>Kebijakan Privasi Data</span>
             </Col>
             <Col span={8}>
               <img src={SuntikVaksin} alt="people-doing-vaccine" width="100%" />

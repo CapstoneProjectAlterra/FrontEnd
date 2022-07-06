@@ -10,3 +10,21 @@
   background: var(--color-secondary-light);
   padding-block: 80px;
 }
+
+.heading {
+  font-size: var(--font-h1-size);
+  font-weight: var(--font-h1-weight);
+  line-height: var(--font-h1-lh);
+  letter-spacing: var(--font-h1-ls);
+  color: var(--color-heading);
+}
+
+@media screen and (max-width: 576px) {
+  .heading {
+    font-size: var(--font-h3-size);
+    font-weight: var(--font-h3-weight);
+    line-height: var(--font-h3-lh);
+    letter-spacing: var(--font-h3-ls);
+    color: var(--color-heading);
+  }
+}
