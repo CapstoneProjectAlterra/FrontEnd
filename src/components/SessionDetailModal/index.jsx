@@ -21,7 +21,7 @@ export default function SessionDetailModal({ data }) {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [data.booking_id]);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -47,7 +47,7 @@ export default function SessionDetailModal({ data }) {
       </Tooltip>
 
       <Modal
-        title="Detail Tiket"
+        title="Detail Pendaftar"
         visible={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}

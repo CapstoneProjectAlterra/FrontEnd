@@ -1,215 +1,66 @@
-import { Row, Col } from "antd";
+import { Row, Col, Spin } from "antd";
+import { useEffect, useState } from "react";
 import { TicketModal } from "..";
-
-const data = [
-  {
-    // Booking Table
-    id: 1,
-    booking_date: "2020-11-29",
-    booking_pass: 1,
-
-    // Booking Detail Table
-    family_id: 1,
-
-    // Family Table
-    date_of_birth: "1995-06-28",
-    email: "test@gmail.com",
-    full_name: "John Doe",
-    gender: "Laki-laki",
-    id_card_address: "Jalan Patipatipat no. 199 RT 08 RW 08 Bandung",
-    nik: "3171011708450001",
-    phone_number: "081234567890",
-    residence_address: "Jalan Patipatipat no. 199 RT 08 RW 08 Bandung",
-
-    // Health Facility Table
-    facility_name: "Rumah Sakit Borromeus",
-
-    // Schedule Table
-    dose: "1",
-    facility_id: 1,
-    vaccine_id: 1,
-    operational_hour_start: "09:00",
-    operational_hour_end: "10:00",
-    vaccination_date: "2022-06-18",
-
-    // VaccineType Table
-    vaccine_name: "Astra Zeneca",
-  },
-  {
-    // Booking Table
-    id: 2,
-    booking_date: "2020-11-29",
-    booking_pass: 2,
-
-    // Booking Detail Table
-    family_id: 1,
-
-    // Family Table
-    date_of_birth: "1995-06-28",
-    email: "test@gmail.com",
-    full_name: "Rober Davis",
-    gender: "Laki-laki",
-    id_card_address: "Jalan Patipatipat no. 199 RT 08 RW 08 Bandung",
-    nik: "3171011708450001",
-    phone_number: "081234567890",
-    residence_address: "Jalan Patipatipat no. 199 RT 08 RW 08 Bandung",
-
-    // Health Facility Table
-    facility_name: "Rumah Sakit Borromeus",
-
-    // Schedule Table
-    dose: "1",
-    facility_id: 1,
-    vaccine_id: 1,
-    operational_hour_start: "09:00",
-    operational_hour_end: "10:00",
-    vaccination_date: "2020-06-28",
-
-    // VaccineType Table
-    vaccine_name: "Astra Zeneca",
-  },
-  {
-    // Booking Table
-    id: 3,
-    booking_date: "2020-11-29",
-    booking_pass: 3,
-
-    // Booking Detail Table
-    family_id: 1,
-
-    // Family Table
-    date_of_birth: "1995-06-28",
-    email: "test@gmail.com",
-    full_name: "Jonathan",
-    gender: "Laki-laki",
-    id_card_address: "Jalan Patipatipat no. 199 RT 08 RW 08 Bandung",
-    nik: "3171011708450001",
-    phone_number: "081234567890",
-    residence_address: "Jalan Patipatipat no. 199 RT 08 RW 08 Bandung",
-
-    // Health Facility Table
-    facility_name: "Rumah Sakit Borromeus",
-
-    // Schedule Table
-    dose: "1",
-    facility_id: 1,
-    vaccine_id: 1,
-    operational_hour_start: "09:00",
-    operational_hour_end: "10:00",
-    vaccination_date: "2020-06-28",
-
-    // VaccineType Table
-    vaccine_name: "Astra Zeneca",
-  },
-  {
-    // Booking Table
-    id: 4,
-    booking_date: "2020-11-29",
-    booking_pass: 4,
-
-    // Booking Detail Table
-    family_id: 1,
-
-    // Family Table
-    date_of_birth: "1995-06-28",
-    email: "test@gmail.com",
-    full_name: "Rober Davis Chaniago",
-    gender: "Laki-laki",
-    id_card_address: "Jalan Patipatipat no. 199 RT 08 RW 08 Bandung",
-    nik: "3171011708450001",
-    phone_number: "081234567890",
-    residence_address: "Jalan Patipatipat no. 199 RT 08 RW 08 Bandung",
-
-    // Health Facility Table
-    facility_name: "Rumah Sakit Borromeus",
-
-    // Schedule Table
-    dose: "1",
-    facility_id: 1,
-    vaccine_id: 1,
-    operational_hour_start: "09:00",
-    operational_hour_end: "10:00",
-    vaccination_date: "2020-06-28",
-
-    // VaccineType Table
-    vaccine_name: "Astra Zeneca",
-  },
-  {
-    // Booking Table
-    id: 5,
-    booking_date: "2020-11-29",
-    booking_pass: 5,
-
-    // Booking Detail Table
-    family_id: 1,
-
-    // Family Table
-    date_of_birth: "1995-06-28",
-    email: "test@gmail.com",
-    full_name: "Rober Davis Chaniago",
-    gender: "Laki-laki",
-    id_card_address: "Jalan Patipatipat no. 199 RT 08 RW 08 Bandung",
-    nik: "3171011708450001",
-    phone_number: "081234567890",
-    residence_address: "Jalan Patipatipat no. 199 RT 08 RW 08 Bandung",
-
-    // Health Facility Table
-    facility_name: "Rumah Sakit Borromeus",
-
-    // Schedule Table
-    dose: "1",
-    facility_id: 1,
-    vaccine_id: 1,
-    operational_hour_start: "09:00",
-    operational_hour_end: "10:00",
-    vaccination_date: "2020-06-28",
-
-    // VaccineType Table
-    vaccine_name: "Astra Zeneca",
-  },
-  {
-    // Booking Table
-    id: 6,
-    booking_date: "2020-11-29",
-    booking_pass: 6,
-
-    // Booking Detail Table
-    family_id: 1,
-
-    // Family Table
-    date_of_birth: "1995-06-28",
-    email: "test@gmail.com",
-    full_name: "Rober Davis Chaniago",
-    gender: "Laki-laki",
-    id_card_address: "Jalan Patipatipat no. 199 RT 08 RW 08 Bandung",
-    nik: "3171011708450001",
-    phone_number: "081234567890",
-    residence_address: "Jalan Patipatipat no. 199 RT 08 RW 08 Bandung",
-
-    // Health Facility Table
-    facility_name: "Rumah Sakit Borromeus",
-
-    // Schedule Table
-    dose: "1",
-    facility_id: 1,
-    vaccine_id: 1,
-    operational_hour_start: "09:00",
-    operational_hour_end: "10:00",
-    vaccination_date: "2020-06-28",
-
-    // VaccineType Table
-    vaccine_name: "Astra Zeneca",
-  },
-];
+import axiosInstance from "../../networks/apis";
+import { getUserId } from "../../utils/helpers/Auth";
 
 export default function TicketList() {
+  const [loading, setLoading] = useState(false);
+  const [bookingIds, setBookingIds] = useState([]);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    setLoading(true);
+    axiosInstance
+      .get("/booking", { data: "" })
+      .then((response) => {
+        setBookingIds(
+          response.data.data
+            .filter((item) => item.user.id === getUserId())
+            .map((item) => item.id)
+        );
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    setLoading(true);
+    axiosInstance
+      .get("/detail", { data: "" })
+      .then((response) => {
+        setData(
+          // Filter detail by booking id
+          response.data.data.filter(
+            (item) => bookingIds.indexOf(item.booking_id) !== -1
+          )
+        );
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+      });
+  }, [bookingIds]);
+
   return (
-    <Row gutter={[76, 48]} justify="space-between">
-      {data.map((item) => (
-        <Col xs={24} md={12} lg={8} key={item.id}>
-          <TicketModal data={item} key={item.id} />
-        </Col>
-      ))}
-    </Row>
+    <>
+      {loading ? (
+        <Row align="middle" justify="center">
+          <Spin />
+        </Row>
+      ) : (
+        <Row gutter={[76, 48]}>
+          {data.map((item) => (
+            <Col xs={24} md={12} lg={8} key={item.booking_id + item.family_id}>
+              <TicketModal data={item} key={item.booking_id + item.family_id} />
+            </Col>
+          ))}
+        </Row>
+      )}
+    </>
   );
 }
