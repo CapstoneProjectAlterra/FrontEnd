@@ -31,17 +31,17 @@ const team = [
   {
       key: "1",
       name: "Muhammad Rafli",
-      role: "UI Designer",
+      role: "UI Engineer",
       description: "Mahasiswa Teknologi Industri Pertanian Unpad. Bertanggung jawab dalam merancang design system sekaligus membuat komponennya menggunakan React dan Ant Design",
-      img: "assets/illustration/dummy-photos.png",
+      img: "assets/illustration/rafli.png",
       linkedin: "https://www.linkedin.com/in/muhammadrafli49/"
   },
   {
       key: "2",
       name: "Cut Putri Khairani",
-      role: "UI UX",
-      description: "Mahasiswa UPNVJ. Bertanggungjawab dalam hal pengujian aplikasi secara manual dan automation menggunakan beberapa tools seperti Postman, Katalon Studio, dan Excel.",
-      img: "assets/illustration/dummy-photos.png",
+      role: "UI/UX Designer",
+      description: "Mahasiswa Universitas Maritim Raja Ali Haji. Bertanggung jawab dalam membuat design wireframes serta mockup website dan mobile dengan menggunakan figma. ",
+      img: "assets/illustration/icut.png",
       linkedin: "https://www.linkedin.com/in/cut-putri-khairani-5634b7241/"
   },
   {
@@ -49,80 +49,80 @@ const team = [
       name: "Harnanda Rafika Anjani",
       role: "Quality Engineer",
       description: "Mahasiswa UPNVJ. Bertanggungjawab dalam hal pengujian aplikasi secara manual dan automation menggunakan beberapa tools seperti Postman, Katalon Studio, dan Excel.",
-      img: "assets/illustration/dummy-photos.png",
+      img: "assets/illustration/nanda.png",
       linkedin: "https://www.linkedin.com/in/harnanda-rafika-anjani-8b2547207/"
   },
   {
       key: "4",
       name: "Rizco Renova",
-      role: "Flutter",
-      description: "Mahasiswa Teknologi Industri Pertanian Unpad. Bertanggung jawab dalam merancang design system sekaligus membuat komponennya menggunakan React dan Ant Design",
-      img: "assets/illustration/dummy-photos.png",
+      role: "Mobile Engineer Flutter",
+      description: "Mahasiswa Universitas Bina Sarana Informatika Margonda Depok. Dalam project ini saya bertanggung jawab dalam pembuatan aplikasi mobile dengan menggunakan flutter, khususnya untuk android.",
+      img: "assets/illustration/rizco.png",
       linkedin: "https://www.linkedin.com/in/rizco-renova-490059240/"
   },
   {
       key: "5",
       name: "Dimas Senjani Sukma",
-      role: "Back End",
-      description: "Mahasiswa Teknologi Industri Pertanian Unpad. Bertanggung jawab dalam merancang design system sekaligus membuat komponennya menggunakan React dan Ant Design",
-      img: "assets/illustration/dummy-photos.png",
+      role: "Back End Engineer Java Spring Boot",
+      description: "Mahasiswa Universitas Komputer Indonesia. Dalam project ini bertanggung jawab dalam pembuatan REST API menggunakan framework Spring Boot berbasis Java.",
+      img: "assets/illustration/dimas.png",
       linkedin: "https://www.linkedin.com/in/dimas-senjani-sukma-425298226/"
   },
   {
       key: "6",
       name: "Achmad Solehuddin",
-      role: "Front End React JS",
+      role: "Front End Developer",
       description: "Universitas Pembangunan Nasional Veteran Jakarta Bertanggungjawab dalam membuat tampilan front end website dengan React JS.",
-      img: "assets/illustration/dummy-photos.png",
+      img: "assets/illustration/achmad.png",
       linkedin: "https://www.linkedin.com/in/achmad-solehuddin-4b145218b/"
   },
   {
       key: "7",
       name: "Nur Laili Amalia",
-      role: "Front End",
-      description: "Mahasiswa Teknologi Industri Pertanian Unpad. Bertanggung jawab dalam merancang design system sekaligus membuat komponennya menggunakan React dan Ant Design",
-      img: "assets/illustration/dummy-photos.png",
+      role: "Front End React JS",
+      description: "Mahasiswa Teknik Infomartika Universitas Brawijaya. Bertanggungjawab dalam pembuatan website dengan menggunakan React JS.",
+      img: "assets/illustration/laili.png",
       linkedin: "https://id.linkedin.com/in/nur-laili-amalia-203aa5215"
   },
   {
       key: "8",
       name: "Muh Khadavy",
-      role: "Back End",
-      description: "Mahasiswa Teknologi Industri Pertanian Unpad. Bertanggung jawab dalam merancang design system sekaligus membuat komponennya menggunakan React dan Ant Design",
-      img: "assets/illustration/dummy-photos.png",
+      role: "Back End Engineer Java Spring Boot",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      img: "assets/illustration/khadavy.png",
       linkedin: "https://www.linkedin.com/in/muhkhadavy/"
   },
   {
       key: "9",
       name: "Moch Nasichun Amin",
-      role: "Front End",
+      role: "Front End React JS",
       description: "Mahasiswa Teknologi Industri Pertanian Unpad. Bertanggung jawab dalam merancang design system sekaligus membuat komponennya menggunakan React dan Ant Design",
-      img: "assets/illustration/dummy-photos.png",
+      img: "assets/illustration/amin.png",
       linkedin: "https://www.linkedin.com/in/nasichun-amin-b2ba42161/"
   },
   {
       key: "10",
       name: "Muhammad Asraf Takayuma",
-      role: "Front End",
-      description: "Mahasiswa Teknologi Industri Pertanian Unpad. Bertanggung jawab dalam merancang design system sekaligus membuat komponennya menggunakan React dan Ant Design",
+      role: "Front End React JS",
+      description: "Mahasiswa Informatika Universitas Jember. Betanggung jawab dalam hal front end website dengan mengerjakan fitur, profile admin, vaksin admin, dan profile citizen",
       img: "assets/illustration/dummy-photos.png",
       linkedin: "https://www.linkedin.com/in/takayumaja/"
   },
   {
       key: "11",
       name: "Arika",
-      role: "Back End",
-      description: "Mahasiswa Teknologi Industri Pertanian Unpad. Bertanggung jawab dalam merancang design system sekaligus membuat komponennya menggunakan React dan Ant Design",
-      img: "assets/illustration/dummy-photos.png",
+      role: "Back End Engineer Java Spring Boot",
+      description: "Mahasiswa Matematika Universitas Samudra",
+      img: "assets/illustration/arika.png",
       linkedin: "http://www.linkedin.com/in/arika-arika-730712241"
   },
   {
       key: "12",
       name: "M. Abdush Shidqi",
-      role: "UI UX",
-      description: "Mahasiswa Teknologi Industri Pertanian Unpad. Bertanggung jawab dalam merancang design system sekaligus membuat komponennya menggunakan React dan Ant Design",
-      img: "assets/illustration/dummy-photos.png",
-      linkedin: "./"
+      role: "UI/UX Designer",
+      description: "Mahasiswa Teknik Infomartika Politeknik Negeri Malang. Bertanggungjawab dalam pembuatan desain website dengan menggunakan Figma.",
+      img: "assets/illustration/diki.png",
+      linkedin: "http://www.linkedin.com/"
   },
 
 ];
@@ -163,7 +163,7 @@ export default function About() {
       <Row className={style.layanan} justify="center" gutter={[0,48]} style={{paddingLeft:"48px", paddingRight:"48px", gap:"64px"}}>
             {layanan.map(item => {
               return (
-                <Col lg= {{span: 6}} xs={{span: 15}} key={item.key} justify="center" className={style.col1}>
+                <Col lg= {{span: 6}} md={{span:15}} xs={{span: 20}} key={item.key} justify="center" className={style.col1}>
                   <Col>
                   <img src={require(`../../../${item.img}`)} alt="layanan" className={style.img}/>
                   <h4 className={style.textcontent}>{item.title}</h4>
@@ -181,7 +181,7 @@ export default function About() {
       <Row justify="center" gutter={[0,48]} style={{paddingLeft:"48px", paddingRight:"48px", gap:"64px"}}>   
       {team.map(item => {
         return (
-          <Col lg= {{span: 6}} xs={{span: 10}} key={item.key} justify="center">
+          <Col lg= {{span: 6}} md={{span:10}} xs={{span: 20}} key={item.key} justify="center">
             <Col>
             <img src={require(`../../../${item.img}`)} alt="team" className={style.img}/>
             <div>
