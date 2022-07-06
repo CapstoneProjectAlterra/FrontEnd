@@ -20,7 +20,7 @@ export default function ReactHelmet() {
     "/admin/profile": "Profil Admin",
     "/admin/vaccine": "Kelola Vaksin",
     "/admin/session": "Kelola Sesi",
-    [`/admin/session/${sessionId}`]: "Kelola Sesi",
+    [`/admin/session/${sessionId}`]: "Detail Sesi",
     "/admin/login": "Login Admin",
     "/admin/*": "Halaman Tidak Ditemukan",
     "*": "Halaman Tidak Ditemukan",
