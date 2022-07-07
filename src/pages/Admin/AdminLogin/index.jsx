@@ -1,5 +1,5 @@
 import { Form, Input, Row, Col, Alert } from "antd";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { LogoSecondary } from "../../../assets";
 import { CustomButton, CustomInput } from "../../../components";
 import style from "./AdminLogin.module.css";
@@ -7,20 +7,12 @@ import style from "./AdminLogin.module.css";
 import axiosInstance from "../../../networks/apis";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import ReactHelmet from "../../../components/ReactHelmet";
 
 export default function AdminLogin() {
   let navigate = useNavigate();
   const [alertToggle, setAlertToggle] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (
-      Cookies.get("token") &&
-      JSON.parse(Cookies.get("user")).roles === "ADMIN"
-    ) {
-      navigate("/admin");
-    }
-  }, []);
 
   const onFinish = (values) => {
     const { username, password } = values;
@@ -37,6 +29,7 @@ export default function AdminLogin() {
           Cookies.set(
             "user",
             JSON.stringify({
+              user_id: response.data.data.user_id,
               username: response.data.data.username,
               roles: response.data.data.roles[0],
             })
@@ -61,6 +54,7 @@ export default function AdminLogin() {
 
   return (
     <div className={style.loginPage}>
+      <ReactHelmet />
       <div className={style.container}>
         <img
           src={LogoSecondary}

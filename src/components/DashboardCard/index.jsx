@@ -6,7 +6,7 @@ import { Row, Col } from "antd";
 export default function DashboardCard({ icons, title, value }) {
   return (
     <div className={style.container}>
-      <Row justify="space-between" align="middle">
+      <Row align="middle">
         <Col span={6}>
           <div className={style.icons}>{icons}</div>
         </Col>

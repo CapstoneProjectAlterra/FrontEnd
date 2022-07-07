@@ -2,11 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 // React Router
-import { BrowserRouter } from "react-router-dom";
+import {BrowserRouter} from "react-router-dom";
 
 // Redux
-import { Provider } from "react-redux";
-import { store } from "./store";
+import {Provider} from "react-redux";
+import {store} from "./store";
 
 // Ant Design
 import "antd/dist/antd.css";
@@ -18,12 +18,16 @@ import "./index.css";
 import App from "./App";
 
 import reportWebVitals from "./reportWebVitals";
+// Helmet
+import {HelmetProvider} from "react-helmet-async";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+        <HelmetProvider>
+          <App />
+        </HelmetProvider>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,
