@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Row, Col, Alert } from "antd";
+import { Form, Input, Row, Col, Alert, message } from "antd";
 import { CustomButton, CustomInput } from "../../../components";
 import { imgLogin } from "../../../assets";
 import style from "./RegisterCitizen.module.css";
@@ -36,15 +36,20 @@ const RegisterCitizen = () => {
         // don't have a token data in reponse payload. to get
         // it, user must log in manually.
         setIsLoading(false);
-        navigate("/login");
+        if (response.status === 200) {
+          message.success("Registrasi berhasil, silahkan login");
+          navigate("/login");
+        }
       })
       .catch((error) => {
-        setIsAlertTriggered(true);
-        setTimeout(() => {
-          setIsAlertTriggered(false);
-        }, 3000);
+        if (error.response.status === 409) {
+          setIsAlertTriggered(true);
+          setTimeout(() => {
+            setIsAlertTriggered(false);
+          }, 2000);
+        }
+        setIsLoading(false);
       });
-    // .finally(() => setIsLoading(false));
   };
 
   return (
@@ -57,9 +62,6 @@ const RegisterCitizen = () => {
               name="basic"
               form={form}
               layout="vertical"
-              initialValues={{
-                remember: true,
-              }}
               onFinish={handleSubmit}
               requiredMark={false}
               autoComplete="off"
@@ -67,6 +69,16 @@ const RegisterCitizen = () => {
               <Form.Item style={{ marginBottom: "16px" }}>
                 <h2>Register</h2>
               </Form.Item>
+              {isAlertTriggered && (
+                <Alert
+                  message="NIK sudah terdaftar"
+                  type="warning"
+                  showIcon
+                  style={{
+                    marginBottom: "8px",
+                  }}
+                />
+              )}
               <Form.Item
                 label="NIK"
                 name="nik"
