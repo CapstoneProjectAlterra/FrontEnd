@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col } from "antd";
 import { LandingPage } from "../../../assets";
 import style from './Home.module.css'
 import CustomButton from "../../../components/CustomButton";
 import { UserOutlined } from '@ant-design/icons';
-import { useState, useEffect } from "react";
 import axios from "axios";
 import dateFormat from '../../../utils/helpers/dateFormat';
+import { Link, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const alur = [
   {
@@ -110,7 +111,15 @@ const faskes = [
   },
 ]
 
-export default function Home() {
+export default function Home( auth ) {
+
+  const navigate = useNavigate();
+  const logout = () => {
+    Cookies.remove("token");
+    Cookies.remove("user");
+    navigate("/login");
+  };
+
   const [state, setState] = useState({
     minValue: 0,
     maxValue: 3,
@@ -187,7 +196,10 @@ export default function Home() {
           </Row>
           </Row>
 
-    <h2 className={style.textjudul}>Berita Terbaru</h2>
+    <Row span={22} justify="space-between" style={{alignItems:"center", paddingLeft:"160px", paddingRight:"160px", marginTop:"88px"}}>
+    <h2>Berita Terbaru</h2>
+    <Link to="/news" style={{color:"var(--color-primary)"}}>Lebih Banyak &gt;</Link>
+    </Row>
 
     <Row justify="center" gutter={[0,24]} style={{gap:"77px"}}> 
         {news.length > 0 &&
@@ -195,7 +207,7 @@ export default function Home() {
         .slice(state.minValue, state.maxValue) 
         .map((item, itemTdx) => {
         return (
-    <Col lg= {{span: 5}} xs={{span: 16}} key={itemTdx} className={style.col}>
+    <Col lg= {{span: 5}} md={{span:10}} xs={{span: 16}} key={itemTdx} className={style.col}>
       <a href={item.url} target="_blank">
     <Col>
      <img src={item.urlToImage} alt="berita" className={style.imgberita}/>
