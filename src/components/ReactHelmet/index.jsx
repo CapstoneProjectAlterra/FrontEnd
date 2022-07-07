@@ -1,12 +1,13 @@
 import React from "react";
-import {Helmet} from "react-helmet-async";
-import {useLocation, useParams} from "react-router-dom";
+import { Helmet } from "react-helmet-async";
+import { useLocation, useParams } from "react-router-dom";
 
 export default function ReactHelmet() {
-  const {sessionId, id} = useParams();
+  const { sessionId, id } = useParams();
   const location = useLocation();
   const LIST_PAGE_NAME = {
     "/": "Home",
+    "/login": "Login",
     "/about": "Tentang Kami",
     "/news": "Berita Terkini",
     "/register": "Registrasi",

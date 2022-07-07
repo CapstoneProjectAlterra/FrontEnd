@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form, Input, Row, Col, Alert } from "antd";
 import Cookies from "js-cookie";
 import style from "./LoginCitizen.module.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CustomButton, CustomInput } from "../../../components";
 import { imgLogin } from "../../../assets";
 import axiosInstance from "../../../networks/apis";
@@ -10,12 +10,6 @@ import CitizenLayout from "../../../layouts/CitizenLayout";
 import { isAuthenticatedUser } from "../../../utils/helpers/Auth";
 
 export default function Login() {
-  //Test Dummy
-  const data = {
-    NIK: "1234567890",
-    Password: "User123",
-  };
-
   //Logic Alert
   const navigate = useNavigate();
   const [isAlertTriggered, setIsAlertTriggered] = useState(false);
@@ -26,6 +20,7 @@ export default function Login() {
 
   const handleSubmit = (values) => {
     const { nik, password } = values;
+    setIsLoading(true);
     axiosInstance
       .post("/auth/login", {
         username: nik,
@@ -65,97 +60,98 @@ export default function Login() {
 
   return (
     <CitizenLayout auth={isAuthenticatedUser}>
-      <div className={style.body}>
-        <Row className={style.container}>
-          <Col>
-            <div className="content">
-              <Row>
-                <Col span={14} className={style.form}>
-                  <Form
-                    name="basic"
-                    form={form}
-                    layout="vertical"
-                    requiredMark={false}
-                    initialValues={{
-                      remember: true,
-                    }}
-                    onFinish={handleSubmit}
-                    autoComplete="off"
-                  >
-                    <Form.Item style={{ marginBottom: "16px" }}>
-                      <h2>Login</h2>
-                    </Form.Item>
-                    <Form.Item
-                      label="NIK"
-                      name="nik"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Masukkan NIK Anda!",
-                        },
-                        {
-                          pattern: /^(?:\d*)$/,
-                          message: "Input harus berupa angka!",
-                        },
-                      ]}
-                    >
-                      <CustomInput />
-                    </Form.Item>
+      <div className={style.container}>
+        <Row className={style.body}>
+          <Col xs={24} md={14} className={style.formContainer}>
+            <Form
+              className={style.form}
+              name="basic"
+              form={form}
+              layout="vertical"
+              requiredMark={false}
+              initialValues={{
+                remember: true,
+              }}
+              onFinish={handleSubmit}
+              autoComplete="off"
+            >
+              <Form.Item style={{ marginBottom: "16px" }}>
+                <h2>Login</h2>
+              </Form.Item>
+              <Form.Item
+                label="NIK"
+                name="nik"
+                rules={[
+                  {
+                    required: true,
+                    message: "Masukkan NIK Anda!",
+                  },
+                  {
+                    pattern: /^(?:\d*)$/,
+                    message: "Input harus berupa angka!",
+                  },
+                ]}
+              >
+                <CustomInput placeholder="Masukkan NIK Anda" />
+              </Form.Item>
 
-                    <Form.Item
-                      label="Password"
-                      name="password"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Masukkan Password Anda!",
-                        },
-                      ]}
-                    >
-                      <Input.Password className="input" />
-                    </Form.Item>
-                    {isAlertTriggered && (
-                      <Alert
-                        message="NIK atau Password Salah"
-                        type="warning"
-                        showIcon
-                        style={{
-                          marginBottom: "6px",
-                        }}
-                      />
-                    )}
-                    <p>
-                      Apakah anda belum memiliki akun?
-                      <br />
-                      Silahkan <a href="/register"> Register</a>
-                    </p>
+              <Form.Item
+                label="Password"
+                name="password"
+                rules={[
+                  {
+                    required: true,
+                    message: "Masukkan Password Anda!",
+                  },
+                ]}
+              >
+                <Input.Password
+                  className="input"
+                  placeholder="Masukkan Password Anda"
+                />
+              </Form.Item>
+              {isAlertTriggered && (
+                <Alert
+                  message="NIK atau Password Salah"
+                  type="warning"
+                  showIcon
+                  style={{
+                    marginBottom: "6px",
+                  }}
+                />
+              )}
 
-                    <Form.Item>
-                      <CustomButton
-                        loading={isLoading}
-                        variant="primary"
-                        key="submit"
-                        htmlType="submit"
-                        block
-                        style={{ marginTop: "32px" }}
-                      >
-                        Login
-                      </CustomButton>
-                    </Form.Item>
-                  </Form>
-                </Col>
-                <Col span={10} className={style.illustration}>
-                  <img
-                    src={imgLogin}
-                    alt="illustrationLogin"
-                    className={style.image}
-                  />
-                </Col>
-              </Row>
-            </div>
+              <Form.Item>
+                <CustomButton
+                  loading={isLoading}
+                  variant="primary"
+                  key="submit"
+                  htmlType="submit"
+                  block
+                  style={{ marginTop: "32px" }}
+                >
+                  Login
+                </CustomButton>
+              </Form.Item>
+              <p className={`${style.link} ${style.linkMobile} body1-m`}>
+                Anda belum punya akun? silahkan
+                <Link to="/register"> Register</Link>
+              </p>
+            </Form>
+          </Col>
+          <Col md={10} className={style.illustration}>
+            <img
+              src={imgLogin}
+              alt="illustrationLogin"
+              className={style.image}
+            />
           </Col>
         </Row>
       </div>
+      <p className={`${style.link} body1-m`}>
+        Anda belum punya akun? silahkan
+        <Link to="/register"> Register</Link>
+      </p>
     </CitizenLayout>
   );
 }

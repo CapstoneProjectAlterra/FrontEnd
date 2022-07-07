@@ -1,6 +1,6 @@
-import {Col, Row} from "antd";
+import { Col, Row } from "antd";
 import React from "react";
-import {LogoPrimary} from "../../assets";
+import { LogoPrimary } from "../../assets";
 import style from "./index.module.css";
 import {
   MailOutlined,
@@ -9,7 +9,7 @@ import {
   EnvironmentOutlined,
   AndroidFilled,
 } from "@ant-design/icons";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import CustomButton from "../CustomButton";
 
 function Footer() {
@@ -18,9 +18,14 @@ function Footer() {
       <Row className={style.footer} gutter={[0, 16]}>
         <Col lg={12} md={24} sm={24} xs={24} className="gutter-row">
           <img src={LogoPrimary} alt="logo" />
-          <h5 className={style.body1}>Dapatkan vaksin dengan mudah tanpa mengganggu kesibukanmu</h5>
+          <h5 className={style.body1}>
+            Dapatkan vaksin dengan mudah tanpa mengganggu kesibukanmu
+          </h5>
           <p className={style.body1}>Tesedia juga untuk: </p>
-          <CustomButton icon={<AndroidFilled />} style={{color: "var(--color-primary)"}}>
+          <CustomButton
+            icon={<AndroidFilled />}
+            style={{ color: "var(--color-primary)" }}
+          >
             Android
           </CustomButton>
         </Col>
@@ -37,7 +42,7 @@ function Footer() {
             </Link>
           </p>
           <p className={style.body1}>
-            <Link to="faq" className={style.link}>
+            <Link to="/faq" className={style.link}>
               FAQ
             </Link>
           </p>
@@ -53,27 +58,40 @@ function Footer() {
             <Col className="gutter-row" span={24}>
               <Row gutter={8}>
                 <Col flex="24px">
-                  <MailOutlined style={{fontSize: "24px"}} className="gutter-row" />
+                  <MailOutlined
+                    style={{ fontSize: "24px" }}
+                    className="gutter-row"
+                  />
                 </Col>
                 <Col flex="auto">
-                  <span className={`${style.body1} gutter-row`}>getvaccine@gmail.com</span>
+                  <span className={`${style.body1} gutter-row`}>
+                    getvaccine@gmail.com
+                  </span>
                 </Col>
               </Row>
             </Col>
             <Col className="gutter-row" span={24}>
               <Row gutter={8}>
                 <Col flex="24px">
-                  <PhoneOutlined style={{fontSize: "24px"}} className="gutter-row" />
+                  <PhoneOutlined
+                    style={{ fontSize: "24px" }}
+                    className="gutter-row"
+                  />
                 </Col>
                 <Col flex="auto">
-                  <span className={`${style.body1} gutter-row`}>089723829832</span>
+                  <span className={`${style.body1} gutter-row`}>
+                    089723829832
+                  </span>
                 </Col>
               </Row>
             </Col>
             <Col className="gutter-row" span={24}>
               <Row gutter={8}>
                 <Col flex="24px">
-                  <EnvironmentOutlined style={{fontSize: "24px"}} className="gutter-row" />
+                  <EnvironmentOutlined
+                    style={{ fontSize: "24px" }}
+                    className="gutter-row"
+                  />
                 </Col>
                 <Col span={20}>
                   <span className={`${style.body1} gutter-row`}>
@@ -85,10 +103,15 @@ function Footer() {
             <Col className="gutter-row" span={24}>
               <Row gutter={8}>
                 <Col flex="24px">
-                  <InstagramOutlined style={{fontSize: "24px"}} className="gutter-row" />
+                  <InstagramOutlined
+                    style={{ fontSize: "24px" }}
+                    className="gutter-row"
+                  />
                 </Col>
                 <Col flex="auto">
-                  <span className={`${style.body1} gutter-row`}>getvaccine</span>
+                  <span className={`${style.body1} gutter-row`}>
+                    getvaccine
+                  </span>
                 </Col>
               </Row>
             </Col>
