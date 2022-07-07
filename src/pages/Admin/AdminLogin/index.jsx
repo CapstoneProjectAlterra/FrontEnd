@@ -1,5 +1,5 @@
 import { Form, Input, Row, Col, Alert } from "antd";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { LogoSecondary } from "../../../assets";
 import { CustomButton, CustomInput } from "../../../components";
 import style from "./AdminLogin.module.css";

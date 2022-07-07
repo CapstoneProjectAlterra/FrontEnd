@@ -8,7 +8,6 @@ export default function ReactHelmet() {
   const LIST_PAGE_NAME = {
     "/": "Home",
     "/login": "Login",
-    "/register": "Register",
     "/about": "Tentang Kami",
     "/news": "Berita Terkini",
     "/register": "Registrasi",
