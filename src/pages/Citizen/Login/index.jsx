@@ -49,13 +49,12 @@ export default function Login() {
         }
       })
       .catch((error) => {
-        console.log(error);
         setIsAlertTriggered(true);
         setTimeout(() => {
           setIsAlertTriggered(false);
         }, 2000);
-      });
-    // .finally(() => setIsLoading(false));
+      })
+      .finally(() => setIsLoading(false));
   };
 
   return (
@@ -78,6 +77,16 @@ export default function Login() {
               <Form.Item style={{ marginBottom: "16px" }}>
                 <h2>Login</h2>
               </Form.Item>
+              {isAlertTriggered && (
+                <Alert
+                  message="NIK atau Password Salah"
+                  type="warning"
+                  showIcon
+                  style={{
+                    marginBottom: "8px",
+                  }}
+                />
+              )}
               <Form.Item
                 label="NIK"
                 name="nik"
@@ -110,16 +119,6 @@ export default function Login() {
                   placeholder="Masukkan Password Anda"
                 />
               </Form.Item>
-              {isAlertTriggered && (
-                <Alert
-                  message="NIK atau Password Salah"
-                  type="warning"
-                  showIcon
-                  style={{
-                    marginBottom: "6px",
-                  }}
-                />
-              )}
 
               <Form.Item>
                 <CustomButton

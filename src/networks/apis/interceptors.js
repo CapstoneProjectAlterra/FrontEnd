@@ -1,4 +1,3 @@
-import { Navigate } from "react-router-dom";
 import { getToken } from "../../utils/helpers/Auth";
 
 export const isHandlerEnabled = (config) => {
@@ -27,8 +26,5 @@ export const successHandler = (response) => {
 };
 
 export const errorHandler = (error) => {
-  if (isHandlerEnabled(error.config)) {
-    return <Navigate to="/" replace />;
-  }
   return Promise.reject({ ...error });
 };
