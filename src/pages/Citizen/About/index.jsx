@@ -5,10 +5,7 @@ import style from "./About.module.css";
 import { LinkedinFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import CitizenLayout from "../../../layouts/CitizenLayout";
-import {
-  isAuthenticatedAdmin,
-  isAuthenticatedUser,
-} from "../../../utils/helpers/Auth";
+import { isAuthenticatedUser } from "../../../utils/helpers/Auth";
 
 const layanan = [
   {
