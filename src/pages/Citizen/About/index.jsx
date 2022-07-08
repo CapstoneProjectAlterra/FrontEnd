@@ -147,7 +147,7 @@ export default function About() {
   return (
     <>
       <CitizenLayout auth={isAuthenticatedUser()} padding={false}>
-        <Col span={20} offset={2}>
+        <Col span={20} offset={2} style={{ paddingTop: "40px" }}>
           <Breadcrumb
             className={style.breadcrumb}
             style={{ marginBottom: "24px" }}>
@@ -217,7 +217,12 @@ export default function About() {
         <Row
           justify='center'
           gutter={[0, 48]}
-          style={{ paddingLeft: "48px", paddingRight: "48px", gap: "64px" }}>
+          style={{
+            paddingLeft: "48px",
+            paddingRight: "48px",
+            paddingBottom: "104px",
+            gap: "64px",
+          }}>
           {team.map((item) => {
             return (
               <Col
