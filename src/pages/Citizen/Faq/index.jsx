@@ -11,7 +11,7 @@ export default function Faq() {
   return (
     <>
       <CitizenLayout auth={isAuthenticatedUser()}>
-        <Col span={20} offset={2}>
+        <Col span={20} offset={2} style={{ paddingTop: "40px" }}>
           <Breadcrumb
             className={style.breadcrumb}
             style={{ marginBottom: "16px" }}>
@@ -24,8 +24,8 @@ export default function Faq() {
           </Breadcrumb>
         </Col>
         <h1 className={style.title}>FAQ</h1>
-        <Row justify='center'>
-          <Col span={16}>
+        <Row justify='center' style={{ paddingBottom: "88px" }}>
+          <Col lg={{ span: 16 }} xs={{ span: 24 }}>
             <Collapse defaultActiveKey={[]}>
               <Panel
                 className={style.panel}
