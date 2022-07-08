@@ -4,6 +4,11 @@ import { AboutUs } from "../../../assets";
 import style from "./About.module.css";
 import { LinkedinFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import CitizenLayout from "../../../layouts/CitizenLayout";
+import {
+  isAuthenticatedAdmin,
+  isAuthenticatedUser,
+} from "../../../utils/helpers/Auth";
 
 const layanan = [
   {
@@ -141,113 +146,115 @@ const team = [
 export default function About() {
   return (
     <>
-      <Col span={20} offset={2}>
-        <Breadcrumb
-          className={style.breadcrumb}
-          style={{ marginBottom: "24px" }}>
-          <Breadcrumb.Item>
-            <Link to='/'>Home</Link>
-          </Breadcrumb.Item>
-          <Breadcrumb.Item>
-            <Link to='/about'>About</Link>
-          </Breadcrumb.Item>
-        </Breadcrumb>
-      </Col>
-
-      <Row justify='center' style={{ marginBottom: "100px" }}>
-        <Col lg={{ span: 8, offset: 1 }} xs={{ span: 20 }} justify='end'>
-          <img src={AboutUs} alt='aboutus' className={style.img} />
+      <CitizenLayout auth={isAuthenticatedUser()} padding={false}>
+        <Col span={20} offset={2}>
+          <Breadcrumb
+            className={style.breadcrumb}
+            style={{ marginBottom: "24px" }}>
+            <Breadcrumb.Item>
+              <Link to='/'>Home</Link>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>
+              <Link to='/about'>About</Link>
+            </Breadcrumb.Item>
+          </Breadcrumb>
         </Col>
-        <Col lg={{ span: 9 }} xs={{ span: 20 }}>
-          <h1 style={{ marginTop: "24px" }}>Tentang Kami</h1>
-          <p className='body1' style={{ marginTop: "48px" }}>
-            GetVaccine merupakan aplikasi yang dibangun untuk membantu
-            pemerintah dalam penyelenggaraan vaksinasi COVID-19.
-          </p>
-          <p className='body1' style={{ marginTop: "30px" }}>
-            GetVaccine memberikan fasilitas bagi masyarakat dalam rangka
-            kemudahan pelayanan booking sesi vaksinasi. Selain itu, GetVaccine
-            dibangun sebagai layanan yang dapat digunakan sesuai kebutuhan
-            pengguna baik dari segi masyarakat maupun fasilitas kesehatan.
-          </p>
-        </Col>
-      </Row>
 
-      <span className={style.span}>
-        <h2 style={{ margin: "48px" }}>Layanan</h2>{" "}
-      </span>
-      <Row
-        className={style.layanan}
-        justify='center'
-        gutter={[0, 48]}
-        style={{ paddingLeft: "48px", paddingRight: "48px", gap: "64px" }}>
-        {layanan.map((item) => {
-          return (
-            <Col
-              lg={{ span: 6 }}
-              md={{ span: 15 }}
-              xs={{ span: 20 }}
-              key={item.key}
-              justify='center'
-              className={style.col1}>
-              <Col>
-                <img
-                  src={require(`../../../${item.img}`)}
-                  alt='layanan'
-                  className={style.img}
-                />
-                <h4 className={style.textcontent}>{item.title}</h4>
-                <p className='body1' style={{ marginBotton: "16px" }}>
-                  {item.content}
-                </p>
-              </Col>
-            </Col>
-          );
-        })}
-      </Row>
+        <Row justify='center' style={{ marginBottom: "100px" }}>
+          <Col lg={{ span: 8, offset: 1 }} xs={{ span: 20 }} justify='end'>
+            <img src={AboutUs} alt='aboutus' className={style.img} />
+          </Col>
+          <Col lg={{ span: 9 }} xs={{ span: 20 }}>
+            <h1 style={{ marginTop: "24px" }}>Tentang Kami</h1>
+            <p className='body1' style={{ marginTop: "48px" }}>
+              GetVaccine merupakan aplikasi yang dibangun untuk membantu
+              pemerintah dalam penyelenggaraan vaksinasi COVID-19.
+            </p>
+            <p className='body1' style={{ marginTop: "30px" }}>
+              GetVaccine memberikan fasilitas bagi masyarakat dalam rangka
+              kemudahan pelayanan booking sesi vaksinasi. Selain itu, GetVaccine
+              dibangun sebagai layanan yang dapat digunakan sesuai kebutuhan
+              pengguna baik dari segi masyarakat maupun fasilitas kesehatan.
+            </p>
+          </Col>
+        </Row>
 
-      <h2 className={style.textabout}>Meet The Team</h2>
-
-      <Row
-        justify='center'
-        gutter={[0, 48]}
-        style={{ paddingLeft: "48px", paddingRight: "48px", gap: "64px" }}>
-        {team.map((item) => {
-          return (
-            <Col
-              lg={{ span: 6 }}
-              md={{ span: 10 }}
-              xs={{ span: 24 }}
-              key={item.key}
-              justify='center'>
-              <Col>
-                <img
-                  src={require(`../../../${item.img}`)}
-                  alt='team'
-                  className={style.img}
-                />
-                <div>
-                  <h4 style={{ marginTop: "16px" }}>
-                    {item.name}{" "}
-                    <a
-                      href={item.linkedin}
-                      target='_blank'
-                      style={{ color: "var(--color-primary)" }}>
-                      <LinkedinFilled />
-                    </a>
-                  </h4>
-                  <p className='body1' style={{ marginTop: "4px" }}>
-                    {item.role}
+        <span className={style.span}>
+          <h2 style={{ margin: "48px" }}>Layanan</h2>{" "}
+        </span>
+        <Row
+          className={style.layanan}
+          justify='center'
+          gutter={[0, 48]}
+          style={{ paddingLeft: "48px", paddingRight: "48px", gap: "64px" }}>
+          {layanan.map((item) => {
+            return (
+              <Col
+                lg={{ span: 6 }}
+                md={{ span: 15 }}
+                xs={{ span: 20 }}
+                key={item.key}
+                justify='center'
+                className={style.col1}>
+                <Col>
+                  <img
+                    src={require(`../../../${item.img}`)}
+                    alt='layanan'
+                    className={style.img}
+                  />
+                  <h4 className={style.textcontent}>{item.title}</h4>
+                  <p className='body1' style={{ marginBotton: "16px" }}>
+                    {item.content}
                   </p>
-                  <p className='body2' style={{ marginTop: "8px" }}>
-                    {item.description}
-                  </p>
-                </div>
+                </Col>
               </Col>
-            </Col>
-          );
-        })}
-      </Row>
+            );
+          })}
+        </Row>
+
+        <h2 className={style.textabout}>Meet The Team</h2>
+
+        <Row
+          justify='center'
+          gutter={[0, 48]}
+          style={{ paddingLeft: "48px", paddingRight: "48px", gap: "64px" }}>
+          {team.map((item) => {
+            return (
+              <Col
+                lg={{ span: 6 }}
+                md={{ span: 10 }}
+                xs={{ span: 24 }}
+                key={item.key}
+                justify='center'>
+                <Col>
+                  <img
+                    src={require(`../../../${item.img}`)}
+                    alt='team'
+                    className={style.img}
+                  />
+                  <div>
+                    <h4 style={{ marginTop: "16px" }}>
+                      {item.name}{" "}
+                      <a
+                        href={item.linkedin}
+                        target='_blank'
+                        style={{ color: "var(--color-primary)" }}>
+                        <LinkedinFilled />
+                      </a>
+                    </h4>
+                    <p className='body1' style={{ marginTop: "4px" }}>
+                      {item.role}
+                    </p>
+                    <p className='body2' style={{ marginTop: "8px" }}>
+                      {item.description}
+                    </p>
+                  </div>
+                </Col>
+              </Col>
+            );
+          })}
+        </Row>
+      </CitizenLayout>
     </>
   );
 }
