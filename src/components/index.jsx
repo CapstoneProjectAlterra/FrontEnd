@@ -9,5 +9,8 @@ import CustomAlert from "./CustomAlert";
 import Footer from "./Footer";
 import BreadCrumbAdmin from "./BreadCrumbAdmin";
 import VaccineTable from "./VaccineTable";
+import ProfileSaya from "./ProfileSaya";
+import ProfileUbahPassword from "./ProfileUbahPassword";
+import ProfileKeluarga from "./ProfileKeluarga";
 
-export { CustomButton, CustomInput, TicketModal, TicketCard, TicketList, Navbar, CustomAlert, Footer, Sidebar, BreadCrumbAdmin, VaccineTable };
+export { CustomButton, CustomInput, TicketModal, TicketCard, TicketList, Navbar, CustomAlert, Footer, Sidebar, BreadCrumbAdmin, VaccineTable, ProfileKeluarga, ProfileSaya, ProfileUbahPassword };
