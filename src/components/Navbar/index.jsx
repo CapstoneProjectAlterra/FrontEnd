@@ -1,12 +1,20 @@
-import {Link} from "react-router-dom";
-import React, {useState} from "react";
-import {LogoPrimary, LogoSecondary} from "../../assets";
+import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+import { LogoPrimary, LogoSecondary } from "../../assets";
 import style from "./MainNavbar.module.css";
-import {BiUserCircle} from "react-icons/bi";
-import {MenuOutlined} from "@ant-design/icons";
-import {Button, Divider, Drawer, Dropdown, Menu} from "antd";
+import { BiUserCircle } from "react-icons/bi";
+import { MenuOutlined } from "@ant-design/icons";
+import { Button, Divider, Drawer, Dropdown, Menu } from "antd";
 
-function MainNavbar({auth}) {
+function MainNavbar({ auth }) {
+  const navigate = useNavigate();
+  const logout = () => {
+    Cookies.remove("token");
+    Cookies.remove("user");
+    navigate("/login");
+  };
   const menu = (
     <Menu
       items={[
@@ -16,7 +24,7 @@ function MainNavbar({auth}) {
         },
         {
           key: "2",
-          label: <Link to="/">Logout</Link>,
+          label: <span onClick={() => logout()}>Logout</span>,
         },
       ]}
     />
@@ -36,7 +44,7 @@ function MainNavbar({auth}) {
     {
       key: "tiket",
       name: "Tiket",
-      route: "ticket",
+      route: "/ticket",
     },
   ];
 
@@ -68,12 +76,14 @@ function MainNavbar({auth}) {
             <Dropdown
               overlay={menu}
               className={style.navicon}
-              style={{marginTop: "var(--space-l)"}}
+              style={{ marginTop: "var(--space-l)" }}
             >
-              <BiUserCircle style={{fontSize: "var(--space-xl)"}} />
+              <BiUserCircle style={{ fontSize: "var(--space-xl)" }} />
             </Dropdown>
             <Drawer
-              title={<img src={LogoSecondary} alt="logo" className={style.logo} />}
+              title={
+                <img src={LogoSecondary} alt="logo" className={style.logo} />
+              }
               placement="right"
               onClose={onClose}
               visible={visible}
@@ -81,7 +91,11 @@ function MainNavbar({auth}) {
               {homeMenu.map((menu) => {
                 return (
                   <>
-                    <Link to={menu.route} key={menu.key} className={style.textDrawer}>
+                    <Link
+                      to={menu.route}
+                      key={menu.key}
+                      className={style.textDrawer}
+                    >
                       {menu.name}
                     </Link>
                     <Divider />
@@ -100,13 +114,15 @@ function MainNavbar({auth}) {
         ) : (
           <nav className={style.navlink}>
             <Button className={`${style.btn} ${style.login}`}>
-              <Link to="login">Login</Link>
+              <Link to="/login">Login</Link>
             </Button>
             <Button className={`${style.btn} ${style.register}`}>
-              <Link to="register">Register</Link>
+              <Link to="/register">Register</Link>
             </Button>
             <Drawer
-              title={<img src={LogoSecondary} alt="logo" className={style.logo} />}
+              title={
+                <img src={LogoSecondary} alt="logo" className={style.logo} />
+              }
               placement="right"
               onClose={onClose}
               visible={visible}

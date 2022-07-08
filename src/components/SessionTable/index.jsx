@@ -1,6 +1,6 @@
 import { SearchOutlined } from "@ant-design/icons";
 import { BiDetail } from "react-icons/bi";
-import { Button, Form, Input, Table, Tooltip } from "antd";
+import { Button, Form, Input, Table, Tooltip, Row, Col } from "antd";
 import Column from "antd/lib/table/Column";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -9,83 +9,107 @@ import SessionModalDelete from "../SessionModalDelete";
 import SessionModalEdit from "../SessionModalEdit";
 
 import styles from "./SessionTable.module.css";
-
-const dataList = [];
-
-for (let i = 1; i <= 100; i++) {
-  dataList.push({
-    id: i,
-    vaccine_id: 1,
-    vaccine_name: "Sinovac",
-    vaccination_date: "02-04-2022",
-    operational_hour_start: "08:00",
-    operational_hour_end: "09:00",
-    quota: 200,
-    dose: "DOSIS_1",
-    // doseText: () => {
-    //   if (this.dose === "DOSIS_1") return "Dosis 1";
-    //   if (this.dose === "DOSIS_2") return "Dosis 2";
-    //   if (this.dose === "BOOSTER") return "Booster";
-    // },
-  });
-}
-
-for (let i = 101; i <= 151; i++) {
-  dataList.push({
-    id: i,
-    vaccine_id: 2,
-    vaccine_name: "Astra Zeneca",
-    vaccination_date: "02-04-2022",
-    operational_hour_start: "10:00",
-    operational_hour_end: "11:00",
-    quota: 200,
-    dose: "DOSIS_2",
-    // doseText: () => {
-    //   if (this.dose === "DOSIS_1") return "Dosis 1";
-    //   if (this.dose === "DOSIS_2") return "Dosis 2";
-    //   if (this.dose === "BOOSTER") return "Booster";
-    // },
-  });
-}
+import { useEffect } from "react";
+import axiosInstance from "../../networks/apis";
+import moment from "moment";
+import { getUserId } from "../../utils/helpers/Auth";
 
 export default function SessionTable() {
-  const [data, setData] = useState(dataList);
+  const [rawData, setRawData] = useState([]);
+  const [data, setData] = useState([]);
+  const [tableData, setTableData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [refetchToggle, setRefetchToggle] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    axiosInstance
+      .get("/schedule", { data: "" })
+      .then((response) => {
+        setLoading(false);
+        setRawData(
+          response.data.data.filter(
+            (item) => item.facility.profile.user_id === getUserId()
+          )
+        );
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.log(error);
+      });
+  }, [refetchToggle]);
+
+  useEffect(() => {
+    const filteredData = rawData.map((value) => {
+      return {
+        id: value.id,
+        vaccine_id: value.vaccine.id,
+        vaccine_name: value.vaccine.vaccine_name,
+        vaccination_date: value.vaccination_date,
+
+        operational_hour:
+          moment(value.operational_hour_start, "hh:mm").format("HH:mm") +
+          " - " +
+          moment(value.operational_hour_end, "hh:mm").format("HH:mm"),
+        quota: value.quota,
+        dose:
+          value.dose === "DOSIS_1"
+            ? "Dosis 1"
+            : value.dose === "DOSIS_2"
+            ? "Dosis 2"
+            : "Booster",
+      };
+    });
+    setData(filteredData);
+    setTableData(filteredData);
+  }, [rawData]);
+
   const search = (values) => {
     const lowerCaseValue = values.keyword.toLowerCase().trim();
-    const filteredData = dataList.filter((value) =>
+    const filteredData = data.filter((value) =>
       Object.keys(value).some((key) =>
         value[key].toString().toLowerCase().includes(lowerCaseValue)
       )
     );
 
-    setData(filteredData);
+    setTableData(filteredData);
   };
   return (
     <>
-      <div className={styles.searchWrapper}>
-        <SessionModalAdd />
+      <Row justify="space-between" align="middle">
+        <Col xs={24} md={12}>
+          <SessionModalAdd
+            setRefetchToggle={setRefetchToggle}
+            refetchToggle={refetchToggle}
+          />
+        </Col>
+        <Col xs={24} md={6}>
+          <div className={styles.searchWrapper}>
+            <Form className={styles.searchForm} onFinish={search}>
+              <Form.Item name="keyword">
+                <Input
+                  type="search"
+                  placeholder="Search"
+                  className={styles.search}
+                />
+              </Form.Item>
+              <Form.Item>
+                <Button htmlType="submit">
+                  <SearchOutlined />
+                </Button>
+              </Form.Item>
+            </Form>
+          </div>
+        </Col>
+      </Row>
 
-        <Form className={styles.searchForm} onFinish={search}>
-          <Form.Item name="keyword">
-            <Input
-              type="search"
-              placeholder="Search"
-              className={styles.search}
-            />
-          </Form.Item>
-          <Form.Item>
-            <Button htmlType="submit">
-              <SearchOutlined />
-            </Button>
-          </Form.Item>
-        </Form>
-      </div>
       <div className={styles.tableWrapper}>
         <Table
-          dataSource={data}
+          dataSource={tableData}
           pagination={{ position: ["bottomCenter"] }}
           scroll={{ x: 240 }}
           rowKey="id"
+          loading={loading}
         >
           <Column title="Id Sesi" dataIndex="id" key="id" />
           <Column
@@ -100,29 +124,15 @@ export default function SessionTable() {
           />
           <Column
             title="Jam Operasional"
-            dataIndex={["operational_hour_start", "operational_hour_end"]}
+            dataIndex="operational_hour"
             key="operational_hour"
-            render={(_, record) =>
-              record.operational_hour_start +
-              " - " +
-              record.operational_hour_end
-            }
           />
           <Column title="Kuota" dataIndex="quota" key="quota" />
-          <Column
-            title="Dosis"
-            dataIndex="dose"
-            key="dose"
-            render={(_, record) => {
-              if (record.dose === "DOSIS_1") return "Dosis 1";
-              if (record.dose === "DOSIS_2") return "Dosis 2";
-              if (record.dose === "BOOSTER") return "Booster";
-            }}
-          />
+          <Column title="Dosis" dataIndex="dose" key="dose" />
           <Column
             title="Action"
             key="action"
-            render={(_, record) => (
+            render={(_, record, index) => (
               <div className={styles.actionContainer}>
                 <Tooltip placement="top" title="Detail">
                   <Button className={styles.button + " " + styles.secondary}>
@@ -132,9 +142,17 @@ export default function SessionTable() {
                   </Button>
                 </Tooltip>
 
-                <SessionModalEdit data={record} />
+                <SessionModalEdit
+                  data={rawData[index]}
+                  setRefetchToggle={setRefetchToggle}
+                  refetchToggle={refetchToggle}
+                />
 
-                <SessionModalDelete data={record.id} />
+                <SessionModalDelete
+                  id={record.id}
+                  setRefetchToggle={setRefetchToggle}
+                  refetchToggle={refetchToggle}
+                />
               </div>
             )}
           />
