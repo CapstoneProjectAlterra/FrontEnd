@@ -10,6 +10,7 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import style from "./Chart.module.css";
+import moment from "moment";
 
 ChartJS.register(
   CategoryScale,
@@ -21,7 +22,41 @@ ChartJS.register(
   Legend
 );
 
-export const options = {
+const getLastSevenDays = (format) => {
+  const lastSevenDays = [];
+  for (let i = 6; i >= 0; i--) {
+    lastSevenDays.push(moment().subtract(i, "d").format(format));
+  }
+  return lastSevenDays;
+};
+
+const getLastSevenDaysQuota = (lastSevenDays, schedule) => {
+  let quota = [];
+  for (let i = 0; i < lastSevenDays.length; i++) {
+    let value = 0;
+    schedule
+      .filter((item) => item.vaccination_date === lastSevenDays[i])
+      .forEach((item) => {
+        value += item.quota;
+      });
+
+    quota.push(value);
+  }
+  return quota;
+};
+
+const getLastSevenDaysRegistrant = (lastSevenDays, activities) => {
+  let registrant = [];
+  for (let i = 0; i < lastSevenDays.length; i++) {
+    let value = activities.filter(
+      (item) => item.booking.schedule.vaccination_date === lastSevenDays[i]
+    ).length;
+    registrant.push(value);
+  }
+  return registrant;
+};
+
+const options = {
   responsive: true,
   plugins: {
     legend: {
@@ -31,35 +66,27 @@ export const options = {
   tension: 0.2,
 };
 
-const labels = [
-  "1 Juni",
-  "2 Juni",
-  "3 Juni",
-  "4 Juni",
-  "5 Juni",
-  "6 Juni",
-  "7 Juni",
-];
+export default function Chart({ schedule, activities }) {
+  const lastSevenDays = getLastSevenDays("DD-MM-YYYY");
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: "Aktivitas Pendaftar",
-      data: [300, 160, 220, 160, 150, 100, 80],
-      borderColor: "#06799D",
-      backgroundColor: "#06799D",
-    },
-    {
-      label: "Kuota Harian",
-      data: [300, 320, 240, 180, 160, 140, 120],
-      borderColor: "#06919D",
-      backgroundColor: "#06919D",
-    },
-  ],
-};
+  const data = {
+    labels: getLastSevenDays("DD MMM"),
+    datasets: [
+      {
+        label: "Aktivitas Pendaftar",
+        data: getLastSevenDaysRegistrant(lastSevenDays, activities),
+        borderColor: "#06799D",
+        backgroundColor: "#06799D",
+      },
+      {
+        label: "Kuota Harian",
+        data: getLastSevenDaysQuota(lastSevenDays, schedule),
+        borderColor: "#06919D",
+        backgroundColor: "#06919D",
+      },
+    ],
+  };
 
-export default function Chart() {
   return (
     <div className={style.container}>
       <h5 className={style.title}>Aktivitas 7 Hari Terakhir</h5>

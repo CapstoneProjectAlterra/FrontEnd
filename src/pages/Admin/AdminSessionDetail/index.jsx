@@ -1,16 +1,30 @@
-import {Col, Row} from "antd";
-import {useEffect} from "react";
+import { Col, Row, Spin } from "antd";
+import { useEffect, useState } from "react";
 import SessionDetailTable from "../../../components/SessionDetailTable";
 import styles from "./AdminSessionDetail.module.css";
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import AdminLayout from "../../../layouts/AdminLayout";
+import axiosInstance from "../../../networks/apis";
+
+import moment from "moment";
 
 export default function AdminSessionDetail() {
-  let {sessionId} = useParams();
+  let { sessionId } = useParams();
+  const [data, setData] = useState();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // change background color to gradient only on this page with --color-gradient-2 variable
-    document.body.style.background = "var(--color-primary)";
+    setLoading(true);
+    axiosInstance
+      .get(`/schedule/${sessionId}`, { data: "" })
+      .then((response) => {
+        setData(response.data.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+      });
   }, []);
 
   return (
@@ -24,18 +38,40 @@ export default function AdminSessionDetail() {
           Detail Sesi
         </h3>
         <Row gutter={16} className={styles.container}>
-          <Col lg={12}>
-            <h4 className={styles.subTitle}>Jenis Vaksin: Sinovac</h4>
-          </Col>
-          <Col lg={12}>
-            <h4 className={styles.subTitle}>Jam Operasional: 08:00 - 10:00</h4>
-          </Col>
-          <Col lg={12}>
-            <h4 className={styles.subTitle}>Tanggal: 03-05-2022</h4>
-          </Col>
-          <Col lg={12}>
-            <h4 className={styles.subTitle}>Kuota: 200</h4>
-          </Col>
+          {loading ? (
+            <Col
+              span={24}
+              style={{ display: "flex", justifyContent: "center" }}
+            >
+              <Spin />
+            </Col>
+          ) : (
+            <>
+              <Col lg={12}>
+                <h4 className={styles.subTitle}>
+                  Jenis Vaksin: {data?.vaccine.vaccine_name}
+                </h4>
+              </Col>
+              <Col lg={12}>
+                <h4 className={styles.subTitle}>
+                  Jam Operasional:{" "}
+                  {moment(data?.operational_hour_start, "hh:mm").format(
+                    "HH:mm"
+                  )}{" "}
+                  -{" "}
+                  {moment(data?.operational_hour_end, "hh:mm").format("HH:mm")}
+                </h4>
+              </Col>
+              <Col lg={12}>
+                <h4 className={styles.subTitle}>
+                  Tanggal: {data?.vaccination_date}
+                </h4>
+              </Col>
+              <Col lg={12}>
+                <h4 className={styles.subTitle}>Kuota: {data?.quota}</h4>
+              </Col>
+            </>
+          )}
         </Row>
         <h3
           style={{
@@ -45,7 +81,7 @@ export default function AdminSessionDetail() {
           Data Pendaftar
         </h3>
 
-        <SessionDetailTable sessionId={sessionId} />
+        <SessionDetailTable sessionId={sessionId} scheduleData={data} />
       </div>
     </AdminLayout>
   );
