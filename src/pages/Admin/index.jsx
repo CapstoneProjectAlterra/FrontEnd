@@ -5,11 +5,4 @@ import AdminVaccine from "./AdminVaccine";
 import AdminLogin from "./AdminLogin";
 import AdminSessionDetail from "./AdminSessionDetail";
 
-export {
-  AdminDashboard,
-  AdminProfile,
-  AdminSession,
-  AdminVaccine,
-  AdminLogin,
-  AdminSessionDetail,
-};
+export { AdminDashboard, AdminProfile, AdminSession, AdminVaccine, AdminLogin, AdminSessionDetail };

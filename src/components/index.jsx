@@ -14,6 +14,7 @@ import DashboardRecentTable from "./DashboardRecentTable";
 import DashboardRegistrantTable from "./DashboardRegistrantTable";
 import ReactHelmet from "./ReactHelmet";
 import ListDashboardCard from "./ListDashboardCard";
+import VaccineTable from "./VaccineTable";
 
 export {
   CustomButton,
@@ -32,4 +33,5 @@ export {
   DashboardRegistrantTable,
   ReactHelmet,
   ListDashboardCard,
+  VaccineTable,
 };
