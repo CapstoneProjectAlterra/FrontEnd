@@ -1,7 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import {
   About,
-  DataPrivacy,
   EditProfile,
   Home,
   News,
@@ -10,7 +9,9 @@ import {
   Register,
   Ticket,
   Vaccine,
+  VaccineDetails,
   Login,
+  DataPrivacy,
 } from "../pages/Citizen";
 
 import {
@@ -46,6 +47,10 @@ export default function RouteList() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/editprofile/:id" element={<EditProfile />} />
         <Route path="/vaccine" element={<Vaccine />} />
+        <Route
+          path="/vaccineDetails/:HospitalId"
+          element={<VaccineDetails />}
+        />
         <Route path="/ticket" element={<Ticket />} />
       </Route>
 
