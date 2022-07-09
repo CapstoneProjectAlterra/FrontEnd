@@ -1,0 +1,42 @@
+.body{
+    margin-top: 16px;
+    background-color: white;
+}
+
+.image{
+    border-radius: 20px;
+}
+
+
+.location{
+    display: flex;
+    margin-bottom: 32px;
+}
+
+.icon{
+    width: 32px;
+    height: 32px;
+    margin-right: 16px;
+}
+
+.booking{
+    margin-right: 56px;
+}
+
+.cardVaccine{
+    margin: 32px 0;
+}
+
+.family{
+    margin-top: 32px;
+}
+
+.family h4{
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 30px;
+}
+
+
+
+

@@ -6,6 +6,7 @@ import Login from "./Login";
 import NotFound from "./NotFound";
 import Profile from "./Profile";
 import Vaccine from "./Vaccine";
+import VaccineDetails from "./VaccineDetails";
 import Ticket from "./Ticket";
 import EditProfile from "./EditProfile";
 import DataPrivacy from "./DataPrivacy";
@@ -19,6 +20,7 @@ export {
   NotFound,
   Profile,
   Vaccine,
+  VaccineDetails,
   Ticket,
   EditProfile,
   DataPrivacy,
