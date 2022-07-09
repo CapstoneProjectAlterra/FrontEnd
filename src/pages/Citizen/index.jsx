@@ -24,5 +24,4 @@ export {
   EditProfile,
   DataPrivacy,
   VaccineDetails,
-  Ticket,
 };
