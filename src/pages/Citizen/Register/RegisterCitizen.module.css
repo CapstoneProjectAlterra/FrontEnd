@@ -1,0 +1,90 @@
+/* CSS Register Citizen */
+
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.body {
+  width: 800px;
+  margin-top: 100px;
+  margin-bottom: 60px;
+  background-color: var(--color-primary-light);
+  background: #fff;
+  box-shadow: 2px 4px 50px 1px rgba(6, 145, 157, 0.25);
+  border-radius: 48px;
+}
+
+.formContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form {
+  flex: 100%;
+  padding: 60px 36px 36px;
+}
+
+.form label {
+  font-size: var(--font-h5-size);
+  font-weight: var(--font-h5-weight);
+}
+
+.form p {
+  font-size: var(--font-body-1-size);
+  padding-top: 10px;
+  text-align: center;
+}
+
+.illustration {
+  display: flex;
+  align-items: center;
+}
+
+.image {
+  width: 100%;
+  /* height: 50%; */
+}
+
+.link {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.link.linkMobile {
+  display: none;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .illustration {
+    display: none;
+  }
+
+  .body {
+    width: 100%;
+    margin-top: 32px;
+    box-shadow: none;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+  }
+
+  .body h2 {
+    text-align: center;
+  }
+
+  .form {
+    padding: 24px 16px;
+  }
+
+  .link {
+    display: none;
+  }
+
+  .link.linkMobile {
+    display: block;
+    margin-bottom: 12px;
+  }
+}

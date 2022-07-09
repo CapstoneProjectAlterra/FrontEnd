@@ -1,12 +1,14 @@
 import {Col, Dropdown, Menu, Row} from "antd";
+import Cookies from "js-cookie";
 import {useEffect} from "react";
 import {useState} from "react";
 import {BiUserCircle} from "react-icons/bi";
-import {Link} from "react-router-dom";
-import {BreadCrumbAdmin, Sidebar} from "../../components";
+import {Link, useNavigate} from "react-router-dom";
+import {BreadCrumbAdmin, Sidebar, ReactHelmet} from "../../components";
 
 export default function AdminLayout(props) {
   const [width, setWidth] = useState(window.innerWidth);
+  const navigate = useNavigate();
   useEffect(() => {
     window.addEventListener("resize", setWidth(window.innerWidth));
 
@@ -15,18 +17,25 @@ export default function AdminLayout(props) {
     };
   }, [width]);
 
+  const logout = () => {
+    Cookies.remove("token");
+    Cookies.remove("user");
+    navigate("/admin/login");
+  };
+
   const menu = (
     <Menu
       items={[
         {
           key: "1",
-          label: <Link to="/admin/login">Logout</Link>,
+          label: <span onClick={() => logout()}>Logout</span>,
         },
       ]}
     />
   );
   return (
     <Row className="layout-admin">
+      <ReactHelmet />
       <Col
         lg={5}
         md={3}
@@ -41,7 +50,11 @@ export default function AdminLayout(props) {
           <Row>
             <Col
               span={24}
-              style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
             >
               <BreadCrumbAdmin />
               <Dropdown

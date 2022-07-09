@@ -1,0 +1,37 @@
+.container {
+  background-color: #fff;
+  padding: 24px;
+  border-radius: 16px;
+  height: 100%;
+  box-shadow: 2px 4px 8px 1px rgba(6, 145, 157, 0.25);
+}
+
+.title {
+  margin-bottom: 24px;
+  font-weight: var(--font-h3-weight);
+}
+
+.container :global(.ant-table-thead > tr > th) {
+  background: #fff;
+  font-size: var(--font-h5-size);
+  font-weight: var(--font-h5-weight-sb);
+  line-height: var(--font-h5-lh);
+  padding: 10px;
+}
+
+.container :global(.ant-table-tbody > tr:nth-child(odd)) {
+  background: #fff;
+}
+
+.container :global(.ant-table-tbody > tr:nth-child(even)) {
+  background: #fff;
+}
+
+.container :global(.ant-table-tbody > tr > td) {
+  font-size: var(--font-body-2-size);
+  font-weight: var(--font-h5-weight-sb);
+  line-height: var(--font-body-2-lh);
+  letter-spacing: var(--font-body-2-ls);
+  color: var(--color-text-secondary);
+  padding: 10px;
+}

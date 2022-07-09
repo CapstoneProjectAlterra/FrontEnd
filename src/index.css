@@ -239,6 +239,9 @@ p {
 }
 
 /* global layout for padding */
+.layout {
+  padding: 0;
+}
 .layout-padding {
   padding-inline: 48px;
 }
