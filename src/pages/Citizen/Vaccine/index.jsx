@@ -8,6 +8,8 @@ import { AiOutlineBank, AiOutlineSearch } from "react-icons/ai";
 import style from "./Vaccine.module.css";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import CitizenLayouts from "../../../layouts/CitizenLayout";
+import { isAuthenticatedUser } from "../../../utils/helpers/Auth";
 
 export default function Vaccine() {
   // Data Card
@@ -260,87 +262,98 @@ export default function Vaccine() {
   };
 
   return (
-    <div className="container">
-      <div className="content">
-        <div className={style.banner}>
-          <img src={banner} alt="Banner" className={style.imageBanner} />
-        </div>
-        <div className={style.title}>
-          <h2>
-            Temukan Fasilitas Kesehatan Terdekat
-            <br />
-            Untuk Vaksinasi Covid - 19
-          </h2>
-        </div>
+    <CitizenLayouts auth={isAuthenticatedUser()} padding={false}>
+      <div className="container">
+        <div className="content">
+          <div className={style.banner}>
+            <img src={banner} alt="Banner" className={style.imageBanner} />
+          </div>
+          <div className="layout-padding">
+            <h2 className={style.title}>
+              Temukan Fasilitas Kesehatan Terdekat
+              <br />
+              Untuk Vaksinasi Covid - 19
+            </h2>
+            <div className={style.search}>
+              <CustomInput
+                placeholder="Search by city, province, postal code..."
+                style={{
+                  width: "883px",
+                  borderTopRightRadius: "0",
+                  borderBottomRightRadius: "0",
+                }}
+                onChange={handleSearch}
+              />
+              <CustomButton
+                variant="primary"
+                style={{
+                  width: "56px",
+                  height: "56px",
+                  borderTopLeftRadius: "0",
+                  borderBottomLeftRadius: "0",
+                }}
+                onClick={handleClickSearch}
+              >
+                <AiOutlineSearch className={style.iconSearch} />
+              </CustomButton>
+            </div>
+          </div>
 
-        <div className={style.search}>
-          <CustomInput
-            placeholder="Search by city, province, postal code..."
-            style={{
-              width: "883px",
-              borderTopRightRadius: "0",
-              borderBottomRightRadius: "0",
-            }}
-            onChange={handleSearch}
-          />
-          <CustomButton
-            variant="primary"
-            style={{
-              width: "56px",
-              height: "56px",
-              borderTopLeftRadius: "0",
-              borderBottomLeftRadius: "0",
-            }}
-            onClick={handleClickSearch}
+          <Row
+            justify="space-between"
+            className="layout-padding"
+            gutter={[48, 48]}
           >
-            <AiOutlineSearch className={style.iconSearch} />
-          </CustomButton>
-        </div>
+            {dataRS.length > 0 &&
+              dataRS
+                .slice(state.minValue, state.maxValue)
+                .map((item, itemTdx) => {
+                  return (
+                    <Col
+                      className={style.cardContainer}
+                      key={itemTdx}
+                      xs={24}
+                      md={12}
+                      lg={8}
 
-        <Row className={style.mainCardContainer}>
-          {dataRS.length > 0 &&
-            dataRS
-              .slice(state.minValue, state.maxValue)
-              .map((item, itemTdx) => {
-                return (
-                  <Col
-                    className={style.card}
-                    key={itemTdx}
-                    // onClick={handleCard}
-                  >
-                    <Link to={"/vaccineDetails/" + item.id}>
-                      <div className={style.cardImage}>
-                        <img
-                          src={item.src}
-                          alt="Card Image"
-                          className={style.cardImage}
-                        />
+                      // onClick={handleCard}
+                    >
+                      <div className={style.card}>
+                        <Link to={"/vaccineDetails/" + item.id}>
+                          <div className={style.cardImage}>
+                            <img
+                              src={item.src}
+                              alt="Card Image"
+                              className={style.cardImage}
+                            />
+                          </div>
+                          <div className={style.cardDetails}>
+                            <span className={style.titleCard}>
+                              <FaHospitalAlt className={style.icon} />
+                              <h4>{item.title}</h4>
+                            </span>
+                            <span className={style.descriptionCard}>
+                              <IoDocumentTextOutline className={style.icon} />
+                              <p style={{ paddingTop: "5px" }}>{item.kuota}</p>
+                            </span>
+                          </div>
+                        </Link>
                       </div>
-                      <div className={style.cardDetails}>
-                        <span className={style.titleCard}>
-                          <FaHospitalAlt className={style.icon} />
-                          <h4>{item.title}</h4>
-                        </span>
-                        <span className={style.descriptionCard}>
-                          <IoDocumentTextOutline className={style.icon} />
-                          <p style={{ paddingTop: "5px" }}>{item.kuota}</p>
-                        </span>
-                      </div>
-                    </Link>
-                  </Col>
-                );
-              })}
-        </Row>
+                    </Col>
+                  );
+                })}
+          </Row>
 
-        <div className={style.pagination}>
-          <Pagination
-            defaultCurrent={1}
-            defaultPageSize={9}
-            onChange={handleChange}
-            total={data.length}
-          />
+          <div className={style.pagination}>
+            <Pagination
+              defaultCurrent={1}
+              defaultPageSize={9}
+              onChange={handleChange}
+              total={data.length}
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </CitizenLayouts>
   );
 }

@@ -1,98 +1,104 @@
-*{
-    margin: 0;
-    padding: 0;
+* {
+  margin: 0;
+  padding: 0;
 }
-.banner{
-    display: flex;
-    justify-content: center;
-}
-
-.imageBanner{
-    width: 100%;
+.banner {
+  display: flex;
+  justify-content: center;
 }
 
-.title{
-    margin-top: 102px;
-    margin-bottom: 0px;
-    text-align: center;
+.imageBanner {
+  width: 100%;
 }
 
-.search{
-    display: flex;
-    justify-content: center;
-    padding: 48px 0;
+.title {
+  margin-top: 100px;
+  margin-bottom: 0px;
+  text-align: center;
 }
 
-.searchInput{
-    width: 883px;
-    border-bottom-right-radius: 0;
+.search {
+  display: flex;
+  justify-content: center;
+  padding: 48px 0;
 }
 
-.iconSearch{
-    width: 25px;
-    height: 25px;
+.searchInput {
+  width: 883px;
+  border-bottom-right-radius: 0;
 }
 
-.mainCardContainer{
-    width: 100%;
-    height: auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
+.iconSearch {
+  width: 25px;
+  height: 25px;
 }
 
-.card{
-    width: 342px;
-    height: 470px;
-    background-color: white;
-    margin-bottom: 48px;
-    border-radius: 8px;
-    cursor: pointer;
+.cardContainer {
+  height: auto;
+  display: flex;
+  justify-content: center;
 }
 
-.card:hover{
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+.card {
+  width: 342px;
+  height: 470px;
+  background-color: white;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
-.card:focus{
-    border: 2px solid rgba(6, 145, 157, 0.2);
+.card:hover {
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.cardImage{
-    width: 342px;
-    height: 342px;
-    border-radius: 8px;
-    background-color: lightgray;
+.card:focus {
+  border: 2px solid rgba(6, 145, 157, 0.2);
 }
 
-.cardDetails{
-    margin: 16px;
+.cardImage {
+  width: 342px;
+  height: 342px;
+  border-radius: 8px;
+  background-color: lightgray;
 }
 
-.titleCard{
-    display: flex;
-    font-weight: var(--font-h4-weight);
+.cardDetails {
+  margin: 16px;
 }
 
-.descriptionCard{
-    display: flex;
-    margin-top: 8px;
-    font-size: var(--font-body-2-size);
+.titleCard {
+  display: flex;
+  font-weight: var(--font-h4-weight);
 }
 
-.icon{
-    width: 24px;
-    height: 24px;
-    margin-top: 3px;
-    margin-right: 8px;
-    color: var(--color-primary);
+.descriptionCard {
+  display: flex;
+  margin-top: 8px;
+  font-size: var(--font-body-2-size);
 }
 
-.pagination{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 43px;
+.icon {
+  width: 24px;
+  height: 24px;
+  margin-top: 3px;
+  margin-right: 8px;
+  color: var(--color-primary);
 }
 
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 48px;
+}
+
+/* responsive mobile */
+@media screen and (max-width: 576px) {
+  .title {
+    margin-top: 75px;
+    font-size: var(--font-h4-size);
+    font-weight: var(--font-h4-weight-sb);
+    line-height: var(--font-h4-lh);
+    letter-spacing: var(--font-h4-ls);
+  }
+}
