@@ -23,6 +23,6 @@
     background: var(--color-primary) ;
 } 
 
-:global .anticon {
+.panel :global(.anticon){
     color:var(--color-white);
 }
