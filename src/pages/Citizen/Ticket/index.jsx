@@ -1,6 +1,5 @@
 import { TicketList } from "../../../components";
 import { Row, Col, Breadcrumb } from "antd";
-
 import styles from "./Ticket.module.css";
 import { Link } from "react-router-dom";
 import CitizenLayouts from "../../../layouts/CitizenLayout";
@@ -23,7 +22,7 @@ export default function Ticket() {
         <Col xs={24} md={{ span: 20, offset: 2 }}>
           <h1
             styles={{
-              margin: "16px 0 28px",
+              marginTop: "16px",
             }}
           >
             Tiket

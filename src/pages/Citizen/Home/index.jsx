@@ -3,13 +3,14 @@ import { Row, Col } from "antd";
 import { LandingPage } from "../../../assets";
 import style from "./Home.module.css";
 import CustomButton from "../../../components/CustomButton";
-import { ConsoleSqlOutlined, UserOutlined } from "@ant-design/icons";
+import { UserOutlined } from "@ant-design/icons";
 import axios from "axios";
 import dateFormat from "../../../utils/helpers/dateFormat";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import Navbar from "../../../components/Navbar";
 import { CustomAlert } from "../../../components";
+import { isAuthenticatedUser } from "../../../utils/helpers/Auth";
+import CitizenLayout from "../../../layouts/CitizenLayout";
 
 const alur = [
   {
@@ -168,138 +169,154 @@ export default function Home() {
 
   return (
     <>
-      <Navbar auth={auth} />
-      {auth && <CustomAlert />}
-      <Row justify='center' style={{ marginTop: "88px" }}>
-        <Col className={style.colflex} lg={{ span: 10 }} xs={{ span: 20 }}>
-          <h1 className={style.textdaftar} style={{ marginBottom: "0px" }}>
-            Alternatif
-          </h1>
-          <h1
-            className={style.textdaftar}
-            style={{ color: "var(--color-primary)", marginBottom: "0px" }}>
-            Pesan Vaksinasi
-          </h1>
-          <p className='body1'>
-            Dapat dilakukan di mana pun dan kapan pun dengan mudah
-          </p>
-          <CustomButton variant='primary'>Daftar Vaksinasi</CustomButton>
-        </Col>
-        <Col lg={{ span: 10 }} xs={{ span: 20 }} justify='end'>
-          <img src={LandingPage} alt='landingpage' className={style.img} />
-        </Col>
-      </Row>
+      <CitizenLayout auth={isAuthenticatedUser()} padding={false}>
+        {auth && <CustomAlert />}
+        <Row justify='center' style={{ paddingTop: "40px" }}>
+          <Col className={style.colflex} lg={{ span: 10 }} xs={{ span: 20 }}>
+            <h1 className={style.textdaftar} style={{ marginBottom: "0px" }}>
+              Alternatif
+            </h1>
+            <h1
+              className={style.textdaftar}
+              style={{ color: "var(--color-primary)", marginBottom: "0px" }}>
+              Pesan Vaksinasi
+            </h1>
+            <p className='body1'>
+              Dapat dilakukan di mana pun dan kapan pun dengan mudah
+            </p>
+            {auth === true ? (
+              <CustomButton variant='primary'>
+                <Link to='/vaccine'>Daftar Vaksinasi</Link>
+              </CustomButton>
+            ) : (
+              <CustomButton variant='primary'>
+                <Link to='/login'>Daftar Vaksinasi</Link>
+              </CustomButton>
+            )}
+          </Col>
+          <Col lg={{ span: 10 }} xs={{ span: 20 }} justify='end'>
+            <img src={LandingPage} alt='landingpage' className={style.img} />
+          </Col>
+        </Row>
 
-      <h2 className={style.textjudul}>Alur Pendaftaran</h2>
-      <Row justify='space-evenly' gutter={[0, 48]}>
-        {alur.map((item) => {
-          return (
-            <Col
-              lg={{ span: 5 }}
-              xs={{ span: 10 }}
-              key={item.key}
-              className={style.col}>
-              <Col>
-                <img
-                  src={require(`../../../${item.img}`)}
-                  alt='instruksi'
-                  className={style.img}
-                />
-                <h4 style={{ marginTop: "16px" }}>{item.title}</h4>
-                <p className='body2'>{item.content}</p>
-              </Col>
-            </Col>
-          );
-        })}
-      </Row>
-
-      <Row
-        style={{ background: "var(--color-secondary", marginTop: "88px" }}
-        justify='center'>
-        <Col span={24} justify='center'>
-          <h2
-            className={style.textkerjasama}
-            style={{ marginTop: "32px", marginBottom: "0px" }}>
-            Kami telah bekerja sama dengan 100 Fasilitas
-          </h2>
-          <h2 className={style.textkerjasama} style={{ marginBottom: "64px" }}>
-            Kesehatan untuk pemesanan vaksin
-          </h2>
-        </Col>
-        <Row
-          justify='space-evenly'
-          gutter={[0, 44]}
-          style={{
-            gap: "32px",
-            marginLeft: "48px",
-            marginRight: "48px",
-            marginBottom: "32px",
-          }}>
-          {faskes.map((item) => {
+        <h2 className={style.textjudul}>Alur Pendaftaran</h2>
+        <Row justify='space-evenly' gutter={[0, 48]}>
+          {alur.map((item) => {
             return (
-              <Col lg={{ span: 3 }} xs={{ span: 4 }} key={item.key}>
+              <Col
+                lg={{ span: 5 }}
+                xs={{ span: 10 }}
+                key={item.key}
+                className={style.col}>
                 <Col>
                   <img
                     src={require(`../../../${item.img}`)}
-                    alt='fasilitas kesehatan'
+                    alt='instruksi'
                     className={style.img}
                   />
+                  <h4 style={{ marginTop: "16px" }}>{item.title}</h4>
+                  <p className='body2'>{item.content}</p>
                 </Col>
               </Col>
             );
           })}
         </Row>
-      </Row>
 
-      <Row
-        span={22}
-        justify='space-between'
-        style={{
-          alignItems: "center",
-          paddingLeft: "160px",
-          paddingRight: "160px",
-          marginTop: "88px",
-        }}>
-        <h2>Berita Terbaru</h2>
-        <Link to='/news' style={{ color: "var(--color-primary)" }}>
-          Lebih Banyak &gt;
-        </Link>
-      </Row>
-
-      <Row justify='center' gutter={[0, 24]} style={{ gap: "77px" }}>
-        {news.length > 0 &&
-          news.slice(state.minValue, state.maxValue).map((item, itemTdx) => {
-            return (
-              <Col
-                lg={{ span: 5 }}
-                md={{ span: 10 }}
-                xs={{ span: 16 }}
-                key={itemTdx}
-                className={style.col}>
-                <a href={item.url} target='_blank'>
+        <Row
+          style={{ background: "var(--color-secondary", marginTop: "88px" }}
+          justify='center'>
+          <Col span={24} justify='center'>
+            <h2
+              className={style.textkerjasama}
+              style={{ marginTop: "32px", marginBottom: "0px" }}>
+              Kami telah bekerja sama dengan 100 Fasilitas
+            </h2>
+            <h2
+              className={style.textkerjasama}
+              style={{ marginBottom: "64px" }}>
+              Kesehatan untuk pemesanan vaksin
+            </h2>
+          </Col>
+          <Row
+            justify='space-evenly'
+            gutter={[0, 44]}
+            style={{
+              gap: "32px",
+              marginLeft: "48px",
+              marginRight: "48px",
+              marginBottom: "32px",
+            }}>
+            {faskes.map((item) => {
+              return (
+                <Col lg={{ span: 3 }} xs={{ span: 4 }} key={item.key}>
                   <Col>
                     <img
-                      src={item.urlToImage}
-                      alt='berita'
-                      className={style.imgberita}
+                      src={require(`../../../${item.img}`)}
+                      alt='fasilitas kesehatan'
+                      className={style.img}
                     />
-                    <p className={style.body3} style={{ marginTop: "8px" }}>
-                      {dateFormat(item.publishedAt, "date-month-year")}
-                    </p>
-                    <h4 style={{ marginBottom: "16px" }}>{item.title}</h4>
-                    <p className={style.body2} style={{ textAlign: "justify" }}>
-                      {item.description.slice(0, 90) +
-                        (item.description.length > 90 ? " . . ." : "")}
-                    </p>
-                    <p className={style.body3} style={{ marginBottom: "0" }}>
-                      <UserOutlined className={style.icon} /> {item.author}
-                    </p>
                   </Col>
-                </a>
-              </Col>
-            );
-          })}
-      </Row>
+                </Col>
+              );
+            })}
+          </Row>
+        </Row>
+
+        <Row
+          span={22}
+          justify='space-between'
+          style={{
+            alignItems: "center",
+            paddingLeft: "160px",
+            paddingRight: "160px",
+            marginTop: "88px",
+          }}>
+          <h2>Berita Terbaru</h2>
+          <Link to='/news' style={{ color: "var(--color-primary)" }}>
+            Lebih Banyak &gt;
+          </Link>
+        </Row>
+
+        <Row
+          justify='center'
+          gutter={[0, 24]}
+          style={{ gap: "77px", paddingBottom: "88px" }}>
+          {news.length > 0 &&
+            news.slice(state.minValue, state.maxValue).map((item, itemTdx) => {
+              return (
+                <Col
+                  lg={{ span: 5 }}
+                  md={{ span: 10 }}
+                  xs={{ span: 16 }}
+                  key={itemTdx}
+                  className={style.col}>
+                  <a href={item.url} target='_blank'>
+                    <Col>
+                      <img
+                        src={item.urlToImage}
+                        alt='berita'
+                        className={style.imgberita}
+                      />
+                      <p className={style.body3} style={{ marginTop: "8px" }}>
+                        {dateFormat(item.publishedAt, "date-month-year")}
+                      </p>
+                      <h4 style={{ marginBottom: "16px" }}>{item.title}</h4>
+                      <p
+                        className={style.body2}
+                        style={{ textAlign: "justify" }}>
+                        {item.description.slice(0, 90) +
+                          (item.description.length > 90 ? " . . ." : "")}
+                      </p>
+                      <p className={style.body3} style={{ marginBottom: "0" }}>
+                        <UserOutlined className={style.icon} /> {item.author}
+                      </p>
+                    </Col>
+                  </a>
+                </Col>
+              );
+            })}
+        </Row>
+      </CitizenLayout>
     </>
   );
 }

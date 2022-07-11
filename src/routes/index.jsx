@@ -1,7 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import {
   About,
-  DataPrivacy,
   EditProfile,
   Home,
   News,
@@ -10,7 +9,9 @@ import {
   Register,
   Ticket,
   Vaccine,
+  VaccineDetails,
   Login,
+  DataPrivacy,
 } from "../pages/Citizen";
 
 import {
@@ -26,6 +27,7 @@ import PrivateRouteAdmin from "./PrivateRouteAdmin";
 import PrivateRouteCitizen from "./PrivateRouteCitizen";
 import ProtectedRouteCitizen from "./ProtectedRouteCitizen";
 import ProtectedRouteAdmin from "./ProtectedRouteAdmin";
+import Faq from "../pages/Citizen/Faq";
 
 export default function RouteList() {
   return (
@@ -34,6 +36,7 @@ export default function RouteList() {
       <Route path='/about' element={<About />} />
       <Route path='/news' element={<News />} />
       <Route path='/privacy' element={<DataPrivacy />} />
+      <Route path='/faq' element={<Faq />} />
 
       {/* Protected Routing for Citizen */}
       <Route element={<ProtectedRouteCitizen />}>
@@ -46,6 +49,10 @@ export default function RouteList() {
         <Route path='/profile' element={<Profile />} />
         <Route path='/editprofile/:id' element={<EditProfile />} />
         <Route path='/vaccine' element={<Vaccine />} />
+        <Route
+          path='/vaccineDetails/:HospitalId'
+          element={<VaccineDetails />}
+        />
         <Route path='/ticket' element={<Ticket />} />
       </Route>
 
