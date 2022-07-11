@@ -6,8 +6,8 @@
   gap: var(--space-m);
   border-radius: 8px;
   border: 0px !important;
-  font-weight: var(--font-h3-weight);
-  padding: var(--space-m);
+  /* font-weight: var(--font-h3-weight); */
+  padding: var(--space-m) var(--space-l);
 }
 
 /* primary group */
