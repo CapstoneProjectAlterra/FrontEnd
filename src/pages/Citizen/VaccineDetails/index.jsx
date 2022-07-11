@@ -1,26 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import {
-  Row,
-  Col,
-  DatePicker,
-  Breadcrumb,
-  Modal,
-  Button,
-  Form,
-  Input,
-} from "antd";
+import React, {useEffect, useState} from "react";
+import {useParams} from "react-router-dom";
+import {Row, Col, DatePicker, Breadcrumb, Modal, Button, Form, Input} from "antd";
 import {
   CardBooking,
   CustomButton,
   ListFamily,
   CustomInput,
   AddFamily,
+  SubmitFormButton,
 } from "../../../components";
 import moment from "moment";
-import { imgCard } from "../../../assets";
-import { AiOutlineUserAdd } from "react-icons/ai";
-import { HiLocationMarker } from "react-icons/hi";
+import {imgCard} from "../../../assets";
+import {AiOutlineUserAdd} from "react-icons/ai";
+import {HiLocationMarker} from "react-icons/hi";
 import style from "./VaccineDetails.module.css";
 
 export default function VaccineDetails() {
@@ -49,7 +41,7 @@ export default function VaccineDetails() {
   };
 
   //sessionDetail
-  let { HospitalId } = useParams();
+  let {HospitalId} = useParams();
 
   //data dummy
   const data = {
@@ -77,7 +69,7 @@ export default function VaccineDetails() {
       <Row justify="center">
         <Row justify="start">
           <Col>
-            <Breadcrumb style={{ marginTop: "48px", marginLeft: "48px" }}>
+            <Breadcrumb style={{marginTop: "48px", marginLeft: "48px"}}>
               <Breadcrumb.Item>Home</Breadcrumb.Item>
               <Breadcrumb.Item>
                 <a href="">Vaksinasi</a>
@@ -86,13 +78,13 @@ export default function VaccineDetails() {
                 <a href="">Fasilitas Kesehatan</a>
               </Breadcrumb.Item>
               <Breadcrumb.Item>
-                <h5 style={{ color: "#06919d" }}>Rumah Sakit Majalaya</h5>
+                <h5 style={{color: "#06919d"}}>Rumah Sakit Majalaya</h5>
               </Breadcrumb.Item>
             </Breadcrumb>
           </Col>
         </Row>
         <Col span={20} className={style.body}>
-          <Row justify="space-between" style={{ margin: "40px 20px" }}>
+          <Row justify="space-between" style={{margin: "40px 20px"}}>
             <Col span={7}>
               <img src={imgCard} alt="Image" className={style.image} />
             </Col>
@@ -102,9 +94,8 @@ export default function VaccineDetails() {
                 <span className={style.location}>
                   <HiLocationMarker className={style.icon} />
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                    incididunt ut labore et dolore magna aliqua.
                   </p>
                 </span>
               </div>
@@ -114,7 +105,7 @@ export default function VaccineDetails() {
                     className="input"
                     defaultValue={moment()}
                     format="DD-MM-YYYY"
-                    style={{ width: "638px" }}
+                    style={{width: "638px"}}
                     onChange={onChangeDate}
                   />
                 </div>
@@ -125,13 +116,10 @@ export default function VaccineDetails() {
                       <div className={style.family}>
                         <h4>Daftar Anggota Keluarga</h4>
                         <div>
-                          <ListFamily
-                            list={listFams}
-                            setListFams={setListFams}
-                          />
+                          <ListFamily list={listFams} setListFams={setListFams} />
                         </div>
                       </div>
-                      <div style={{ marginTop: "32px" }}>
+                      <div style={{marginTop: "32px"}}>
                         <Button type="primary" onClick={showModal}>
                           Tambah Keluarga
                         </Button>
@@ -141,11 +129,7 @@ export default function VaccineDetails() {
                           onOk={handleOk}
                           onCancel={handleCancel}
                           footer={[
-                            <Button
-                              key="submit"
-                              type="primary"
-                              onClick={handleOk}
-                            >
+                            <Button key="submit" type="primary" onClick={handleOk}>
                               Tambahkan
                             </Button>,
                           ]}
@@ -171,11 +155,14 @@ export default function VaccineDetails() {
                         <CustomButton
                           variant="primary"
                           block
-                          style={{ marginTop: "24px" }}
+                          style={{marginTop: "24px"}}
                           onClick={handleClickFams}
                         >
                           Pesan Vaksinasi
                         </CustomButton>
+                        <SubmitFormButton handleClickFams={handleClickFams}>
+                          Pesan Vaksinasi
+                        </SubmitFormButton>
                       </div>
                     </Col>
                   </Row>

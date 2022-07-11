@@ -17,6 +17,9 @@ import DashboardRecentTable from "./DashboardRecentTable";
 import DashboardRegistrantTable from "./DashboardRegistrantTable";
 import ReactHelmet from "./ReactHelmet";
 import ListDashboardCard from "./ListDashboardCard";
+import WarningAlert from "./WarningAlert";
+import SuccessAlert from "./SuccessAlert";
+import SubmitFormButton from "./SubmitFormButton";
 
 export {
   CustomButton,
@@ -38,4 +41,7 @@ export {
   DashboardRegistrantTable,
   ReactHelmet,
   ListDashboardCard,
+  WarningAlert,
+  SuccessAlert,
+  SubmitFormButton,
 };
