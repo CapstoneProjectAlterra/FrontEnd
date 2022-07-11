@@ -1,42 +1,366 @@
-.body{
-    margin-top: 16px;
-    background-color: white;
+.bodyCard {
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 24px;
+  padding: 40px 10px;
 }
 
-.image{
-    border-radius: 20px;
+@media screen and (min-width: 640px) {
+  .image_container {
+    width: 40%;
+  }
 }
 
-
-.location{
-    display: flex;
-    margin-bottom: 32px;
+.image_container {
+  width: 100%;
+  height: 50px;
+  background-color: aqua;
 }
 
-.icon{
-    width: 32px;
-    height: 32px;
-    margin-right: 16px;
+@media screen and (min-width: 640px) {
+  .dataset_detail {
+    /* column-gap: 20px; */
+    flex-direction: row;
+  }
 }
 
-.booking{
-    margin-right: 56px;
+@media screen and (max-width: 639.9px) {
+  .dataset_detail {
+    row-gap: 20px;
+    flex-direction: column;
+  }
 }
 
-.cardVaccine{
-    margin: 32px 0;
+.dataset_detail {
+  display: flex;
+  column-gap: 20px;
 }
 
-.family{
-    margin-top: 32px;
+.datasetDetailData {
+  flex-grow: 1;
 }
 
-.family h4{
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 30px;
+/* schedule */
+
+@media screen and (min-width: 786px) {
+  .schedule_list_container {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .schedule_item_card {
+    flex-basis: 48%;
+    max-width: 400px;
+  }
 }
 
+@media screen and (max-width: 785.9px) {
+  .schedule_list_container {
+    flex-direction: column;
+  }
+}
 
+.schedule_list_container {
+  margin-top: 20px;
+  justify-content: space-between;
+  display: flex;
+  row-gap: 10px;
+}
 
+:root {
+  --border-theme-color: #acdade;
+  --primary-color: #06919d;
+}
 
+.schedule_item_card {
+  border: 2px solid var(--border-theme-color);
+  border-radius: 8px;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+}
+
+.schedule_item_container {
+  flex-basis: 48%;
+}
+
+.schedule_item_container > label {
+  float: left;
+  width: 100%;
+}
+
+.schedule_item_container > label > input {
+  position: absolute;
+  left: -9999px;
+}
+
+.schedule_item_container > label > input:checked + div {
+  background-color: var(--border-theme-color);
+  border: var(--primary-color) 2px solid;
+}
+
+.schedule_item_container > label > input:focus + div {
+  background-color: var(--border-theme-color);
+}
+
+.schedule_item_container
+  > label
+  > input:checked
+  + div
+  .schedule_item__vaccine_data_container {
+  border-top: var(--primary-color) solid 2px;
+}
+
+.schedule_item_container > label > input + div {
+  transition: all 0.3s;
+}
+
+.schedule_item_container > label > input + div:hover {
+  border: var(--primary-color) solid 2px;
+}
+
+.schedule_list_item {
+  border: 2px solid var(--border-theme-color);
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.schedule_item__vaccine_data_container {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  border-top: 2px solid var(--border-theme-color);
+  transition: all 0.3s;
+}
+
+.schedule_item__vaccine_data_item {
+  width: 50%;
+}
+
+.schedule_item__vaccine_data_item,
+.schedule_item__vaccine_time {
+  display: flex;
+  column-gap: 2px;
+}
+
+.schedule_item__vaccine_time {
+  margin-bottom: 2px;
+}
+
+.schedule_item__vaccine_data_item__icon,
+.schedule_item__vaccine_time__icon {
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--primary-color);
+}
+
+.schedule_item__vaccine_data_item__description,
+.schedule_item__vaccine_time__description {
+  flex-grow: 1;
+  padding-top: 2px;
+}
+
+.schedule_item__vaccine_time__description {
+  font-weight: 700;
+  padding-top: 0;
+  flex-grow: 1;
+  padding-top: 2px;
+}
+
+/* family */
+
+.family_member_list_container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  margin-top: 40px;
+}
+
+.family_member__container {
+  width: 100%;
+  border-radius: 10px;
+  float: left;
+}
+
+.family_member__container > label > div:hover {
+  border: var(--primary-color) 2px solid;
+}
+
+.family_member__container > label {
+  float: left;
+  width: 100%;
+}
+
+.family_member__container > label > input {
+  position: absolute;
+  left: -9999px;
+}
+
+.family_member__container > label > input:checked + div {
+  background-color: var(--border-theme-color);
+  border: var(--primary-color) 2px solid;
+}
+
+.family_member__container > label > input + div {
+  transition: all 0.3s;
+}
+
+.family_member__data_container {
+  display: flex;
+  column-gap: 20px;
+  align-items: center;
+  border: solid 2px var(--border-theme-color);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.family_member__data__private_container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.family_member__data__private__name_container {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.family_member__data__private__resident_id {
+  font-size: small;
+  opacity: 0.8;
+}
+
+.family_member__data__action_container {
+  display: flex;
+  column-gap: 10px;
+}
+
+.family_member__data__action__delete_button,
+.family_member__data__action__detail_button {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  border: transparent;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+
+.family_member__data__action__delete_button {
+  background-color: #ff0000;
+}
+
+.family_member__data__action__detail_button {
+  background-color: var(--primary-color);
+}
+
+.family_member__data__action__delete_button:hover,
+.family_member__data__action__detail_button:hover {
+  opacity: 0.7;
+}
+
+.family_member__data__action__delete_button:active,
+.family_member__data__action__detail_button:active {
+  opacity: 0.5;
+}
+
+.familyMemberDataPrivateNameFact {
+  font-size: large;
+  font-weight: 600;
+}
+
+.familyMemberDataPrivateNamePositionInFamily {
+  font-size: small;
+  color: #0008;
+}
+
+.formButtonContainer {
+  display: flex;
+  row-gap: 10px;
+  padding-top: 28px;
+  flex-direction: column;
+}
+
+.submitButton,
+.addFamilyMemberButton {
+  width: 100%;
+  height: 56px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  border-radius: 8px;
+  letter-spacing: 1px;
+  transition: all 0.3s;
+}
+
+.submitButton {
+  background-color: var(--primary-color);
+  color: #ffffff;
+  border: none;
+}
+
+.submitButton:hover {
+  background-color: var(--border-theme-color);
+  color: var(--primary-color);
+}
+
+.addFamilyMemberButton > svg {
+  height: 25px;
+  width: 25px;
+}
+
+.addFamilyMemberButton {
+  color: var(--primary-color);
+  background-color: #ffffff;
+  border: var(--primary-color) solid 2px;
+  column-gap: 5px;
+}
+
+.addFamilyMemberButton:hover {
+  border: none;
+  color: var(--primary-color);
+  background-color: var(--border-theme-color);
+}
+
+.image {
+  border-radius: 24px;
+  display: flex;
+  width: auto;
+  height: 100%;
+}
+
+.location {
+  display: flex;
+  margin-bottom: 32px;
+}
+
+.icon {
+  width: 32px;
+  height: 32px;
+  margin-right: 16px;
+}
+
+.booking {
+  margin-right: 56px;
+}
+
+.cardVaccine {
+  margin: 32px 0;
+}
+
+.family {
+  margin-top: 32px;
+}
+
+.family h4 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 30px;
+}
