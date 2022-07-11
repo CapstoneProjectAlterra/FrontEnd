@@ -46,7 +46,7 @@ const RegisterCitizen = () => {
           setIsAlertTriggered(true);
           setTimeout(() => {
             setIsAlertTriggered(false);
-          }, 2000);
+          }, 5000);
         }
         setIsLoading(false);
       });
@@ -201,17 +201,6 @@ const RegisterCitizen = () => {
                   className="input"
                 />
               </Form.Item>
-
-              {isAlertTriggered && (
-                <Alert
-                  message="Registrasi Gagal"
-                  type="warning"
-                  showIcon
-                  style={{
-                    marginBottom: "24px",
-                  }}
-                />
-              )}
 
               <Form.Item>
                 <CustomButton
