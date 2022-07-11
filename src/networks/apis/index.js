@@ -9,10 +9,19 @@ const isDev = process.env.NODE_ENV === "development";
 
 const isLocalDev = (isDev) => {
   let axiosConfig;
-  axiosConfig = axios.create();
+
   if (isDev) {
     const config = {
       baseURL: BASE_API,
+      headers: {
+        "Content-Type": "application/json",
+        ...(!!getToken() && { Authorization: `Bearer ${getToken()}` }),
+      },
+    };
+    axiosConfig = axios.create(config);
+  } else {
+    const config = {
+      baseURL: window.location.origin + "/api/v1",
       headers: {
         "Content-Type": "application/json",
         ...(!!getToken() && { Authorization: `Bearer ${getToken()}` }),

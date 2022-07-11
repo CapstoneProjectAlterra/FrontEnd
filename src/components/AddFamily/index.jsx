@@ -30,6 +30,7 @@ export default function AddFamily() {
     <Row>
       <Col span={24}>
         <Form
+          className={style.formContainer}
           name="basic"
           form={form}
           layout="vertical"
