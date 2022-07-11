@@ -2,6 +2,7 @@ import React from "react";
 import { Row, Col, Form, Input, Select, DatePicker, Space } from "antd";
 import { CustomButton, CustomInput } from "../../components";
 import { useState } from "react";
+import style from "./AddFamily.module.css";
 
 export default function AddFamily() {
   const [addFamily, setAddFamily] = useState();
