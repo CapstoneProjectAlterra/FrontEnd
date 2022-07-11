@@ -1,8 +1,8 @@
 /** React */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 /** Antd Design */
-import { Button, Tooltip, Form, Modal, Select, InputNumber } from "antd";
+import { Button, Tooltip, Form, Modal, Select, InputNumber, message } from "antd";
 
 /** Antd Design Icons */
 import { EditFilled } from "@ant-design/icons";
@@ -10,24 +10,49 @@ import { EditFilled } from "@ant-design/icons";
 /** Style */
 import style from "./VaccineModalEdit.module.css";
 import CustomButton from "../CustomButton";
+import axiosInstance from "../../networks/apis";
 
-const VaccineModalEdit = ({ data }) => {
+const VaccineModalEdit = ({ data, refetchToggle, setRefetchToggle }) => {
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [form] = Form.useForm();
+  const [vaccine, setVaccine] = useState([]);
 
   const showModal = () => {
     setVisible(true);
   };
 
+  useEffect(() => {
+    axiosInstance
+      .get("/vaccine", { data: "" })
+      .then((response) => {
+        setVaccine(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   const handleOk = (values) => {
+    const inputData = {
+      stock: values.stock,
+    };
+
     setConfirmLoading(true);
-    console.log(values);
-    setTimeout(() => {
-      setVisible(false);
-      setConfirmLoading(false);
-      form.resetFields();
-    }, 2000);
+    axiosInstance
+      .put(`/stock/update?facility_id=${data.facility_id}&vaccine_id=${values.vaccine_id}`, inputData)
+      .then((response) => {
+        console.log(response);
+        setConfirmLoading(false);
+        setVisible(false);
+        setRefetchToggle(!refetchToggle);
+        message.success("Data berhasil diubah");
+      })
+      .catch((error) => {
+        console.log(error);
+        setConfirmLoading(false);
+        message.error("Data gagal diubah");
+      });
   };
 
   const handleCancel = () => {
@@ -106,9 +131,11 @@ const VaccineModalEdit = ({ data }) => {
             ]}
           >
             <Select showSearch placeholder="Select Vaccine" optionFilterProp="children" onChange={onChange} onSearch={onSearch} filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}>
-              <Select.Option value={1}>Sinovac</Select.Option>
-              <Select.Option value={2}>Astra Zeneca</Select.Option>
-              <Select.Option value={3}>Moderna</Select.Option>
+              {vaccine.map((item) => (
+                <Select.Option key={item.id} value={item.id}>
+                  {item.vaccine_name}
+                </Select.Option>
+              ))}
             </Select>
           </Form.Item>
           <Form.Item
