@@ -45,14 +45,14 @@ export default function Login() {
           setIsAlertTriggered(true);
           setTimeout(() => {
             setIsAlertTriggered(false);
-          }, 2000);
+          }, 5000);
         }
       })
       .catch((error) => {
         setIsAlertTriggered(true);
         setTimeout(() => {
           setIsAlertTriggered(false);
-        }, 2000);
+        }, 5000);
       })
       .finally(() => setIsLoading(false));
   };
