@@ -3,9 +3,6 @@ import CustomInput from "./CustomInput";
 import TicketModal from "./TicketModal";
 import TicketCard from "./TicketCard";
 import TicketList from "./TicketList";
-import CardBooking from "./CardBooking";
-import ListFamily from "./ListFamily";
-import AddFamily from "./AddFamily";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 import CustomAlert from "./CustomAlert";
@@ -17,6 +14,10 @@ import DashboardRecentTable from "./DashboardRecentTable";
 import DashboardRegistrantTable from "./DashboardRegistrantTable";
 import ReactHelmet from "./ReactHelmet";
 import ListDashboardCard from "./ListDashboardCard";
+import CardBooking from "./CardBooking";
+import ListFamily from "./ListFamily";
+import AddFamily from "./AddFamily";
+import EditFamily from "./EditFamily";
 
 export {
   CustomButton,
@@ -24,9 +25,6 @@ export {
   TicketModal,
   TicketCard,
   TicketList,
-  CardBooking,
-  ListFamily,
-  AddFamily,
   Navbar,
   CustomAlert,
   Footer,
@@ -38,4 +36,8 @@ export {
   DashboardRegistrantTable,
   ReactHelmet,
   ListDashboardCard,
+  CardBooking,
+  ListFamily,
+  AddFamily,
+  EditFamily,
 };
