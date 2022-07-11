@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Row,
   Col,
@@ -16,6 +16,7 @@ import {
   ListFamily,
   CustomInput,
   AddFamily,
+  EditFamily,
 } from "../../../components";
 import moment from "moment";
 import { imgCard } from "../../../assets";
@@ -30,18 +31,17 @@ import CitizenLayouts from "../../../layouts/CitizenLayout";
 import { FaPersonBooth, FaSyringe, FaUser } from "react-icons/fa";
 import { TbBox, TbBoxModel, TbVaccineBottle } from "react-icons/tb";
 import { BiBox, BiDetail, BiUserPlus } from "react-icons/bi";
-import axios from "axios";
-import CONST from "../../../utils/constant";
-import Cookies from "js-cookie";
+import axiosInstance from "../../../networks/apis";
+import { getUserId, isAuthenticatedUser } from "../../../utils/helpers/Auth";
 
 export default function VaccineDetails() {
   // state init
   const [vaccinationDate, setVaccinationDate] = useState(
     moment().format("DD-MM-YYYY")
   );
+  const [refetchToggle, setRefetchToggle] = useState(false);
   const [vaccinationSession, setVaccinationSession] = useState([]);
   const [listFamilies, setListFamilies] = useState([]);
-  const [isFamilyModalVisible, setIsFamilyModalVisible] = useState(false);
   const [hospitalData, setHospitalData] = useState({
     name: "",
     address: "",
@@ -51,6 +51,8 @@ export default function VaccineDetails() {
   const [selectedFamilyMember, setSelectedFamilyMember] = useState([]);
 
   const { hospitalId } = useParams();
+  const navigate = useNavigate();
+
   const breadcrumbPaths = [
     { title: "Home", href: "", isActive: false },
     { title: "Vaksinasi", href: "", isActive: false },
@@ -69,27 +71,59 @@ export default function VaccineDetails() {
     console.log("eta", currentList[selectedMemberIndex], event.target.value);
   };
 
+  const bookingVaccination = async (scheduleId, familyId) => {
+    const bookingInput = {
+      booking_date: moment().format("DD-MM-YYYY hh:mm:ss"),
+      user: {
+        id: getUserId(),
+      },
+      schedule: {
+        id: scheduleId,
+      },
+    };
+    console.log(bookingInput);
+    const bookingId = await axiosInstance
+      .post("/booking", bookingInput)
+      .then((res) => res.data.data.id);
+
+    axiosInstance
+      .post("/detail", {
+        booking_id: bookingId,
+        family_id: familyId,
+        booking_status: "COMPLETED",
+      })
+      .then((res) => {
+        console.log("success");
+        console.log(res.data.data);
+      });
+  };
+
   const handleFormSubmit = (event) => {
     event.preventDefault();
     // setSelectedSchedule(event.target.session.value);
     // setSelectedFamilyMember(event.target.family.value);
     // console.log("test");
-    console.log(selectedSchedule, selectedFamilyMember);
+    const scheduleId = selectedSchedule;
+    const familyMember = selectedFamilyMember
+      .filter((family) => family.selected === true)
+      .map((item) => item.user_id);
+
+    console.log("scheduleId", scheduleId);
+    console.log("familyMember", familyMember);
+    familyMember.forEach((familyId) => {
+      bookingVaccination(scheduleId, familyId);
+    });
+    navigate("/ticket");
   };
 
   // mutator
   useEffect(() => {
     document.body.style.backgroundColor = "#f5fdfe";
-    const token = Cookies.get("token");
-    console.log(token);
+    // const token = Cookies.get("token");
+    // console.log(token);
 
-    axios
-      .get(CONST.BASE_API + `/facility/${hospitalId}`, {
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwMTIzNDU2IiwiaWF0IjoxNjU3Mzc0NzI3LCJleHAiOjE2NTc0NjExMjd9.94fj4X4eo-yl13AaTDCqtx8-VL007WsxfSI9kducKeQ",
-          "Content-Type": "application/json",
-        },
+    axiosInstance
+      .get(`/facility/${hospitalId}`, {
         data: {},
       })
       .then((res) => {
@@ -101,34 +135,44 @@ export default function VaccineDetails() {
         });
       });
 
-    axios
-      .get(CONST.BASE_API + "/family", {
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwMTIzNDU2IiwiaWF0IjoxNjU3Mzc0NzI3LCJleHAiOjE2NTc0NjExMjd9.94fj4X4eo-yl13AaTDCqtx8-VL007WsxfSI9kducKeQ",
-          "Content-Type": "application/json",
-        },
+    axiosInstance
+      .get("/family", {
         data: {},
       })
       .then((res) => {
-        // console.log("data", res);
-        // const familyDataById = res.data.data.filter(
-        //   (memberFamily) => memberFamily.profile.id === 3
-        // );
-        setListFamilies(res.data.data);
+        console.log("data", res);
+        const familyDataById = res.data.data.filter(
+          (memberFamily) => memberFamily.profile.user_id === getUserId()
+        );
+        setListFamilies(familyDataById);
       });
 
-    axios
-      .get(CONST.BASE_API + "/schedule", {
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwMTIzNDU2IiwiaWF0IjoxNjU3Mzc0NzI3LCJleHAiOjE2NTc0NjExMjd9.94fj4X4eo-yl13AaTDCqtx8-VL007WsxfSI9kducKeQ",
-          "Content-Type": "application/json",
-        },
+    axiosInstance
+      .get("/schedule", {
         data: {},
       })
-      .then((res) => setVaccinationSession(res.data.data));
+      .then((res) => {
+        const sessionByHospitalId = res.data.data.filter(
+          (session) => session.facility.id == hospitalId
+        );
+        console.log(sessionByHospitalId);
+        setVaccinationSession(sessionByHospitalId);
+      });
   }, []);
+
+  useEffect(() => {
+    axiosInstance
+      .get("/family", {
+        data: {},
+      })
+      .then((res) => {
+        console.log("data", res);
+        const familyDataById = res.data.data.filter(
+          (memberFamily) => memberFamily.profile.user_id === getUserId()
+        );
+        setListFamilies(familyDataById);
+      });
+  }, [refetchToggle]);
 
   useEffect(() => {
     const familyInit = () => {
@@ -186,7 +230,15 @@ export default function VaccineDetails() {
   }) => (
     <div className={style.schedule_item_container}>
       <label>
-        <input type="radio" name={inputName} value={inputValue} />
+        <input
+          type="radio"
+          name={inputName}
+          value={inputValue}
+          onClick={() => {
+            setSelectedSchedule(inputValue);
+            console.log(inputValue);
+          }}
+        />
         <div className={style.schedule_item_card}>
           <div className={style.schedule_item__vaccine_time}>
             <div className={style.schedule_item__vaccine_time__icon}>
@@ -239,6 +291,7 @@ export default function VaccineDetails() {
   const FamilyMemberCheckboxComponent = ({
     inputName,
     inputValue,
+    member,
     memberName,
     memberPositionInFamily,
     memberNIK,
@@ -269,11 +322,11 @@ export default function VaccineDetails() {
             </div>
           </div>
           <div className={style.family_member__data__action_container}>
-            <button
-              className={style.family_member__data__action__detail_button}
-            >
-              <BiDetail />
-            </button>
+            <EditFamily
+              refetchToggle={refetchToggle}
+              setRefetchToggle={setRefetchToggle}
+              member={member}
+            />
           </div>
         </div>
       </label>
@@ -281,7 +334,7 @@ export default function VaccineDetails() {
   );
 
   return (
-    <CitizenLayouts>
+    <CitizenLayouts auth={isAuthenticatedUser()}>
       <Row
         justify="start"
         style={{ paddingTop: 50, rowGap: 10, paddingBottom: 10 }}
@@ -343,17 +396,19 @@ export default function VaccineDetails() {
                 {/* schedules */}
                 {/* <Form.Item hasFeedback noStyle> */}
                 <div className={style.schedule_list_container}>
-                  {vaccinationSession.map((session, index) => (
-                    <VaccinationScheduleOptionComponent
-                      time={`${session.operational_hour_start} - ${session.operational_hour_end}`}
-                      inputName="session"
-                      key={index}
-                      inputValue={session.vaccine.id}
-                      vaccineName={session.vaccine.vaccine_name}
-                      vaccineDosage={session.dose}
-                      vaccineQuota={session.quota}
-                    />
-                  ))}
+                  {vaccinationSession
+                    .filter((item) => item.vaccination_date === vaccinationDate)
+                    .map((session, index) => (
+                      <VaccinationScheduleOptionComponent
+                        time={`${session.operational_hour_start} - ${session.operational_hour_end}`}
+                        inputName="session"
+                        key={index}
+                        inputValue={session.id}
+                        vaccineName={session.vaccine.vaccine_name}
+                        vaccineDosage={session.dose}
+                        vaccineQuota={session.quota}
+                      />
+                    ))}
                 </div>
                 {/* </Form.Item> */}
 
@@ -364,6 +419,7 @@ export default function VaccineDetails() {
                       key={index}
                       inputName="family"
                       inputValue={member.id}
+                      member={member}
                       memberName={member.name}
                       memberNIK={member.nik}
                       memberId={member.id}
@@ -374,22 +430,10 @@ export default function VaccineDetails() {
 
                 {/* submit button */}
                 <div className={style.formButtonContainer}>
-                  <CustomButton
-                    variant="secondary"
-                    style={{ height: "56px" }}
-                    onClick={() =>
-                      setIsFamilyModalVisible(!isFamilyModalVisible)
-                    }
-                  >
-                    <BiUserPlus
-                      style={{
-                        width: "24px",
-                        height: "24px",
-                        fontSize: "16px",
-                      }}
-                    />
-                    Tambah Anggota Keluarga
-                  </CustomButton>
+                  <AddFamily
+                    setRefetchToggle={setRefetchToggle}
+                    refetchToggle={refetchToggle}
+                  />
                   {/* <button
                     className={style.addFamilyMemberButton}
                     

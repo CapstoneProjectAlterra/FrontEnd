@@ -52,18 +52,22 @@
 }
 
 .card:hover{
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 2px 4px 8px 1px rgba(6, 145, 157, 0.25)
 }
 
 .card:focus{
-    border: 2px solid rgba(6, 145, 157, 0.2);
+    border: 3px solid #ACDADE;
+    box-shadow: 2px 4px 8px 1px rgba(6, 145, 157, 0.25);
+}
+
+.card:active{
+    border: 3px solid #03484E;
 }
 
 .cardImage{
-    width: 342px;
+    width: 100%;
     height: 342px;
     border-radius: 8px;
-    background-color: lightgray;
 }
 
 .cardDetails{
@@ -79,6 +83,12 @@
     display: flex;
     margin-top: 8px;
     font-size: var(--font-body-2-size);
+}
+
+.cardInform{
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 18px 12px 16px;
 }
 
 .icon{

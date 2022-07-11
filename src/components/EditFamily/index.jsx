@@ -1,16 +1,22 @@
 import { DatePicker, Form, message, Modal, Select } from "antd";
 import { Option } from "antd/lib/mentions";
 import React, { useState } from "react";
-import { BiUserPlus } from "react-icons/bi";
+import { BiDetail } from "react-icons/bi";
 import axiosInstance from "../../networks/apis";
 import { getUserId } from "../../utils/helpers/Auth";
 import CustomButton from "../CustomButton";
 import CustomInput from "../CustomInput";
-import styles from "./AddFamily.module.css";
+import moment from "moment";
+import styles from "./EditFamily.module.css";
 
-export default function AddFamily({ refetchToggle, setRefetchToggle }) {
+export default function EditFamily({
+  member,
+  refetchToggle,
+  setRefetchToggle,
+}) {
   const [form] = Form.useForm();
   const { Option } = Select;
+  const [disabled, setDisabled] = useState(true);
 
   const [viewVisible, setviewVisible] = useState(false);
 
@@ -24,8 +30,15 @@ export default function AddFamily({ refetchToggle, setRefetchToggle }) {
     setviewVisible(true);
   };
 
+  const onFormLayoutChange = ({ disabled }) => {
+    setDisabled(disabled);
+  };
+
+  const editMode = () => {
+    setDisabled(false);
+  };
   const handleOk = (values) => {
-    const addFamily = {
+    const updateFamily = {
       date_of_birth: values.date_of_birth.format("DD-MM-YYYY"),
       email: values.email,
       name: values.name,
@@ -40,51 +53,67 @@ export default function AddFamily({ refetchToggle, setRefetchToggle }) {
         user_id: getUserId(),
       },
     };
-    axiosInstance.post("/family", addFamily).then((res) => {
-      message.success("Data telah berhasil ditambah");
+    axiosInstance.put(`/family/${member.id}`, updateFamily).then((res) => {
+      message.success("Data telah berhasil diupdate");
       setRefetchToggle(!refetchToggle);
     });
   };
   return (
     <div className={styles.container}>
       <CustomButton
-        variant="secondary"
-        style={{ height: "56px" }}
+        variant="primary"
+        style={{
+          width: "34px",
+          height: "34px",
+          padding: "0px",
+          margin: "0px 26px",
+        }}
         onClick={showModal}
-        block
       >
-        <BiUserPlus
-          style={{
-            width: "24px",
-            height: "24px",
-            fontSize: "16px",
-          }}
-        />
-        Tambah Anggota Keluarga
+        <BiDetail style={{ width: "18px" }} />
       </CustomButton>
       <Modal
         visible={viewVisible}
         title="Detail"
-        okText={"Submit"}
+        okText={disabled ? "Edit" : "Submit"}
         cancelText="Cancel"
         onCancel={handleCancel}
         onOk={() => {
-          form
-            .validateFields()
-            .then((values) => {
-              form.resetFields();
-              handleCancel();
-              handleOk(values);
-            })
-            .catch((info) => {
-              console.log("Validate Failed:", info);
-            });
+          disabled
+            ? editMode()
+            : form
+                .validateFields()
+                .then((values) => {
+                  form.resetFields();
+                  handleCancel();
+                  handleOk(values);
+                })
+                .catch((info) => {
+                  console.log("Validate Failed:", info);
+                });
         }}
         style={{
           top: 20,
         }}
       >
-        <Form form={form} layout="vertical" name="add family member">
+        <Form
+          form={form}
+          layout="vertical"
+          name="edit family member"
+          initialValues={{
+            date_of_birth: moment(member.date_of_birth, "DD-MM-YYYY"),
+            email: member.email,
+            name: member.name,
+            gender: member.gender,
+            id_card_address: member.id_card_address,
+            NIK: member.nik,
+            phone_number: member.phone_number,
+            place_of_birth: member.place_of_birth,
+            residence_address: member.residence_address,
+            status_in_family: member.status_in_family,
+          }}
+          onValuesChange={onFormLayoutChange}
+        >
           <Form.Item
             label="NIK"
             name="NIK"
@@ -108,7 +137,7 @@ export default function AddFamily({ refetchToggle, setRefetchToggle }) {
             ]}
             hasFeedback
           >
-            <CustomInput placeholder="Masukkan NIK Anda" />
+            <CustomInput placeholder="Masukkan NIK Anda" disabled={disabled} />
           </Form.Item>
 
           <Form.Item
@@ -134,7 +163,10 @@ export default function AddFamily({ refetchToggle, setRefetchToggle }) {
             ]}
             hasFeedback
           >
-            <CustomInput placeholder="Masukkan Nama Lengkap Anda" />
+            <CustomInput
+              placeholder="Masukkan Nama Lengkap Anda"
+              disabled={disabled}
+            />
           </Form.Item>
 
           <Form.Item
@@ -150,7 +182,7 @@ export default function AddFamily({ refetchToggle, setRefetchToggle }) {
               width: "calc(50% - 8px)",
             }}
           >
-            <CustomInput placeholder="Kota / Kabupaten" />
+            <CustomInput placeholder="Kota / Kabupaten" disabled={disabled} />
           </Form.Item>
           <Form.Item
             label="Tanggal Lahir"
@@ -169,8 +201,8 @@ export default function AddFamily({ refetchToggle, setRefetchToggle }) {
             <DatePicker
               className="input"
               format="DD-MM-YYYY"
-              // onChange={onChangeDate}
               style={{ width: "100%" }}
+              disabled={disabled}
               placeholder="Pilih tanggal"
             />
           </Form.Item>
@@ -185,7 +217,7 @@ export default function AddFamily({ refetchToggle, setRefetchToggle }) {
               },
             ]}
           >
-            <Select placeholder="Pilih Jenis Kelamin Anda">
+            <Select placeholder="Pilih Jenis Kelamin Anda" disabled={disabled}>
               <Option value="LAKI_LAKI">Laki - Laki</Option>
               <Option value="PEREMPUAN">Perempuan</Option>
             </Select>
@@ -201,7 +233,10 @@ export default function AddFamily({ refetchToggle, setRefetchToggle }) {
               },
             ]}
           >
-            <Select placeholder="Pilih Hubungan dalam Keluarga Anda">
+            <Select
+              placeholder="Pilih Hubungan dalam Keluarga Anda"
+              disabled={disabled}
+            >
               <Option value="AYAH">Ayah</Option>
               <Option value="IBU">Ibu</Option>
               <Option value="ANAK">Anak</Option>
@@ -224,7 +259,10 @@ export default function AddFamily({ refetchToggle, setRefetchToggle }) {
             ]}
             hasFeedback
           >
-            <CustomInput placeholder="Masukkan Email Anda" />
+            <CustomInput
+              placeholder="Masukkan Email Anda"
+              disabled={disabled}
+            />
           </Form.Item>
 
           <Form.Item
@@ -250,7 +288,10 @@ export default function AddFamily({ refetchToggle, setRefetchToggle }) {
             ]}
             hasFeedback
           >
-            <CustomInput placeholder="Masukkan Nomor Telepon Anda" />
+            <CustomInput
+              placeholder="Masukkan Nomor Telepon Anda"
+              disabled={disabled}
+            />
           </Form.Item>
 
           <Form.Item
@@ -276,7 +317,10 @@ export default function AddFamily({ refetchToggle, setRefetchToggle }) {
             ]}
             hasFeedback
           >
-            <CustomInput placeholder="Masukkan Alamat Lengkap Anda" />
+            <CustomInput
+              placeholder="Masukkan Alamat Lengkap Anda"
+              disabled={disabled}
+            />
           </Form.Item>
 
           <Form.Item
@@ -302,7 +346,10 @@ export default function AddFamily({ refetchToggle, setRefetchToggle }) {
             ]}
             hasFeedback
           >
-            <CustomInput placeholder="Masukkan Alamat Anda Saat Ini" />
+            <CustomInput
+              placeholder="Masukkan Alamat Anda Saat Ini"
+              disabled={disabled}
+            />
           </Form.Item>
         </Form>
       </Modal>
