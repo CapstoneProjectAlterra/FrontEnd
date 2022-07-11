@@ -1,14 +1,15 @@
 import { Col, Row, Pagination, Breadcrumb } from "antd";
 import React from "react";
-import style from "./Berita.module.css"
-import { UserOutlined } from '@ant-design/icons';
+import style from "./Berita.module.css";
+import { UserOutlined } from "@ant-design/icons";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import dateFormat from '../../../utils/helpers/dateFormat';
+import dateFormat from "../../../utils/helpers/dateFormat";
 import { Link } from "react-router-dom";
+import CitizenLayout from "../../../layouts/CitizenLayout";
+import { isAuthenticated } from "../../../utils/helpers/Auth";
 
 export default function News() {
-
   const [state, setState] = useState({
     minValue: 0,
     maxValue: 12,
@@ -39,46 +40,76 @@ export default function News() {
     loadNews();
   }, []);
 
-  let sorted1 = news.sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt));
-  let sorted2 = news.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
-  let sorted3 = news.sort((a, b) => new Date(b.publishedAt).getTime() -  new Date(a.publishedAt).getTime());
-  
-  return(
+  let sorted1 = news.sort(
+    (a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt)
+  );
+  let sorted2 = news.sort(
+    (a, b) => new Date(b.publishedAt) - new Date(a.publishedAt)
+  );
+  let sorted3 = news.sort(
+    (a, b) =>
+      new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+  );
+
+  return (
     <>
-    <Col span={20} offset={2}>
-    <Breadcrumb className={style.breadcrumb}>
-          <Breadcrumb.Item>
-            <Link to="/">Home</Link>
-          </Breadcrumb.Item>
-          <Breadcrumb.Item>
-            <Link to="/news">News</Link>
-          </Breadcrumb.Item>
-        </Breadcrumb>
-    <h1 style={{marginTop:"24px", marginBottom:"48px"}}>Berita Terbaru</h1>
-    </Col>
+      <CitizenLayout auth={isAuthenticated()}>
+        <Col span={20} offset={2} style={{ paddingTop: "40px" }}>
+          <Breadcrumb className={style.breadcrumb}>
+            <Breadcrumb.Item>
+              <Link to='/'>Home</Link>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>
+              <Link to='/news'>News</Link>
+            </Breadcrumb.Item>
+          </Breadcrumb>
+          <h1 style={{ marginTop: "24px", marginBottom: "48px" }}>
+            Berita Terbaru
+          </h1>
+        </Col>
 
-    <Row justify="center" gutter={[0,24]} style={{ gap:"16px"}}> 
-    {news.length > 0 &&
-      news
-        .slice(state.minValue, state.maxValue) 
-        .map((item, itemTdx) => {
-        return (
-    <Col lg= {{span: 5}} xs={{span: 16}} key={itemTdx} className={style.col}>
-      <a href={item.url} target="_blank">
-    <Col>
-     <img src={item.urlToImage} alt="berita" className={style.img}/>
-     <p className="body3" style={{marginTop:"14px", marginBottom:"8px"}}>{dateFormat(item.publishedAt, "date-month-year")}</p>
-     <h4 style={{marginBottom:"16px"}}>{item.title}</h4>
-     <p className="body2" style={{textAlign:"justify", marginBottom:"8px"}}>{item.description.slice(0,90) + (item.description.length > 90 ? ' . . .' : '')}</p>
-     <p className="body3" style={{marginBottom:"8px"}}><UserOutlined className={style.icon}/> {item.author}</p>
-    </Col>
-    </a>
-    </Col>
-    );
-  })}
-    </Row>
+        <Row
+          justify='center'
+          gutter={[0, 24]}
+          style={{ gap: "16px", paddingBottom: "88px" }}>
+          {news.length > 0 &&
+            news.slice(state.minValue, state.maxValue).map((item, itemTdx) => {
+              return (
+                <Col
+                  lg={{ span: 5 }}
+                  xs={{ span: 16 }}
+                  key={itemTdx}
+                  className={style.col}>
+                  <a href={item.url} target='_blank'>
+                    <Col>
+                      <img
+                        src={item.urlToImage}
+                        alt='berita'
+                        className={style.img}
+                      />
+                      <p
+                        className='body3'
+                        style={{ marginTop: "14px", marginBottom: "8px" }}>
+                        {dateFormat(item.publishedAt, "date-month-year")}
+                      </p>
+                      <h4 style={{ marginBottom: "16px" }}>{item.title}</h4>
+                      <p
+                        className='body2'
+                        style={{ textAlign: "justify", marginBottom: "8px" }}>
+                        {item.description.slice(0, 90) +
+                          (item.description.length > 90 ? " . . ." : "")}
+                      </p>
+                      <p className='body3' style={{ marginBottom: "8px" }}>
+                        <UserOutlined className={style.icon} /> {item.author}
+                      </p>
+                    </Col>
+                  </a>
+                </Col>
+              );
+            })}
+        </Row>
 
-    <div className={style.pagination}>
+        <div className={style.pagination}>
           <Pagination
             defaultCurrent={1}
             defaultPageSize={12}
@@ -86,6 +117,7 @@ export default function News() {
             total={news.length}
           />
         </div>
+      </CitizenLayout>
     </>
   );
 }
