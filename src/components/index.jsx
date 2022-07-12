@@ -14,6 +14,9 @@ import DashboardRecentTable from "./DashboardRecentTable";
 import DashboardRegistrantTable from "./DashboardRegistrantTable";
 import ReactHelmet from "./ReactHelmet";
 import ListDashboardCard from "./ListDashboardCard";
+import WarningAlert from "./WarningAlert";
+import SuccessAlert from "./SuccessAlert";
+import SubmitFormButton from "./SubmitFormButton";
 import CardBooking from "./CardBooking";
 import ListFamily from "./ListFamily";
 import AddFamily from "./AddFamily";
@@ -36,6 +39,9 @@ export {
   DashboardRegistrantTable,
   ReactHelmet,
   ListDashboardCard,
+  WarningAlert,
+  SuccessAlert,
+  SubmitFormButton,
   CardBooking,
   ListFamily,
   AddFamily,

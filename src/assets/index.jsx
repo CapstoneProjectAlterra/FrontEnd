@@ -9,6 +9,8 @@ import faskes from "./illustration/faskes.png";
 import imgCard from "./illustration/imgCard.png";
 import AboutUs from "./illustration/about-us.png";
 import TicketNotFound from "./illustration/ticket-not-found.png";
+import SuccessIlustration from "./illustration/notif-success.png";
+import WarningIcon from "./icons/warning.png";
 
 export {
   imgLogin,
@@ -22,4 +24,6 @@ export {
   imgCard,
   AboutUs,
   TicketNotFound,
+  SuccessIlustration,
+  WarningIcon,
 };
