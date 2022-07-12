@@ -9,7 +9,10 @@ import dateFormat from "../../../utils/helpers/dateFormat";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { CustomAlert } from "../../../components";
-import { isAuthenticatedUser } from "../../../utils/helpers/Auth";
+import {
+  isAuthenticatedUser,
+  isProfileNull,
+} from "../../../utils/helpers/Auth";
 import CitizenLayout from "../../../layouts/CitizenLayout";
 
 const alur = [
@@ -118,17 +121,12 @@ const faskes = [
 
 export default function Home() {
   const navigate = useNavigate();
-  const logout = () => {
-    Cookies.remove("token");
-    Cookies.remove("user");
-    navigate("/login");
-  };
 
   const [state, setState] = useState({
     minValue: 0,
     maxValue: 3,
   });
-  const [auth, setAuth] = useState(false);
+
   const handleChange = (value) => {
     if (value <= 1) {
       setState({
@@ -139,6 +137,7 @@ export default function Home() {
   };
 
   const [news, setNews] = useState([]);
+  const [alertToggle, setAlertToggle] = useState(false);
 
   useEffect(() => {
     const loadNews = async () => {
@@ -149,73 +148,64 @@ export default function Home() {
     };
     loadNews();
 
-    if (Cookies.get("token")) {
-      setAuth(true);
-    } else {
-      setAuth(false);
+    if (isAuthenticatedUser()) {
+      isProfileNull().then((res) => {
+        setAlertToggle(res);
+      });
     }
   }, []);
-
-  let sorted1 = news.sort(
-    (a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt)
-  );
-  let sorted2 = news.sort(
-    (a, b) => new Date(b.publishedAt) - new Date(a.publishedAt)
-  );
-  let sorted3 = news.sort(
-    (a, b) =>
-      new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-  );
 
   return (
     <>
       <CitizenLayout auth={isAuthenticatedUser()} padding={false}>
-        {auth && <CustomAlert />}
-        <Row justify='center' style={{ paddingTop: "40px" }}>
+        {isAuthenticatedUser() && alertToggle && <CustomAlert />}
+        <Row justify="center" style={{ paddingTop: "40px" }}>
           <Col className={style.colflex} lg={{ span: 10 }} xs={{ span: 20 }}>
             <h1 className={style.textdaftar} style={{ marginBottom: "0px" }}>
               Alternatif
             </h1>
             <h1
               className={style.textdaftar}
-              style={{ color: "var(--color-primary)", marginBottom: "0px" }}>
+              style={{ color: "var(--color-primary)", marginBottom: "0px" }}
+            >
               Pesan Vaksinasi
             </h1>
-            <p className='body1'>
+            <p className="body1">
               Dapat dilakukan di mana pun dan kapan pun dengan mudah
             </p>
-            {auth === true ? (
-              <CustomButton variant='primary'>
-                <Link to='/vaccine'>Daftar Vaksinasi</Link>
+            {isAuthenticatedUser() === true ? (
+              <CustomButton variant="primary">
+                <Link to="/vaccine">Daftar Vaksinasi</Link>
               </CustomButton>
             ) : (
-              <CustomButton variant='primary'>
-                <Link to='/login'>Daftar Vaksinasi</Link>
+              <CustomButton variant="primary">
+                <Link to="/login">Daftar Vaksinasi</Link>
               </CustomButton>
             )}
           </Col>
-          <Col lg={{ span: 10 }} xs={{ span: 20 }} justify='end'>
-            <img src={LandingPage} alt='landingpage' className={style.img} />
+          <Col lg={{ span: 10 }} xs={{ span: 20 }} justify="end">
+            <img src={LandingPage} alt="landingpage" className={style.img} />
           </Col>
         </Row>
 
         <h2 className={style.textjudul}>Alur Pendaftaran</h2>
-        <Row justify='space-evenly' gutter={[0, 48]}>
+        <Row justify="space-evenly" gutter={[0, 48]}>
           {alur.map((item) => {
             return (
               <Col
                 lg={{ span: 5 }}
                 xs={{ span: 10 }}
                 key={item.key}
-                className={style.col}>
+                className={style.col}
+              >
                 <Col>
                   <img
                     src={require(`../../../${item.img}`)}
-                    alt='instruksi'
+                    alt="instruksi"
                     className={style.img}
                   />
                   <h4 style={{ marginTop: "16px" }}>{item.title}</h4>
-                  <p className='body2'>{item.content}</p>
+                  <p className="body2">{item.content}</p>
                 </Col>
               </Col>
             );
@@ -224,35 +214,39 @@ export default function Home() {
 
         <Row
           style={{ background: "var(--color-secondary", marginTop: "88px" }}
-          justify='center'>
-          <Col span={24} justify='center'>
+          justify="center"
+        >
+          <Col span={24} justify="center">
             <h2
               className={style.textkerjasama}
-              style={{ marginTop: "32px", marginBottom: "0px" }}>
+              style={{ marginTop: "32px", marginBottom: "0px" }}
+            >
               Kami telah bekerja sama dengan 100 Fasilitas
             </h2>
             <h2
               className={style.textkerjasama}
-              style={{ marginBottom: "64px" }}>
+              style={{ marginBottom: "64px" }}
+            >
               Kesehatan untuk pemesanan vaksin
             </h2>
           </Col>
           <Row
-            justify='space-evenly'
+            justify="space-evenly"
             gutter={[0, 44]}
             style={{
               gap: "32px",
               marginLeft: "48px",
               marginRight: "48px",
               marginBottom: "32px",
-            }}>
+            }}
+          >
             {faskes.map((item) => {
               return (
                 <Col lg={{ span: 3 }} xs={{ span: 4 }} key={item.key}>
                   <Col>
                     <img
                       src={require(`../../../${item.img}`)}
-                      alt='fasilitas kesehatan'
+                      alt="fasilitas kesehatan"
                       className={style.img}
                     />
                   </Col>
@@ -264,23 +258,25 @@ export default function Home() {
 
         <Row
           span={22}
-          justify='space-between'
+          justify="space-between"
           style={{
             alignItems: "center",
             paddingLeft: "160px",
             paddingRight: "160px",
             marginTop: "88px",
-          }}>
+          }}
+        >
           <h2>Berita Terbaru</h2>
-          <Link to='/news' style={{ color: "var(--color-primary)" }}>
+          <Link to="/news" style={{ color: "var(--color-primary)" }}>
             Lebih Banyak &gt;
           </Link>
         </Row>
 
         <Row
-          justify='center'
+          justify="center"
           gutter={[0, 24]}
-          style={{ gap: "77px", paddingBottom: "88px" }}>
+          style={{ gap: "77px", paddingBottom: "88px" }}
+        >
           {news.length > 0 &&
             news.slice(state.minValue, state.maxValue).map((item, itemTdx) => {
               return (
@@ -289,12 +285,13 @@ export default function Home() {
                   md={{ span: 10 }}
                   xs={{ span: 16 }}
                   key={itemTdx}
-                  className={style.col}>
-                  <a href={item.url} target='_blank'>
+                  className={style.col}
+                >
+                  <a href={item.url} target="_blank">
                     <Col>
                       <img
                         src={item.urlToImage}
-                        alt='berita'
+                        alt="berita"
                         className={style.imgberita}
                       />
                       <p className={style.body3} style={{ marginTop: "8px" }}>
@@ -303,7 +300,8 @@ export default function Home() {
                       <h4 style={{ marginBottom: "16px" }}>{item.title}</h4>
                       <p
                         className={style.body2}
-                        style={{ textAlign: "justify" }}>
+                        style={{ textAlign: "justify" }}
+                      >
                         {item.description.slice(0, 90) +
                           (item.description.length > 90 ? " . . ." : "")}
                       </p>
