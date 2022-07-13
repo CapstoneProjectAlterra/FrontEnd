@@ -2,24 +2,6 @@
   margin-bottom: 36px;
 }
 
-.title {
-  margin-bottom: 48px;
-}
-
-.label {
-  margin-bottom: 24px;
-}
-
-.label p {
-  margin-bottom: 8px;
-  font-size: 28px;
-}
-
-.btnEdit {
-  margin-bottom: 122px;
-  margin-top: 64px;
-}
-
 .linkPath {
   font-size: 16px;
   font-weight: bold;
@@ -27,5 +9,22 @@
 }
 
 .linkPathBold {
+  color: #06919D;
+}
+
+ul {
+  list-style: none;
+}
+
+ul>li {
+  padding-left: 16px;
+  border-left: 3px solid white;
+}
+
+.active {
+  border-left: 3px solid #06919D;
+}
+
+.active h5 {
   color: #06919D;
 }
