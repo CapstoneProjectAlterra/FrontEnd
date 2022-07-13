@@ -1,15 +1,18 @@
-import {Col, Row, Pagination, Spin} from "antd";
+import { Col, Row, Pagination, Spin } from "antd";
 import React from "react";
-import {banner} from "../../../assets";
-import {CustomInput, CustomButton, WarningAlert} from "../../../components";
-import {FaHospitalAlt} from "react-icons/fa";
-import {AiOutlineSearch} from "react-icons/ai";
+import { banner } from "../../../assets";
+import { CustomInput, CustomButton, WarningAlert } from "../../../components";
+import { FaHospitalAlt } from "react-icons/fa";
+import { AiOutlineSearch } from "react-icons/ai";
 import style from "./Vaccine.module.css";
-import {useState, useEffect} from "react";
-import {Link} from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import axiosInstance from "../../../networks/apis";
 import CitizenLayouts from "../../../layouts/CitizenLayout";
-import {isAuthenticatedUser} from "../../../utils/helpers/Auth";
+import {
+  isAuthenticatedUser,
+  isProfileNull,
+} from "../../../utils/helpers/Auth";
 
 export default function Vaccine() {
   //Logic Card
@@ -24,7 +27,7 @@ export default function Vaccine() {
 
   //Integrate API
   useEffect(() => {
-    axiosInstance.get("/facility", {data: ""}).then((res) => {
+    axiosInstance.get("/facility", { data: "" }).then((res) => {
       setDataRS(res.data.data);
       setInitialData(res.data.data);
       setLoading(false);
@@ -60,10 +63,14 @@ export default function Vaccine() {
   const handleClickSearch = () => {
     const lowerCaseValue = search.toLowerCase().trim();
     const filteredData = initialData.filter((value) =>
-      Object.keys(value).some((key) => value[key].toString().toLowerCase().includes(lowerCaseValue))
+      Object.keys(value).some((key) =>
+        value[key].toString().toLowerCase().includes(lowerCaseValue)
+      )
     );
     setDataRS(filteredData);
   };
+  // const data = isProfileNull();
+  // console.log(data);
 
   return (
     <CitizenLayouts auth={isAuthenticatedUser()} padding={false}>
@@ -105,53 +112,63 @@ export default function Vaccine() {
 
           {loading ? (
             <Row className={style.mainCardContainer}>
-              <Spin size="large" style={{padding: "56px"}} />
+              <Spin size="large" style={{ padding: "56px" }} />
             </Row>
           ) : (
             <>
-              <Row justify="space-between" className="layout-padding" gutter={[48, 48]}>
+              <Row
+                justify="space-between"
+                className="layout-padding"
+                gutter={[48, 48]}
+              >
                 {dataRS.length > 0 &&
-                  dataRS.slice(state.minValue, state.maxValue).map((item, itemTdx) => {
-                    return (
-                      <Col
-                        key={itemTdx}
-                        xs={24}
-                        md={12}
-                        lg={8}
-                        // onClick={handleCard}
-                        className={style.cardContainer}
-                      >
-                        <div className={style.card}>
-                          <Link to={"/vaccineDetails/" + item.id}>
-                            <div className={style.cardImage}>
-                              <img
-                                src={`data:${item.image.content_type};base64,${item.image.base64}`}
-                                alt="Card"
-                                className={style.cardImage}
-                              />
-                            </div>
-                            <div className={style.cardDetails}>
-                              <span className={style.titleCard}>
-                                <FaHospitalAlt className={style.icon} />
-                                <h4>{item.facility_name}</h4>
-                              </span>
-                              <div>
-                                <ul className={style.cardInform}>
-                                  <li>{item.province}</li>
-                                  <li>{item.city}</li>
-                                  <li>{item.postal_code}</li>
-                                </ul>
-                              </div>
-                              {/* <span className={style.descriptionCard}>
+                  dataRS
+                    .slice(state.minValue, state.maxValue)
+                    .map((item, itemTdx) => {
+                      return (
+                        <Col
+                          key={itemTdx}
+                          xs={24}
+                          md={12}
+                          lg={8}
+                          // onClick={handleCard}
+                          className={style.cardContainer}
+                        >
+                          {isProfileNull ? (
+                            <WarningAlert type="reminder" />
+                          ) : (
+                            <div className={style.card}>
+                              <Link to={"/vaccineDetails/" + item.id}>
+                                <div className={style.cardImage}>
+                                  <img
+                                    src={`data:${item.image.content_type};base64,${item.image.base64}`}
+                                    alt="Card"
+                                    className={style.cardImage}
+                                  />
+                                </div>
+                                <div className={style.cardDetails}>
+                                  <span className={style.titleCard}>
+                                    <FaHospitalAlt className={style.icon} />
+                                    <h4>{item.facility_name}</h4>
+                                  </span>
+                                  <div>
+                                    <ul className={style.cardInform}>
+                                      <li>{item.province}</li>
+                                      <li>{item.city}</li>
+                                      <li>{item.postal_code}</li>
+                                    </ul>
+                                  </div>
+                                  {/* <span className={style.descriptionCard}>
                             <IoDocumentTextOutline className={style.icon} />
                             <p style={{ paddingTop: "5px" }}>{item.kuota}</p>
                           </span> */}
+                                </div>
+                              </Link>
                             </div>
-                          </Link>
-                        </div>
-                      </Col>
-                    );
-                  })}
+                          )}
+                        </Col>
+                      );
+                    })}
               </Row>
               <div className={style.pagination}>
                 <Pagination

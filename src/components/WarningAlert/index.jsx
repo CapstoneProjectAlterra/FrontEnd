@@ -1,13 +1,21 @@
-import React, {useState} from "react";
-import {Button, Modal, Row, Col} from "antd";
+import React, { useState } from "react";
+import { Button, Modal, Row, Col } from "antd";
 import styles from "./warningalert.module.css";
 import CustomButton from "../CustomButton";
-import {useNavigate} from "react-router-dom";
-import {WarningIcon} from "../../assets";
+import { useNavigate } from "react-router-dom";
+import { WarningIcon } from "../../assets";
+import SuccessAlert from "../SuccessAlert";
 
-export default function WarningAlert({type}) {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+export default function WarningAlert({
+  type,
+  visible,
+  setVisible,
+  submitForm,
+}) {
+  // const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isConfirmed, setIsConfirmed] = useState(false);
   const navigate = useNavigate();
+
   const typeMode = [
     // ini data buat yang type reminder
     {
@@ -28,39 +36,48 @@ export default function WarningAlert({type}) {
   const data = type === "reminder" ? typeMode[0] : typeMode[1];
 
   // munculin modal
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
+  // const showModal = () => {
+  //   setIsModalVisible(true);
+  // };
 
   //   navigate ke ticket kalo buttonnya diklik
-  const handleOk = () => {
+  const handleOk = (e) => {
+    e.preventDefault();
+    console.log("type", type);
     if (type === "reminder") {
       navigate("/profile");
     } else if (type === "confirm") {
-      //   ini buat action yang type confirm
+      setVisible(false);
+      submitForm();
+      setIsConfirmed(true);
     }
   };
 
   const handleCancel = () => {
-    setIsModalVisible(false);
+    setVisible(false);
   };
 
   return (
     <>
-      <CustomButton
+      {/* <CustomButton
         variant="primary"
         type="submit"
-        style={{height: "56px"}}
+        style={{ height: "56px" }}
         htmlType="submit"
         onClick={showModal}
       >
         test
-      </CustomButton>
+      </CustomButton> */}
       <Modal
-        visible={isModalVisible}
+        dataConfirm={data}
+        visible={visible}
         onCancel={handleCancel}
         footer={[
-          <Button className={styles.secondary} onClick={handleCancel} key="cancel">
+          <Button
+            className={styles.secondary}
+            onClick={handleCancel}
+            key="cancel"
+          >
             Batal
           </Button>,
           <Button className={styles.primary} onClick={handleOk} key="ok">
@@ -70,7 +87,7 @@ export default function WarningAlert({type}) {
       >
         <Row>
           <Col span={24} className={styles.container}>
-            <img src={WarningIcon} alt="warning" style={{width: "48px"}} />
+            <img src={WarningIcon} alt="warning" style={{ width: "48px" }} />
             <div className={styles.separator}>
               <span className={`h4-sb`}>{data.title}</span>
               <p>{data.desc}</p>
@@ -78,6 +95,11 @@ export default function WarningAlert({type}) {
           </Col>
         </Row>
       </Modal>
+      <SuccessAlert
+        visible={isConfirmed}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      />
     </>
   );
 }

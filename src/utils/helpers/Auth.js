@@ -62,6 +62,5 @@ export async function isProfileNull() {
       return false;
     }
   });
-
   return isNullish;
 }
