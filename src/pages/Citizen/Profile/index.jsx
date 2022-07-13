@@ -11,10 +11,10 @@ import CitizenLayouts from "../../../layouts/CitizenLayout";
 import { ProfileSaya, ProfileKeluarga, ProfileUbahPassword } from "../../../components";
 import style from "./Profile.module.css";
 import { Link } from "react-router-dom";
+import { isAuthenticatedUser } from "../../../utils/helpers/Auth";
 
 const Profile = () => {
   const [sideBar, setSidebar] = useState({ components: <ProfileSaya />, name: "ProfileSaya" });
-  console.log(sideBar);
 
   // return (
   //   <>
@@ -105,7 +105,7 @@ const Profile = () => {
   //   </>
   // );
   return (
-    <CitizenLayouts>
+    <CitizenLayouts auth={isAuthenticatedUser()}>
       <Row style={{ marginTop: "36px" }}>
         <Col span={20} offset={2}>
           <Breadcrumb className={style.linkPath}>

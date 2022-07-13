@@ -1,4 +1,5 @@
 import React from "react";
+import ListFamily from "../ListFamily";
 import style from "./ProfileKeluarga.module.css";
 const ProfileKeluarga = () => {
   return (
@@ -6,7 +7,7 @@ const ProfileKeluarga = () => {
       <div className={style.title}>
         <h1>Anggota Keluarga</h1>
       </div>
-      <p>Card Keluarga</p>
+      <ListFamily />
     </>
   );
 };
