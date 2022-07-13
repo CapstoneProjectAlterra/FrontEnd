@@ -22,6 +22,9 @@ import ListFamily from "./ListFamily";
 import AddFamily from "./AddFamily";
 import EditFamily from "./EditFamily";
 import VaccineTable from "./VaccineTable";
+import ProfileSaya from "./ProfileSaya";
+import ProfileUbahPassword from "./ProfileUbahPassword";
+import ProfileKeluarga from "./ProfileKeluarga";
 
 export {
   CustomButton,
@@ -48,4 +51,7 @@ export {
   AddFamily,
   EditFamily,
   VaccineTable,
+  ProfileKeluarga,
+  ProfileSaya,
+  ProfileUbahPassword,
 };
