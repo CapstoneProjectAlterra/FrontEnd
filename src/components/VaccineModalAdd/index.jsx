@@ -5,7 +5,6 @@ import React, { useState } from "react";
 import CustomButton from "../CustomButton";
 
 /** Antd Design */
-<<<<<<< HEAD
 import { Form, Modal, Select, InputNumber, message } from "antd";
 
 /** Style */
@@ -42,24 +41,12 @@ const VaccineModalAdd = ({ refetchToggle, setRefetchToggle }) => {
         console.log(error);
       });
   });
-=======
-import { Form, Modal, Select, InputNumber } from "antd";
-
-/** Style */
-import style from "./VaccineModalAdd.module.css";
-
-const VaccineModalAdd = () => {
-  const [visible, setVisible] = useState(false);
-  const [confirmLoading, setConfirmLoading] = useState(false);
-  const [form] = Form.useForm();
->>>>>>> b344019 (slicing design and oprational function on admin vaccine)
 
   const showModal = () => {
     setVisible(true);
   };
 
   const handleOk = (values) => {
-<<<<<<< HEAD
     const inputData = {
       facility_id: facility.id,
       vaccine_id: values.vaccine_id,
@@ -82,15 +69,6 @@ const VaccineModalAdd = () => {
         setConfirmLoading(false);
         message.error("Data gagal ditambahkan");
       });
-=======
-    setConfirmLoading(true);
-    console.log(values);
-    setTimeout(() => {
-      setVisible(false);
-      setConfirmLoading(false);
-      form.resetFields();
-    }, 2000);
->>>>>>> b344019 (slicing design and oprational function on admin vaccine)
   };
 
   const handleCancel = () => {
@@ -159,17 +137,11 @@ const VaccineModalAdd = () => {
             ]}
           >
             <Select showSearch placeholder="Select Vaccine" optionFilterProp="children" onChange={onChange} onSearch={onSearch} filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}>
-<<<<<<< HEAD
               {vaccine.map((item) => (
                 <Select.Option key={item.id} value={item.id}>
                   {item.vaccine_name}
                 </Select.Option>
               ))}
-=======
-              <Select.Option value="1">Sinovac</Select.Option>
-              <Select.Option value="2">Astra Zeneca</Select.Option>
-              <Select.Option value="3">Moderna</Select.Option>
->>>>>>> b344019 (slicing design and oprational function on admin vaccine)
             </Select>
           </Form.Item>
           <Form.Item

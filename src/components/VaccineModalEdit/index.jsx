@@ -1,15 +1,8 @@
 /** React */
-<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
 
 /** Antd Design */
 import { Button, Tooltip, Form, Modal, Select, InputNumber, message } from "antd";
-=======
-import React, { useState } from "react";
-
-/** Antd Design */
-import { Button, Tooltip, Form, Modal, Select, InputNumber } from "antd";
->>>>>>> b344019 (slicing design and oprational function on admin vaccine)
 
 /** Antd Design Icons */
 import { EditFilled } from "@ant-design/icons";
@@ -17,7 +10,6 @@ import { EditFilled } from "@ant-design/icons";
 /** Style */
 import style from "./VaccineModalEdit.module.css";
 import CustomButton from "../CustomButton";
-<<<<<<< HEAD
 import axiosInstance from "../../networks/apis";
 
 const VaccineModalEdit = ({ data, refetchToggle, setRefetchToggle }) => {
@@ -25,19 +17,11 @@ const VaccineModalEdit = ({ data, refetchToggle, setRefetchToggle }) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [form] = Form.useForm();
   const [vaccine, setVaccine] = useState([]);
-=======
-
-const VaccineModalEdit = ({ data }) => {
-  const [visible, setVisible] = useState(false);
-  const [confirmLoading, setConfirmLoading] = useState(false);
-  const [form] = Form.useForm();
->>>>>>> b344019 (slicing design and oprational function on admin vaccine)
 
   const showModal = () => {
     setVisible(true);
   };
 
-<<<<<<< HEAD
   useEffect(() => {
     axiosInstance
       .get("/vaccine", { data: "" })
@@ -69,16 +53,6 @@ const VaccineModalEdit = ({ data }) => {
         setConfirmLoading(false);
         message.error("Data gagal diubah");
       });
-=======
-  const handleOk = (values) => {
-    setConfirmLoading(true);
-    console.log(values);
-    setTimeout(() => {
-      setVisible(false);
-      setConfirmLoading(false);
-      form.resetFields();
-    }, 2000);
->>>>>>> b344019 (slicing design and oprational function on admin vaccine)
   };
 
   const handleCancel = () => {
@@ -157,17 +131,11 @@ const VaccineModalEdit = ({ data }) => {
             ]}
           >
             <Select showSearch placeholder="Select Vaccine" optionFilterProp="children" onChange={onChange} onSearch={onSearch} filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}>
-<<<<<<< HEAD
               {vaccine.map((item) => (
                 <Select.Option key={item.id} value={item.id}>
                   {item.vaccine_name}
                 </Select.Option>
               ))}
-=======
-              <Select.Option value={1}>Sinovac</Select.Option>
-              <Select.Option value={2}>Astra Zeneca</Select.Option>
-              <Select.Option value={3}>Moderna</Select.Option>
->>>>>>> b344019 (slicing design and oprational function on admin vaccine)
             </Select>
           </Form.Item>
           <Form.Item
