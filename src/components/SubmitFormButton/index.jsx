@@ -4,25 +4,23 @@ import SuccessAlert from "../SuccessAlert";
 import { Navigate, useNavigate, Link } from "react-router-dom";
 import WarningAlert from "../WarningAlert";
 import { isVisible } from "@testing-library/user-event/dist/utils";
+import { message } from "antd";
 
-export default function SubmitFormButton({ submit }) {
+export default function SubmitFormButton({ submit, error }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const navigate = useNavigate();
   // munculin modal
   const showModal = () => {
-    setIsModalVisible(true);
-    console.log(isModalVisible);
+    if (error.schedule === true && error.families === true) {
+      message.warning(
+        "Silahkan pilih jadwal dan anggota keluarga yang akan daftar"
+      );
+    } else {
+      setIsModalVisible(true);
+    }
     // isConfirm ? <WarningAlert /> : <SuccessAlert />;
     // console.log("Pesan Tiket");
   };
-
-  // const handleCancel = () => {
-  //   setIsModalVisible(false);
-  // };
-  //   navigate ke ticket kalo buttonnya diklik
-  // const handleOk = () => {
-  //   // navigate("/ticket");
-  // };
 
   return (
     <>
@@ -30,7 +28,6 @@ export default function SubmitFormButton({ submit }) {
         variant="primary"
         type="submit"
         style={{ height: "56px" }}
-        htmlType="submit"
         onClick={showModal}
       >
         Pesan Vaksinasi
@@ -41,11 +38,6 @@ export default function SubmitFormButton({ submit }) {
         submitForm={submit}
         type="confirm"
       />
-      {/* <SuccessAlert
-        visible={isModalVisible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      /> */}
     </>
   );
 }

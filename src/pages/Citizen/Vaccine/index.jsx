@@ -24,9 +24,14 @@ export default function Vaccine() {
   const [dataRS, setDataRS] = useState([]);
   const [initialData, setInitialData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [profileNull, setProfileNull] = useState(false);
+  const [alertToggle, setAlertToggle] = useState(false);
 
   //Integrate API
   useEffect(() => {
+    isProfileNull().then((res) => {
+      setProfileNull(res);
+    });
     axiosInstance.get("/facility", { data: "" }).then((res) => {
       setDataRS(res.data.data);
       setInitialData(res.data.data);
@@ -68,6 +73,10 @@ export default function Vaccine() {
       )
     );
     setDataRS(filteredData);
+  };
+
+  const handleClickAlert = () => {
+    setAlertToggle(true);
   };
   // const data = isProfileNull();
   // console.log(data);
@@ -117,11 +126,11 @@ export default function Vaccine() {
           ) : (
             <>
               <Row
-                justify="space-between"
+                // justify="space-between"
                 className="layout-padding"
                 gutter={[48, 48]}
               >
-                {dataRS.length > 0 &&
+                {dataRS.length > 0 ? (
                   dataRS
                     .slice(state.minValue, state.maxValue)
                     .map((item, itemTdx) => {
@@ -134,8 +143,38 @@ export default function Vaccine() {
                           // onClick={handleCard}
                           className={style.cardContainer}
                         >
-                          {isProfileNull ? (
-                            <WarningAlert type="reminder" />
+                          {profileNull ? (
+                            <div
+                              className={style.card}
+                              onClick={handleClickAlert}
+                            >
+                              <div>
+                                <div className={style.cardImage}>
+                                  <img
+                                    src={`data:${item.image.content_type};base64,${item.image.base64}`}
+                                    alt="Card"
+                                    className={style.cardImage}
+                                  />
+                                </div>
+                                <div className={style.cardDetails}>
+                                  <span className={style.titleCard}>
+                                    <FaHospitalAlt className={style.icon} />
+                                    <h4>{item.facility_name}</h4>
+                                  </span>
+                                  <div>
+                                    <ul className={style.cardInform}>
+                                      <li>{item.province}</li>
+                                      <li>{item.city}</li>
+                                      <li>{item.postal_code}</li>
+                                    </ul>
+                                  </div>
+                                  {/* <span className={style.descriptionCard}>
+                            <IoDocumentTextOutline className={style.icon} />
+                            <p style={{ paddingTop: "5px" }}>{item.kuota}</p>
+                          </span> */}
+                                </div>
+                              </div>
+                            </div>
                           ) : (
                             <div className={style.card}>
                               <Link to={"/vaccineDetails/" + item.id}>
@@ -168,7 +207,12 @@ export default function Vaccine() {
                           )}
                         </Col>
                       );
-                    })}
+                    })
+                ) : (
+                  <Col span={24}>
+                    <p style={{ textAlign: "center" }}>Data Tidak Ada</p>
+                  </Col>
+                )}
               </Row>
               <div className={style.pagination}>
                 <Pagination
@@ -181,6 +225,11 @@ export default function Vaccine() {
             </>
           )}
         </div>
+        <WarningAlert
+          type="reminder"
+          visible={alertToggle}
+          setVisible={setAlertToggle}
+        />
       </div>
     </CitizenLayouts>
   );

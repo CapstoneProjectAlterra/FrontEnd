@@ -69,9 +69,12 @@
 .card:active {
   border: 3px solid #03484e;
 }
+.cardImage:active{
+  width: 100%;
+}
 
 .cardImage {
-  width: 100%;
+  width: 342px;
   height: 342px;
   border-radius: 8px;
 }
@@ -99,6 +102,7 @@
 
 .cardInform li {
   word-break: break-all;
+  color: #6CC5CD;
 }
 .icon {
   width: 24px;

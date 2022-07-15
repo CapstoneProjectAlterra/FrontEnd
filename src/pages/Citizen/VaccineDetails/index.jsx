@@ -34,9 +34,9 @@ export default function VaccineDetails() {
   });
   const [selectedSchedule, setSelectedSchedule] = useState();
   const [selectedFamilyMember, setSelectedFamilyMember] = useState([]);
+  const [error, setError] = useState({ schedule: true, families: true });
 
   const { hospitalId } = useParams();
-  const navigate = useNavigate();
 
   const breadcrumbPaths = [
     { title: "Home", href: "", isActive: false },
@@ -53,6 +53,7 @@ export default function VaccineDetails() {
       (data) => data.user_id == event.target.value
     );
     currentList[selectedMemberIndex].selected = event.target.checked;
+    setError({ ...error, families: false });
     console.log("eta", currentList[selectedMemberIndex], event.target.value);
   };
 
@@ -84,10 +85,6 @@ export default function VaccineDetails() {
   };
 
   const handleFormSubmit = (e) => {
-    e.preventDefault();
-    // setSelectedSchedule(event.target.session.value);
-    // setSelectedFamilyMember(event.target.family.value);
-    // console.log("test");
     const scheduleId = selectedSchedule;
     const familyMember = selectedFamilyMember
       .filter((family) => family.selected === true)
@@ -98,15 +95,11 @@ export default function VaccineDetails() {
     familyMember.forEach((familyId) => {
       bookingVaccination(scheduleId, familyId);
     });
-
-    // navigate("/ticket");
   };
 
   // mutator
   useEffect(() => {
     document.body.style.backgroundColor = "#f5fdfe";
-    // const token = Cookies.get("token");
-    // console.log(token);
 
     axiosInstance
       .get(`/facility/${hospitalId}`, {
@@ -117,7 +110,7 @@ export default function VaccineDetails() {
         setHospitalData({
           name: data.facility_name,
           address: `${data.street_name}, ${data.village_name}, ${data.district}, ${data.city}, ${data.province}.\nKode Pos: ${data.postal_code} \nNo Telp. ${data.office_number}`,
-          image: data.img_url ?? imgCard,
+          image: `data:${data.image.content_type};base64,${data.image.base64}`,
         });
       });
 
@@ -222,7 +215,7 @@ export default function VaccineDetails() {
           value={inputValue}
           onClick={() => {
             setSelectedSchedule(inputValue);
-            console.log(inputValue);
+            setError({ ...error, schedule: false });
           }}
         />
         <div className={style.schedule_item_card}>
@@ -347,13 +340,13 @@ export default function VaccineDetails() {
           <div className={style.dataset_detail}>
             {/* hospital logo */}
             <img
-              src={hospitalData.image ?? imgCard}
+              src={hospitalData.image}
               alt="hospital"
               style={{
-                width: "100%",
-                maxWidth: 300,
+                width: "400px",
                 borderRadius: 24,
-                height: "100%",
+                height: "400px",
+                objectFit: "cover",
               }}
             />
 
@@ -365,7 +358,7 @@ export default function VaccineDetails() {
                 hospitalAddress={hospitalData.address}
               />
 
-              <form onSubmit={handleFormSubmit}>
+              <form>
                 {/* datepicker */}
                 <div style={{ marginTop: 40 }}>
                   <div>Pilih Tanggal</div>
@@ -420,22 +413,7 @@ export default function VaccineDetails() {
                     setRefetchToggle={setRefetchToggle}
                     refetchToggle={refetchToggle}
                   />
-                  {/* <button
-                    className={style.addFamilyMemberButton}
-                    
-                  >
-                  </button> */}
-                  <SubmitFormButton submit={handleFormSubmit} />
-                  {/* <CustomButton
-                    variant="primary"
-                    type="submit"
-                    style={{ height: "56px" }}
-                    htmlType="submit"
-                  >
-                    Pesan Vaksinasi
-                  </CustomButton> */}
-                  {/* <button type="submit" className={style.submitButton}>
-                  </button> */}
+                  <SubmitFormButton submit={handleFormSubmit} error={error} />
                 </div>
               </form>
             </div>

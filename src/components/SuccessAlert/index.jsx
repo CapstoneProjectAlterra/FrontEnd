@@ -3,6 +3,7 @@ import { Button, Modal, Row, Col } from "antd";
 import { SuccessIlustration } from "../../assets";
 import styles from "./successalert.module.css";
 import CustomButton from "../CustomButton";
+import { Link } from "react-router-dom";
 
 export default function SuccessAlert(props) {
   return (
@@ -21,8 +22,8 @@ export default function SuccessAlert(props) {
               </span>
               <p>Tiket vaksinmu sudah dapat dilihat di halaman tiket.</p>
             </div>
-            <CustomButton variant="primary" onClick={props.onOk}>
-              Lihat Tiket
+            <CustomButton variant="primary">
+              <Link to="/ticket">Lihat Tiket</Link>
             </CustomButton>
           </Col>
         </Row>

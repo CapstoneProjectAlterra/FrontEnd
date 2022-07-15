@@ -80,7 +80,12 @@ export default function WarningAlert({
           >
             Batal
           </Button>,
-          <Button className={styles.primary} onClick={handleOk} key="ok">
+          <Button
+            className={styles.primary}
+            onClick={handleOk}
+            // htmlType="submit"
+            key="ok"
+          >
             {data.cta}
           </Button>,
         ]}
