@@ -1,3 +1,4 @@
+import moment from "moment";
 /*
  * Function to change date format
  *
@@ -22,25 +23,25 @@ export default function dateFormat(date, format) {
     "November",
     "Desember",
   ];
-  const dateObj = new Date(date);
-  const day = days[dateObj.getDay()];
-  const month = months[dateObj.getMonth()];
-  const year = dateObj.getFullYear();
+  const dateObj = moment(date, "DD-MM-YYYY");
+  const day = days[dateObj.day()];
+  const month = months[dateObj.get("month")];
+  const year = dateObj.get("year");
 
   switch (format) {
     case "day":
       return day;
     case "date":
-      return `${dateObj.getDate()}`;
+      return `${dateObj.get("date")}`;
     case "month":
       return month;
     case "year":
       return year;
     case "date-month":
-      return `${dateObj.getDate()} ${month}`;
+      return `${dateObj.get("date")} ${month}`;
     case "date-month-year":
-      return `${dateObj.getDate()} ${month} ${year}`;
+      return `${dateObj.get("date")} ${month} ${year}`;
     default:
-      return `${day}, ${dateObj.getDate()} ${month} ${year}`;
+      return `${day}, ${dateObj.get("date")} ${month} ${year}`;
   }
 }
