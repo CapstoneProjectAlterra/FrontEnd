@@ -192,9 +192,15 @@ export default function Vaccine() {
                                   </span>
                                   <div>
                                     <ul className={style.cardInform}>
-                                      <li>{item.province}</li>
-                                      <li>{item.city}</li>
-                                      <li>{item.postal_code}</li>
+                                      <li>
+                                        <p>{item.province}</p>
+                                      </li>
+                                      <li>
+                                        <p>{item.city}</p>
+                                      </li>
+                                      <li>
+                                        <p>{item.postal_code}</p>
+                                      </li>
                                     </ul>
                                   </div>
                                   {/* <span className={style.descriptionCard}>
@@ -210,7 +216,10 @@ export default function Vaccine() {
                     })
                 ) : (
                   <Col span={24}>
-                    <p style={{ textAlign: "center" }}>Data Tidak Ada</p>
+                    <h5 style={{ textAlign: "center" }}>
+                      Maaf, kami tidak dapat menemukan hasil untuk pencarian
+                      Anda
+                    </h5>
                   </Col>
                 )}
               </Row>
