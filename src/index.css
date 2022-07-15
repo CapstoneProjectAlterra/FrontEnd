@@ -265,3 +265,10 @@ p {
   min-height: 100vh;
   padding: 40px;
 }
+
+.capitalize {
+  text-transform: lowercase;
+}
+.capitalize::first-letter {
+  text-transform: capitalize;
+}
