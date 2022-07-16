@@ -48,13 +48,14 @@
 }
 
 .card {
-  height: auto;
-  display: flex;
+  /* height: auto; */
+  /* display: flex; */
   justify-content: center;
-  width: 342px;
+  width: 100%;
   background-color: white;
   border-radius: 8px;
   cursor: pointer;
+  transition: all ease-in 0.3s;
 }
 
 .card:hover {
@@ -74,9 +75,10 @@
 } */
 
 .cardImage {
-  width: 100%;
-  height: 342px;
-  border-radius: 8px;
+  width: calc(100%);
+  /* height: 342px; */
+  border-radius: 8px 8px 0 0;
+  margin: auto;
 }
 
 .cardDetails {
@@ -96,17 +98,17 @@
 
 .cardInform {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  padding: 12px 18px 12px 16px;
-}
-
-.cardInform li p {
-    color: black;
+  padding: 12px 16px;
 }
 
 .cardInform li {
   word-break: break-all;
-  color: #6CC5CD;
+  max-width: calc(100% / 3);
+}
+.text {
+  color: var(--color-text);
 }
 .icon {
   width: 24px;

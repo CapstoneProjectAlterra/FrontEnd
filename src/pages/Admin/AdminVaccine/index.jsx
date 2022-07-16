@@ -1,5 +1,30 @@
+/** React */
 import React from "react";
 
-export default function AdminVaccine() {
-  return <div>AdminVaccine</div>;
-}
+/** Layouts */
+import AdminLayout from "../../../layouts/AdminLayout";
+
+/** Components */
+import { VaccineTable } from "../../../components";
+
+/** Style */
+import style from "./AdminVaccine.module.css";
+
+const AdminVaccine = () => {
+  return (
+    <AdminLayout>
+      <div className={style.content}>
+        <h3
+          style={{
+            fontWeight: "var(--font-h3-weight)",
+          }}
+        >
+          Stok Vaksin
+        </h3>
+        <VaccineTable />
+      </div>
+    </AdminLayout>
+  );
+};
+
+export default AdminVaccine;
