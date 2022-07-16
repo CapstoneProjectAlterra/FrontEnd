@@ -109,49 +109,53 @@ export default function Vaccine() {
             </Row>
           ) : (
             <>
-              <Row justify="space-between" className="layout-padding" gutter={[48, 48]}>
-                {dataRS.length > 0 &&
-                  dataRS.slice(state.minValue, state.maxValue).map((item, itemTdx) => {
-                    return (
-                      <Col
-                        key={itemTdx}
-                        xs={24}
-                        md={12}
-                        lg={8}
-                        // onClick={handleCard}
-                        className={style.cardContainer}
-                      >
-                        <div className={style.card}>
-                          <Link to={"/vaccineDetails/" + item.id}>
-                            <div className={style.cardImage}>
-                              <img
-                                src={`data:${item.image.content_type};base64,${item.image.base64}`}
-                                alt="Card"
-                                className={style.cardImage}
-                              />
-                            </div>
-                            <div className={style.cardDetails}>
-                              <span className={style.titleCard}>
-                                <FaHospitalAlt className={style.icon} />
-                                <h4>{item.facility_name}</h4>
-                              </span>
-                              <div>
-                                <ul className={style.cardInform}>
-                                  <li>{item.province}</li>
-                                  <li>{item.city}</li>
-                                  <li>{item.postal_code}</li>
-                                </ul>
-                              </div>
-                              {/* <span className={style.descriptionCard}>
+              <Row className="layout-padding" justify="center">
+                <Col span={20}>
+                  <Row justify="space-between" gutter={[48, 48]}>
+                    {dataRS.length > 0 &&
+                      dataRS.slice(state.minValue, state.maxValue).map((item, itemTdx) => {
+                        return (
+                          <Col
+                            key={itemTdx}
+                            xs={24}
+                            md={12}
+                            lg={8}
+                            // onClick={handleCard}
+                            className={`gutter-row ${style.cardContainer}`}
+                          >
+                            <div className={style.card}>
+                              <Link to={"/vaccineDetails/" + item.id}>
+                                <div className={style.cardImage}>
+                                  <img
+                                    src={`data:${item.image.content_type};base64,${item.image.base64}`}
+                                    alt="Card"
+                                    className={style.cardImage}
+                                  />
+                                </div>
+                                <div className={style.cardDetails}>
+                                  <span className={style.titleCard}>
+                                    <FaHospitalAlt className={style.icon} />
+                                    <h4>{item.facility_name}</h4>
+                                  </span>
+                                  <div>
+                                    <ul className={style.cardInform}>
+                                      <li>{item.province}</li>
+                                      <li>{item.city}</li>
+                                      <li>{item.postal_code}</li>
+                                    </ul>
+                                  </div>
+                                  {/* <span className={style.descriptionCard}>
                             <IoDocumentTextOutline className={style.icon} />
                             <p style={{ paddingTop: "5px" }}>{item.kuota}</p>
                           </span> */}
+                                </div>
+                              </Link>
                             </div>
-                          </Link>
-                        </div>
-                      </Col>
-                    );
-                  })}
+                          </Col>
+                        );
+                      })}
+                  </Row>
+                </Col>
               </Row>
               <div className={style.pagination}>
                 <Pagination
