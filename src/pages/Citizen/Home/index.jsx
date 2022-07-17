@@ -231,17 +231,8 @@ export default function Home() {
           </Row>
         </Row>
 
-        <Row
-          span={22}
-          justify="space-between"
-          style={{
-            alignItems: "center",
-            paddingLeft: "160px",
-            paddingRight: "160px",
-            marginTop: "88px",
-          }}
-        >
-          <h2>Berita Terbaru</h2>
+        <Row span={22} justify="space-between" className={style.newsContainer} align="middle">
+          <span className={style.heading}>Berita Terbaru</span>
           <Link to="/news" style={{color: "var(--color-primary)"}}>
             Lebih Banyak &gt;
           </Link>
