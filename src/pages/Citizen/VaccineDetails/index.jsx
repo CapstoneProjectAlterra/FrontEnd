@@ -34,6 +34,7 @@ export default function VaccineDetails() {
   });
   const [selectedSchedule, setSelectedSchedule] = useState();
   const [selectedFamilyMember, setSelectedFamilyMember] = useState([]);
+  const [bookingDetail, setBookingDetail] = useState([]);
   const [error, setError] = useState({ schedule: true, families: true });
 
   const { hospitalId } = useParams();
@@ -55,6 +56,28 @@ export default function VaccineDetails() {
     currentList[selectedMemberIndex].selected = event.target.checked;
     setError({ ...error, families: false });
     console.log("eta", currentList[selectedMemberIndex], event.target.value);
+  };
+
+  const checkFamilyAvailability = () => {
+    const familyIds = selectedFamilyMember
+      .filter((family) => family.selected === true)
+      .map((item) => item.user_id);
+
+    const familyList = [];
+
+    familyIds.forEach((familyId) => {
+      const bookingMember = bookingDetail.filter(
+        (item) =>
+          item.family_id === familyId &&
+          item.booking.schedule.id === selectedSchedule
+      );
+
+      if (bookingMember.length > 0) {
+        familyList.push(bookingMember[0].family.name);
+      }
+    });
+
+    return familyList;
   };
 
   const bookingVaccination = async (scheduleId, familyId) => {
@@ -84,14 +107,12 @@ export default function VaccineDetails() {
       });
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = () => {
     const scheduleId = selectedSchedule;
     const familyMember = selectedFamilyMember
       .filter((family) => family.selected === true)
       .map((item) => item.user_id);
 
-    console.log("scheduleId", scheduleId);
-    console.log("familyMember", familyMember);
     familyMember.forEach((familyId) => {
       bookingVaccination(scheduleId, familyId);
     });
@@ -99,8 +120,6 @@ export default function VaccineDetails() {
 
   // mutator
   useEffect(() => {
-    document.body.style.backgroundColor = "#f5fdfe";
-
     axiosInstance
       .get(`/facility/${hospitalId}`, {
         data: {},
@@ -136,6 +155,15 @@ export default function VaccineDetails() {
         );
         console.log(sessionByHospitalId);
         setVaccinationSession(sessionByHospitalId);
+      });
+
+    axiosInstance
+      .get("/detail", {
+        data: "",
+      })
+      .then((res) => setBookingDetail(res.data.data))
+      .catch((err) => {
+        console.log(err);
       });
   }, [hospitalId]);
 
@@ -175,7 +203,7 @@ export default function VaccineDetails() {
         }}
       >
         {hospitalName}
-      </div>{" "}
+      </div>
       <div
         style={{
           display: "flex",
@@ -192,10 +220,10 @@ export default function VaccineDetails() {
             alignItems: "center",
           }}
         >
-          <HiLocationMarker style={{ width: "100%", height: "100%" }} />{" "}
+          <HiLocationMarker style={{ width: "100%", height: "100%" }} />
         </div>
-        <div>{hospitalAddress}</div>{" "}
-      </div>{" "}
+        <div>{hospitalAddress}</div>
+      </div>
     </div>
   );
 
@@ -413,7 +441,11 @@ export default function VaccineDetails() {
                     setRefetchToggle={setRefetchToggle}
                     refetchToggle={refetchToggle}
                   />
-                  <SubmitFormButton submit={handleFormSubmit} error={error} />
+                  <SubmitFormButton
+                    submit={handleFormSubmit}
+                    error={error}
+                    checkFamilyAvailability={checkFamilyAvailability}
+                  />
                 </div>
               </form>
             </div>
