@@ -1,22 +1,29 @@
-import React, {useEffect, useState} from "react";
-import {useNavigate, useParams} from "react-router-dom";
-import {Row, Col, DatePicker, Breadcrumb} from "antd";
-import {CustomButton, AddFamily, EditFamily} from "../../../components";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { Row, Col, DatePicker, Breadcrumb } from "antd";
+import {
+  CustomButton,
+  AddFamily,
+  EditFamily,
+  SubmitFormButton,
+} from "../../../components";
 import moment from "moment";
-import {imgCard} from "../../../assets";
-import {AiOutlineClockCircle} from "react-icons/ai";
-import {HiLocationMarker} from "react-icons/hi";
+import { imgCard } from "../../../assets";
+import { AiOutlineClockCircle } from "react-icons/ai";
+import { HiLocationMarker } from "react-icons/hi";
 import style from "./VaccineDetails.module.css";
 import CitizenLayouts from "../../../layouts/CitizenLayout";
-import {FaSyringe} from "react-icons/fa";
-import {TbVaccineBottle} from "react-icons/tb";
-import {BiBox} from "react-icons/bi";
+import { FaSyringe } from "react-icons/fa";
+import { TbVaccineBottle } from "react-icons/tb";
+import { BiBox } from "react-icons/bi";
 import axiosInstance from "../../../networks/apis";
-import {getUserId, isAuthenticatedUser} from "../../../utils/helpers/Auth";
+import { getUserId, isAuthenticatedUser } from "../../../utils/helpers/Auth";
 
 export default function VaccineDetails() {
   // state init
-  const [vaccinationDate, setVaccinationDate] = useState(moment().format("DD-MM-YYYY"));
+  const [vaccinationDate, setVaccinationDate] = useState(
+    moment().format("DD-MM-YYYY")
+  );
   const [refetchToggle, setRefetchToggle] = useState(false);
   const [vaccinationSession, setVaccinationSession] = useState([]);
   const [listFamilies, setListFamilies] = useState([]);
@@ -27,23 +34,26 @@ export default function VaccineDetails() {
   });
   const [selectedSchedule, setSelectedSchedule] = useState();
   const [selectedFamilyMember, setSelectedFamilyMember] = useState([]);
+  const [error, setError] = useState({ schedule: true, families: true });
 
-  const {hospitalId} = useParams();
-  const navigate = useNavigate();
+  const { hospitalId } = useParams();
 
   const breadcrumbPaths = [
-    {title: "Home", href: "", isActive: false},
-    {title: "Vaksinasi", href: "", isActive: false},
-    {title: "Fasilitas Kesehatan", href: "", isActive: false},
-    {title: "Vaksinasi", href: "", isActive: true},
+    { title: "Home", href: "", isActive: false },
+    { title: "Vaksinasi", href: "", isActive: false },
+    { title: "Fasilitas Kesehatan", href: "", isActive: false },
+    { title: "Vaksinasi", href: "", isActive: true },
   ];
 
   // utils
   const handleFamilyMemberChange = (event) => {
     const currentList = selectedFamilyMember;
 
-    const selectedMemberIndex = currentList.findIndex((data) => data.user_id == event.target.value);
+    const selectedMemberIndex = currentList.findIndex(
+      (data) => data.user_id == event.target.value
+    );
     currentList[selectedMemberIndex].selected = event.target.checked;
+    setError({ ...error, families: false });
     console.log("eta", currentList[selectedMemberIndex], event.target.value);
   };
 
@@ -74,11 +84,7 @@ export default function VaccineDetails() {
       });
   };
 
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-    // setSelectedSchedule(event.target.session.value);
-    // setSelectedFamilyMember(event.target.family.value);
-    // console.log("test");
+  const handleFormSubmit = (e) => {
     const scheduleId = selectedSchedule;
     const familyMember = selectedFamilyMember
       .filter((family) => family.selected === true)
@@ -89,14 +95,11 @@ export default function VaccineDetails() {
     familyMember.forEach((familyId) => {
       bookingVaccination(scheduleId, familyId);
     });
-    navigate("/ticket");
   };
 
   // mutator
   useEffect(() => {
     document.body.style.backgroundColor = "#f5fdfe";
-    // const token = Cookies.get("token");
-    // console.log(token);
 
     axiosInstance
       .get(`/facility/${hospitalId}`, {
@@ -107,7 +110,7 @@ export default function VaccineDetails() {
         setHospitalData({
           name: data.facility_name,
           address: `${data.street_name}, ${data.village_name}, ${data.district}, ${data.city}, ${data.province}.\nKode Pos: ${data.postal_code} \nNo Telp. ${data.office_number}`,
-          image: data.img_url ?? imgCard,
+          image: `data:${data.image.content_type};base64,${data.image.base64}`,
         });
       });
 
@@ -155,14 +158,14 @@ export default function VaccineDetails() {
       const listOfFamily = [];
 
       listFamilies.forEach((value) => {
-        listOfFamily.push({user_id: value.id, selected: false});
+        listOfFamily.push({ user_id: value.id, selected: false });
       });
       setSelectedFamilyMember(listOfFamily);
     };
     familyInit();
   }, [listFamilies]);
 
-  const HospitalInformationComponent = ({hospitalName, hospitalAddress}) => (
+  const HospitalInformationComponent = ({ hospitalName, hospitalAddress }) => (
     <div>
       <div
         style={{
@@ -189,7 +192,7 @@ export default function VaccineDetails() {
             alignItems: "center",
           }}
         >
-          <HiLocationMarker style={{width: "100%", height: "100%"}} />{" "}
+          <HiLocationMarker style={{ width: "100%", height: "100%" }} />{" "}
         </div>
         <div>{hospitalAddress}</div>{" "}
       </div>{" "}
@@ -212,7 +215,7 @@ export default function VaccineDetails() {
           value={inputValue}
           onClick={() => {
             setSelectedSchedule(inputValue);
-            console.log(inputValue);
+            setError({ ...error, schedule: false });
           }}
         />
         <div className={style.schedule_item_card}>
@@ -220,7 +223,9 @@ export default function VaccineDetails() {
             <div className={style.schedule_item__vaccine_time__icon}>
               <AiOutlineClockCircle />
             </div>
-            <div className={style.schedule_item__vaccine_time__description}>{time}</div>
+            <div className={style.schedule_item__vaccine_time__description}>
+              {time}
+            </div>
           </div>
 
           <Col className={style.schedule_item__vaccine_data_container}>
@@ -228,7 +233,9 @@ export default function VaccineDetails() {
               <div className={style.schedule_item__vaccine_data_item__icon}>
                 <FaSyringe />
               </div>
-              <div className={style.schedule_item__vaccine_data_item__description}>
+              <div
+                className={style.schedule_item__vaccine_data_item__description}
+              >
                 {vaccineName}
               </div>
             </div>
@@ -237,7 +244,9 @@ export default function VaccineDetails() {
               <div className={style.schedule_item__vaccine_data_item__icon}>
                 <TbVaccineBottle />
               </div>
-              <div className={style.schedule_item__vaccine_data_item__description}>
+              <div
+                className={style.schedule_item__vaccine_data_item__description}
+              >
                 {vaccineDosage}
               </div>
             </div>
@@ -246,7 +255,9 @@ export default function VaccineDetails() {
               <div className={style.schedule_item__vaccine_data_item__icon}>
                 <BiBox />
               </div>
-              <div className={style.schedule_item__vaccine_data_item__description}>
+              <div
+                className={style.schedule_item__vaccine_data_item__description}
+              >
                 {vaccineQuota}
               </div>
             </div>
@@ -276,12 +287,18 @@ export default function VaccineDetails() {
         <div className={style.family_member__data_container}>
           <div className={style.family_member__data__private_container}>
             <div className={style.family_member__data__private__name_container}>
-              <div className={style.familyMemberDataPrivateNameFact}>{memberName}</div>
-              <div className={style.familyMemberDataPrivateNamePositionInFamily}>
+              <div className={style.familyMemberDataPrivateNameFact}>
+                {memberName}
+              </div>
+              <div
+                className={style.familyMemberDataPrivateNamePositionInFamily}
+              >
                 {memberPositionInFamily}
               </div>
             </div>
-            <div className={style.family_member__data__private__resident_id}>{memberNIK}</div>
+            <div className={style.family_member__data__private__resident_id}>
+              {memberNIK}
+            </div>
           </div>
           <div className={style.family_member__data__action_container}>
             <EditFamily
@@ -297,13 +314,20 @@ export default function VaccineDetails() {
 
   return (
     <CitizenLayouts auth={isAuthenticatedUser()}>
-      <Row justify="start" style={{paddingTop: 50, rowGap: 10, paddingBottom: 10}}>
+      <Row
+        justify="start"
+        style={{ paddingTop: 50, rowGap: 10, paddingBottom: 10 }}
+      >
         {/* <Row style={{ width: "80%" }}> */}
         {/* breadcrumb */}
         <Breadcrumb>
           {breadcrumbPaths.map((path, index) => (
             <Breadcrumb.Item key={index}>
-              {path.href === "" ? <a href={path.href}>{path.title}</a> : <div>{path.title}</div>}
+              {path.href === "" ? (
+                <a href={path.href}>{path.title}</a>
+              ) : (
+                <div>{path.title}</div>
+              )}
             </Breadcrumb.Item>
           ))}
         </Breadcrumb>
@@ -316,13 +340,13 @@ export default function VaccineDetails() {
           <div className={style.dataset_detail}>
             {/* hospital logo */}
             <img
-              src={hospitalData.image ?? imgCard}
+              src={hospitalData.image}
               alt="hospital"
               style={{
-                width: "100%",
-                maxWidth: 300,
+                width: "400px",
                 borderRadius: 24,
-                height: "100%",
+                height: "400px",
+                objectFit: "cover",
               }}
             />
 
@@ -334,16 +358,16 @@ export default function VaccineDetails() {
                 hospitalAddress={hospitalData.address}
               />
 
-              <form onSubmit={handleFormSubmit}>
+              <form>
                 {/* datepicker */}
-                <div style={{marginTop: 40}}>
+                <div style={{ marginTop: 40 }}>
                   <div>Pilih Tanggal</div>
                   <DatePicker
                     className="input"
                     format="DD-MM-YYYY"
                     defaultValue={moment()}
                     placeholder="Pilih Tanggal"
-                    style={{width: "100%"}}
+                    style={{ width: "100%" }}
                     onChange={(_, datestr) => setVaccinationDate(datestr)}
                   />
                 </div>
@@ -385,22 +409,11 @@ export default function VaccineDetails() {
 
                 {/* submit button */}
                 <div className={style.formButtonContainer}>
-                  <AddFamily setRefetchToggle={setRefetchToggle} refetchToggle={refetchToggle} />
-                  {/* <button
-                    className={style.addFamilyMemberButton}
-                    
-                  >
-                  </button> */}
-                  <CustomButton
-                    variant="primary"
-                    type="submit"
-                    style={{height: "56px"}}
-                    htmlType="submit"
-                  >
-                    Pesan Vaksinasi
-                  </CustomButton>
-                  {/* <button type="submit" className={style.submitButton}>
-                  </button> */}
+                  <AddFamily
+                    setRefetchToggle={setRefetchToggle}
+                    refetchToggle={refetchToggle}
+                  />
+                  <SubmitFormButton submit={handleFormSubmit} error={error} />
                 </div>
               </form>
             </div>
@@ -409,123 +422,5 @@ export default function VaccineDetails() {
         </Col>
       </Row>
     </CitizenLayouts>
-
-    //     <Row justify="center">
-    //       {/* main content */}
-    //       <Col span={20} className={style.body}>
-    //         {/* vaccination setpoint place */}
-    //         <Row justify="space-between" style={{ margin: "40px 20px" }}>
-    //           {/* setpoint image */}
-    //           <Col span={7}>
-    //             <img src={imgCard} alt="Image" className={style.image} />
-    //           </Col>
-    //           {/* setpoint detail */}
-    //           <Col span={16}>
-    //             {/* summaries */}
-    //             <div className={style.detail}>
-    //               <h2>Rumah Sakit Umum Majalaya</h2>
-    //               <span className={style.location}>
-    //                 <HiLocationMarker className={style.icon} />
-    //                 <p>
-    //                   Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-    //                   sed do eiusmod tempor incididunt ut labore et dolore magna
-    //                   aliqua.
-    //                 </p>
-    //               </span>
-    //             </div>
-
-    //             {/* datasets */}
-    //             <div>
-    //               {/* schedule picker */}
-    //               <div>
-    //                 <DatePicker
-    //                   className="input"
-    //                   defaultValue={moment()}
-    //                   format="DD-MM-YYYY"
-    //                   style={{ width: "638px" }}
-    //                   onChange={onChangeDate}
-    //                 />
-    //               </div>
-
-    //               {/* dataset picker */}
-    //               <div className={style.cardVaccine}>
-    //                 <Row gutter={[52, 30]}>
-    //                   <Col span={23} className="gutter-row">
-    //                     {/* books */}
-    //                     {vaccinationScheduleData.map((v, i) => (
-    //                       <div>
-    //                         <p>
-    //                           {v.id} - {v.doseVaksin}
-    //                         </p>
-    //                       </div>
-    //                     ))}
-    //                     <CardBooking book={session} setBook={setSession} />
-    //                     <div className={style.family}>
-    //                       <h4>Daftar Anggota Keluarga</h4>
-    //                       <div>
-    //                         <ListFamily
-    //                           list={listFams}
-    //                           setListFams={setListFams}
-    //                         />
-    //                       </div>
-    //                     </div>
-
-    //                     {/* kazoku */}
-    //                     <div style={{ marginTop: "32px" }}>
-    //                       <Button type="primary" onClick={showModal}>
-    //                         Tambah Keluarga
-    //                       </Button>
-    //                       <Modal
-    //                         visible={visible}
-    //                         title="Tambahkan Anggota Keluarga"
-    //                         onOk={handleOk}
-    //                         onCancel={handleCancel}
-    //                         footer={[
-    //                           <Button
-    //                             key="submit"
-    //                             type="primary"
-    //                             onClick={handleOk}
-    //                           >
-    //                             Tambahkan
-    //                           </Button>,
-    //                         ]}
-    //                       >
-    //                         <AddFamily />
-    //                       </Modal>
-    //                       <CustomButton variant="secondary" block>
-    //                         <AiOutlineUserAdd
-    //                           style={{
-    //                             width: "24px",
-    //                             height: "24px",
-    //                           }}
-    //                         />
-    //                         <span
-    //                           style={{
-    //                             fontSize: "16px",
-    //                             fontWeight: "600px",
-    //                           }}
-    //                         >
-    //                           Tambah Anggota Keluarga
-    //                         </span>
-    //                       </CustomButton>
-    //                       <CustomButton
-    //                         variant="primary"
-    //                         block
-    //                         style={{ marginTop: "24px" }}
-    //                         onClick={handleClickFams}
-    //                       >
-    //                         Pesan Vaksinasi
-    //                       </CustomButton>
-    //                     </div>
-    //                   </Col>
-    //                 </Row>
-    //               </div>
-    //             </div>
-    //           </Col>
-    //         </Row>
-    //       </Col>
-    //     </Row>
-    //   </Row>
-    // </div>
   );
 }
