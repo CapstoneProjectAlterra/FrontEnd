@@ -1,29 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { Row, Col, DatePicker, Breadcrumb } from "antd";
-import {
-  CustomButton,
-  AddFamily,
-  EditFamily,
-  SubmitFormButton,
-} from "../../../components";
+import React, {useEffect, useState} from "react";
+import {useNavigate, useParams} from "react-router-dom";
+import {Row, Col, DatePicker, Breadcrumb} from "antd";
+import {CustomButton, AddFamily, EditFamily, SubmitFormButton} from "../../../components";
 import moment from "moment";
-import { imgCard } from "../../../assets";
-import { AiOutlineClockCircle } from "react-icons/ai";
-import { HiLocationMarker } from "react-icons/hi";
+import {imgCard} from "../../../assets";
+import {AiOutlineClockCircle} from "react-icons/ai";
+import {HiLocationMarker} from "react-icons/hi";
 import style from "./VaccineDetails.module.css";
 import CitizenLayouts from "../../../layouts/CitizenLayout";
-import { FaSyringe } from "react-icons/fa";
-import { TbVaccineBottle } from "react-icons/tb";
-import { BiBox } from "react-icons/bi";
+import {FaSyringe} from "react-icons/fa";
+import {TbVaccineBottle} from "react-icons/tb";
+import {BiBox} from "react-icons/bi";
 import axiosInstance from "../../../networks/apis";
-import { getUserId, isAuthenticatedUser } from "../../../utils/helpers/Auth";
+import {getUserId, isAuthenticatedUser} from "../../../utils/helpers/Auth";
 
 export default function VaccineDetails() {
   // state init
-  const [vaccinationDate, setVaccinationDate] = useState(
-    moment().format("DD-MM-YYYY")
-  );
+  const [vaccinationDate, setVaccinationDate] = useState(moment().format("DD-MM-YYYY"));
   const [refetchToggle, setRefetchToggle] = useState(false);
   const [vaccinationSession, setVaccinationSession] = useState([]);
   const [listFamilies, setListFamilies] = useState([]);
@@ -34,26 +27,24 @@ export default function VaccineDetails() {
   });
   const [selectedSchedule, setSelectedSchedule] = useState();
   const [selectedFamilyMember, setSelectedFamilyMember] = useState([]);
-  const [error, setError] = useState({ schedule: true, families: true });
+  const [error, setError] = useState({schedule: true, families: true});
 
-  const { hospitalId } = useParams();
+  const {hospitalId} = useParams();
 
   const breadcrumbPaths = [
-    { title: "Home", href: "", isActive: false },
-    { title: "Vaksinasi", href: "", isActive: false },
-    { title: "Fasilitas Kesehatan", href: "", isActive: false },
-    { title: "Vaksinasi", href: "", isActive: true },
+    {title: "Home", href: "", isActive: false},
+    {title: "Vaksinasi", href: "", isActive: false},
+    {title: "Fasilitas Kesehatan", href: "", isActive: false},
+    {title: "Vaksinasi", href: "", isActive: true},
   ];
 
   // utils
   const handleFamilyMemberChange = (event) => {
     const currentList = selectedFamilyMember;
 
-    const selectedMemberIndex = currentList.findIndex(
-      (data) => data.user_id == event.target.value
-    );
+    const selectedMemberIndex = currentList.findIndex((data) => data.user_id == event.target.value);
     currentList[selectedMemberIndex].selected = event.target.checked;
-    setError({ ...error, families: false });
+    setError({...error, families: false});
     console.log("eta", currentList[selectedMemberIndex], event.target.value);
   };
 
@@ -158,14 +149,14 @@ export default function VaccineDetails() {
       const listOfFamily = [];
 
       listFamilies.forEach((value) => {
-        listOfFamily.push({ user_id: value.id, selected: false });
+        listOfFamily.push({user_id: value.id, selected: false});
       });
       setSelectedFamilyMember(listOfFamily);
     };
     familyInit();
   }, [listFamilies]);
 
-  const HospitalInformationComponent = ({ hospitalName, hospitalAddress }) => (
+  const HospitalInformationComponent = ({hospitalName, hospitalAddress}) => (
     <div>
       <div
         style={{
@@ -192,7 +183,7 @@ export default function VaccineDetails() {
             alignItems: "center",
           }}
         >
-          <HiLocationMarker style={{ width: "100%", height: "100%" }} />{" "}
+          <HiLocationMarker style={{width: "100%", height: "100%"}} />{" "}
         </div>
         <div>{hospitalAddress}</div>{" "}
       </div>{" "}
@@ -215,7 +206,7 @@ export default function VaccineDetails() {
           value={inputValue}
           onClick={() => {
             setSelectedSchedule(inputValue);
-            setError({ ...error, schedule: false });
+            setError({...error, schedule: false});
           }}
         />
         <div className={style.schedule_item_card}>
@@ -223,9 +214,7 @@ export default function VaccineDetails() {
             <div className={style.schedule_item__vaccine_time__icon}>
               <AiOutlineClockCircle />
             </div>
-            <div className={style.schedule_item__vaccine_time__description}>
-              {time}
-            </div>
+            <div className={style.schedule_item__vaccine_time__description}>{time}</div>
           </div>
 
           <Col className={style.schedule_item__vaccine_data_container}>
@@ -233,9 +222,7 @@ export default function VaccineDetails() {
               <div className={style.schedule_item__vaccine_data_item__icon}>
                 <FaSyringe />
               </div>
-              <div
-                className={style.schedule_item__vaccine_data_item__description}
-              >
+              <div className={style.schedule_item__vaccine_data_item__description}>
                 {vaccineName}
               </div>
             </div>
@@ -244,9 +231,7 @@ export default function VaccineDetails() {
               <div className={style.schedule_item__vaccine_data_item__icon}>
                 <TbVaccineBottle />
               </div>
-              <div
-                className={style.schedule_item__vaccine_data_item__description}
-              >
+              <div className={style.schedule_item__vaccine_data_item__description}>
                 {vaccineDosage}
               </div>
             </div>
@@ -255,9 +240,7 @@ export default function VaccineDetails() {
               <div className={style.schedule_item__vaccine_data_item__icon}>
                 <BiBox />
               </div>
-              <div
-                className={style.schedule_item__vaccine_data_item__description}
-              >
+              <div className={style.schedule_item__vaccine_data_item__description}>
                 {vaccineQuota}
               </div>
             </div>
@@ -287,18 +270,12 @@ export default function VaccineDetails() {
         <div className={style.family_member__data_container}>
           <div className={style.family_member__data__private_container}>
             <div className={style.family_member__data__private__name_container}>
-              <div className={style.familyMemberDataPrivateNameFact}>
-                {memberName}
-              </div>
-              <div
-                className={style.familyMemberDataPrivateNamePositionInFamily}
-              >
+              <div className={style.familyMemberDataPrivateNameFact}>{memberName}</div>
+              <div className={style.familyMemberDataPrivateNamePositionInFamily}>
                 {memberPositionInFamily}
               </div>
             </div>
-            <div className={style.family_member__data__private__resident_id}>
-              {memberNIK}
-            </div>
+            <div className={style.family_member__data__private__resident_id}>{memberNIK}</div>
           </div>
           <div className={style.family_member__data__action_container}>
             <EditFamily
@@ -314,20 +291,13 @@ export default function VaccineDetails() {
 
   return (
     <CitizenLayouts auth={isAuthenticatedUser()}>
-      <Row
-        justify="start"
-        style={{ paddingTop: 50, rowGap: 10, paddingBottom: 10 }}
-      >
+      <Row justify="start" style={{paddingTop: 50, rowGap: 10, paddingBottom: 10}}>
         {/* <Row style={{ width: "80%" }}> */}
         {/* breadcrumb */}
         <Breadcrumb>
           {breadcrumbPaths.map((path, index) => (
             <Breadcrumb.Item key={index}>
-              {path.href === "" ? (
-                <a href={path.href}>{path.title}</a>
-              ) : (
-                <div>{path.title}</div>
-              )}
+              {path.href === "" ? <a href={path.href}>{path.title}</a> : <div>{path.title}</div>}
             </Breadcrumb.Item>
           ))}
         </Breadcrumb>
@@ -360,16 +330,22 @@ export default function VaccineDetails() {
 
               <form>
                 {/* datepicker */}
-                <div style={{ marginTop: 40 }}>
-                  <div>Pilih Tanggal</div>
+                <div style={{marginTop: 40}}>
+                  <h4>Pilih Tanggal</h4>
                   <DatePicker
                     className="input"
                     format="DD-MM-YYYY"
                     defaultValue={moment()}
                     placeholder="Pilih Tanggal"
-                    style={{ width: "100%" }}
+                    style={{width: "100%"}}
                     onChange={(_, datestr) => setVaccinationDate(datestr)}
                   />
+                  {vaccinationSession.filter((item) => item.vaccination_date === vaccinationDate)
+                    .length === 0 && (
+                    <h5 style={{display: "flex", justifyContent: "center", paddingTop: "16px"}}>
+                      Tidak ada jadwal untuk hari ini
+                    </h5>
+                  )}
                 </div>
 
                 {/* schedules */}
@@ -393,6 +369,7 @@ export default function VaccineDetails() {
 
                 {/* list of family members */}
                 <div className={style.family_member_list_container}>
+                  <h4>Daftar Anggota Keluarga</h4>
                   {listFamilies.map((member, index) => (
                     <FamilyMemberCheckboxComponent
                       key={index}
@@ -409,10 +386,7 @@ export default function VaccineDetails() {
 
                 {/* submit button */}
                 <div className={style.formButtonContainer}>
-                  <AddFamily
-                    setRefetchToggle={setRefetchToggle}
-                    refetchToggle={refetchToggle}
-                  />
+                  <AddFamily setRefetchToggle={setRefetchToggle} refetchToggle={refetchToggle} />
                   <SubmitFormButton submit={handleFormSubmit} error={error} />
                 </div>
               </form>
