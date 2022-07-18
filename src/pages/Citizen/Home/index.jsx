@@ -4,7 +4,6 @@ import { LandingPage } from "../../../assets";
 import style from "./Home.module.css";
 import { CustomButton, CustomInput } from "../../../components";
 import { UserOutlined } from "@ant-design/icons";
-import axios from "axios";
 import dateFormat from "../../../utils/helpers/dateFormat";
 import { Link, useNavigate } from "react-router-dom";
 import { CustomAlert } from "../../../components";
@@ -12,10 +11,10 @@ import {
   isAuthenticatedUser,
   isProfileNull,
 } from "../../../utils/helpers/Auth";
-import CitizenLayout from "../../../layouts/CitizenLayout";
 import axiosInstance from "../../../networks/apis";
 import { FaHospitalAlt } from "react-icons/fa";
 import { AiOutlineSearch } from "react-icons/ai";
+import CitizenLayout from "../../../layouts/CitizenLayout";
 
 const alur = [
   {
@@ -201,11 +200,7 @@ export default function Home() {
       <CitizenLayout auth={isAuthenticatedUser()} padding={false}>
         {isAuthenticatedUser() && alertToggle && <CustomAlert />}
         <Row justify='center' style={{ paddingTop: "40px" }}>
-          <Col
-            className={style.colflex}
-            lg={{ span: 8 }}
-            md={{ span: 15 }}
-            xs={{ span: 15 }}>
+          <Col className={style.colflex} lg={{ span: 10 }} xs={{ span: 20 }}>
             <h1 className={style.textdaftar} style={{ marginBottom: "0px" }}>
               Alternatif
             </h1>
@@ -353,20 +348,13 @@ export default function Home() {
             );
           })}
         </Row>
-
-        <Row
-          style={{ background: "var(--color-secondary", marginTop: "88px" }}
-          justify='center'>
+        <Row className={style.hospital} justify='center'>
           <Col span={24} justify='center'>
             <h2
-              className={style.textkerjasama}
-              style={{ marginTop: "32px", marginBottom: "0px" }}>
-              Kami telah bekerja sama dengan 100 Fasilitas
-            </h2>
-            <h2
-              className={style.textkerjasama}
-              style={{ marginBottom: "64px" }}>
-              Kesehatan untuk pemesanan vaksin
+              className={style.heading}
+              style={{ marginTop: "32px", marginBottom: "64px" }}>
+              Kami telah bekerja sama dengan 100 Fasilitas Kesehatan untuk
+              pemesanan vaksin
             </h2>
           </Col>
           <Row
@@ -374,8 +362,6 @@ export default function Home() {
             gutter={[0, 44]}
             style={{
               gap: "32px",
-              marginLeft: "48px",
-              marginRight: "48px",
               marginBottom: "32px",
             }}>
             {faskes.map((item) => {
@@ -393,22 +379,16 @@ export default function Home() {
             })}
           </Row>
         </Row>
-
         <Row
           span={22}
           justify='space-between'
-          style={{
-            alignItems: "center",
-            paddingLeft: "160px",
-            paddingRight: "160px",
-            marginTop: "88px",
-          }}>
-          <h2>Berita Terbaru</h2>
+          className={style.newsContainer}
+          align='middle'>
+          <span className={style.heading}>Berita Terbaru</span>
           <Link to='/news' style={{ color: "var(--color-primary)" }}>
             Lebih Banyak &gt;
           </Link>
         </Row>
-
         <Row
           justify='center'
           gutter={[0, 24]}
