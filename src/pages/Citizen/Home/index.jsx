@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col } from "antd";
+import { Row, Col, Spin, Pagination } from "antd";
 import { LandingPage } from "../../../assets";
 import style from "./Home.module.css";
-import CustomButton from "../../../components/CustomButton";
+import { CustomButton, CustomInput } from "../../../components";
 import { UserOutlined } from "@ant-design/icons";
 import axios from "axios";
 import dateFormat from "../../../utils/helpers/dateFormat";
 import { Link, useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 import { CustomAlert } from "../../../components";
 import {
   isAuthenticatedUser,
   isProfileNull,
 } from "../../../utils/helpers/Auth";
 import CitizenLayout from "../../../layouts/CitizenLayout";
+import axiosInstance from "../../../networks/apis";
+import { FaHospitalAlt } from "react-icons/fa";
+import { AiOutlineSearch } from "react-icons/ai";
 
 const alur = [
   {
@@ -139,12 +141,40 @@ export default function Home() {
   const [news, setNews] = useState([]);
   const [alertToggle, setAlertToggle] = useState(false);
 
+  const [search, setSearch] = useState("");
+  const [dataRS, setDataRS] = useState([]);
+  const [initialData, setInitialData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    axiosInstance.get("/facility", { data: "" }).then((res) => {
+      setDataRS(res.data.data);
+      setInitialData(res.data.data);
+      setLoading(false);
+    });
+  }, []);
+
+  const handleClickSearch = () => {
+    const lowerCaseValue = search.toLowerCase().trim();
+    const filteredData = initialData.filter((value) =>
+      Object.keys(value).some((key) =>
+        value[key].toString().toLowerCase().includes(lowerCaseValue)
+      )
+    );
+    setDataRS(filteredData);
+  };
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+    console.log(search);
+  };
+
   useEffect(() => {
     const loadNews = async () => {
-      const response = await axios.get(
-        "https://newsapi.org/v2/everything?q=covid&language=id&apiKey=23b92eb137c74f6eab5f15055aa1de69"
-      );
-      setNews(response.data.articles);
+      const response = await axiosInstance
+        .get("/news", { data: "" })
+        .then((res) => res.data);
+      setNews(response.data);
     };
     loadNews();
 
@@ -155,57 +185,169 @@ export default function Home() {
     }
   }, []);
 
+  let sorted1 = news.sort(
+    (a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt)
+  );
+  let sorted2 = news.sort(
+    (a, b) => new Date(b.publishedAt) - new Date(a.publishedAt)
+  );
+  let sorted3 = news.sort(
+    (a, b) =>
+      new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+  );
+
   return (
     <>
       <CitizenLayout auth={isAuthenticatedUser()} padding={false}>
         {isAuthenticatedUser() && alertToggle && <CustomAlert />}
-        <Row justify="center" style={{ paddingTop: "40px" }}>
-          <Col className={style.colflex} lg={{ span: 10 }} xs={{ span: 20 }}>
+        <Row justify='center' style={{ paddingTop: "40px" }}>
+          <Col
+            className={style.colflex}
+            lg={{ span: 8 }}
+            md={{ span: 15 }}
+            xs={{ span: 15 }}>
             <h1 className={style.textdaftar} style={{ marginBottom: "0px" }}>
               Alternatif
             </h1>
+            <br />
             <h1
               className={style.textdaftar}
-              style={{ color: "var(--color-primary)", marginBottom: "0px" }}
-            >
+              style={{ color: "var(--color-primary)", marginBottom: "0px" }}>
               Pesan Vaksinasi
             </h1>
-            <p className="body1">
+            <p className='body1'>
               Dapat dilakukan di mana pun dan kapan pun dengan mudah
             </p>
             {isAuthenticatedUser() === true ? (
-              <CustomButton variant="primary">
-                <Link to="/vaccine">Daftar Vaksinasi</Link>
+              <CustomButton variant='primary'>
+                <Link to='/vaccine'>Daftar Vaksinasi</Link>
               </CustomButton>
             ) : (
-              <CustomButton variant="primary">
-                <Link to="/login">Daftar Vaksinasi</Link>
+              <CustomButton variant='primary'>
+                <Link to='/login'>Daftar Vaksinasi</Link>
               </CustomButton>
             )}
           </Col>
-          <Col lg={{ span: 10 }} xs={{ span: 20 }} justify="end">
-            <img src={LandingPage} alt="landingpage" className={style.img} />
+          <Col lg={{ span: 10 }} xs={{ span: 20 }} justify='end'>
+            <img src={LandingPage} alt='landingpage' className={style.img} />
           </Col>
         </Row>
 
+        {isAuthenticatedUser() && (
+          <>
+            <div className='layout-padding'>
+              <h2 className={style.title}>
+                Temukan Fasilitas Kesehatan Terdekat
+                <br />
+                Untuk Vaksinasi Covid - 19
+              </h2>
+              <div className={style.search}>
+                <CustomInput
+                  placeholder='Search by city, province, postal code...'
+                  style={{
+                    width: "883px",
+                    borderTopRightRadius: "0",
+                    borderBottomRightRadius: "0",
+                  }}
+                  onChange={handleSearch}
+                />
+                <CustomButton
+                  variant='primary'
+                  style={{
+                    width: "56px",
+                    height: "56px",
+                    borderTopLeftRadius: "0",
+                    borderBottomLeftRadius: "0",
+                  }}
+                  onClick={handleClickSearch}>
+                  <AiOutlineSearch className={style.iconSearch} />
+                </CustomButton>
+              </div>
+            </div>
+            {loading ? (
+              <Row className={style.mainCardContainer}>
+                <Spin size='large' style={{ padding: "56px" }} />
+              </Row>
+            ) : (
+              <>
+                <Row
+                  justify='space-between'
+                  className='layout-padding'
+                  gutter={[48, 48]}>
+                  {dataRS.length > 0 &&
+                    dataRS
+                      .slice(state.minValue, state.maxValue)
+                      .map((item, itemTdx) => {
+                        return (
+                          <Col
+                            key={itemTdx}
+                            xs={24}
+                            md={12}
+                            lg={8}
+                            // onClick={handleCard}
+                            className={style.cardContainer}>
+                            <div className={style.card}>
+                              <Link to={"/vaccineDetails/" + item.id}>
+                                <div className={style.cardImage}>
+                                  <img
+                                    src={`data:${item.image.content_type};base64,${item.image.base64}`}
+                                    alt='Card'
+                                    className={style.cardImage}
+                                  />
+                                </div>
+                                <div className={style.cardDetails}>
+                                  <span className={style.titleCard}>
+                                    <FaHospitalAlt className={style.icon} />
+                                    <h4>{item.facility_name}</h4>
+                                  </span>
+                                  <div>
+                                    <ul className={style.cardInform}>
+                                      <li>{item.province}</li>
+                                      <li>{item.city}</li>
+                                      <li>{item.postal_code}</li>
+                                    </ul>
+                                  </div>
+                                  {/* <span className={style.descriptionCard}>
+                            <IoDocumentTextOutline className={style.icon} />
+                            <p style={{ paddingTop: "5px" }}>{item.kuota}</p>
+                          </span> */}
+                                </div>
+                              </Link>
+                            </div>
+                          </Col>
+                        );
+                      })}
+                </Row>
+                <div className={style.pagination}>
+                  <Pagination
+                    defaultCurrent={1}
+                    defaultPageSize={3}
+                    onChange={handleChange}
+                    total={dataRS.length}
+                  />
+                </div>
+              </>
+            )}
+          </>
+        )}
+
         <h2 className={style.textjudul}>Alur Pendaftaran</h2>
-        <Row justify="space-evenly" gutter={[0, 48]}>
+        <Row justify='space-evenly' gutter={[0, 48]}>
           {alur.map((item) => {
             return (
               <Col
                 lg={{ span: 5 }}
                 xs={{ span: 10 }}
                 key={item.key}
-                className={style.col}
-              >
+                className={style.col}>
                 <Col>
                   <img
                     src={require(`../../../${item.img}`)}
-                    alt="instruksi"
+                    alt='instruksi'
                     className={style.img}
                   />
                   <h4 style={{ marginTop: "16px" }}>{item.title}</h4>
-                  <p className="body2">{item.content}</p>
+                  <p className='body2'>{item.content}</p>
                 </Col>
               </Col>
             );
@@ -214,39 +356,35 @@ export default function Home() {
 
         <Row
           style={{ background: "var(--color-secondary", marginTop: "88px" }}
-          justify="center"
-        >
-          <Col span={24} justify="center">
+          justify='center'>
+          <Col span={24} justify='center'>
             <h2
               className={style.textkerjasama}
-              style={{ marginTop: "32px", marginBottom: "0px" }}
-            >
+              style={{ marginTop: "32px", marginBottom: "0px" }}>
               Kami telah bekerja sama dengan 100 Fasilitas
             </h2>
             <h2
               className={style.textkerjasama}
-              style={{ marginBottom: "64px" }}
-            >
+              style={{ marginBottom: "64px" }}>
               Kesehatan untuk pemesanan vaksin
             </h2>
           </Col>
           <Row
-            justify="space-evenly"
+            justify='space-evenly'
             gutter={[0, 44]}
             style={{
               gap: "32px",
               marginLeft: "48px",
               marginRight: "48px",
               marginBottom: "32px",
-            }}
-          >
+            }}>
             {faskes.map((item) => {
               return (
                 <Col lg={{ span: 3 }} xs={{ span: 4 }} key={item.key}>
                   <Col>
                     <img
                       src={require(`../../../${item.img}`)}
-                      alt="fasilitas kesehatan"
+                      alt='fasilitas kesehatan'
                       className={style.img}
                     />
                   </Col>
@@ -258,25 +396,23 @@ export default function Home() {
 
         <Row
           span={22}
-          justify="space-between"
+          justify='space-between'
           style={{
             alignItems: "center",
             paddingLeft: "160px",
             paddingRight: "160px",
             marginTop: "88px",
-          }}
-        >
+          }}>
           <h2>Berita Terbaru</h2>
-          <Link to="/news" style={{ color: "var(--color-primary)" }}>
+          <Link to='/news' style={{ color: "var(--color-primary)" }}>
             Lebih Banyak &gt;
           </Link>
         </Row>
 
         <Row
-          justify="center"
+          justify='center'
           gutter={[0, 24]}
-          style={{ gap: "77px", paddingBottom: "88px" }}
-        >
+          style={{ gap: "77px", paddingBottom: "88px" }}>
           {news.length > 0 &&
             news.slice(state.minValue, state.maxValue).map((item, itemTdx) => {
               return (
@@ -285,13 +421,12 @@ export default function Home() {
                   md={{ span: 10 }}
                   xs={{ span: 16 }}
                   key={itemTdx}
-                  className={style.col}
-                >
-                  <a href={item.url} target="_blank">
+                  className={style.col}>
+                  <a href={item.url} target='_blank'>
                     <Col>
                       <img
                         src={item.urlToImage}
-                        alt="berita"
+                        alt='berita'
                         className={style.imgberita}
                       />
                       <p className={style.body3} style={{ marginTop: "8px" }}>
@@ -300,8 +435,7 @@ export default function Home() {
                       <h4 style={{ marginBottom: "16px" }}>{item.title}</h4>
                       <p
                         className={style.body2}
-                        style={{ textAlign: "justify" }}
-                      >
+                        style={{ textAlign: "justify" }}>
                         {item.description.slice(0, 90) +
                           (item.description.length > 90 ? " . . ." : "")}
                       </p>

@@ -3,11 +3,11 @@ import React from "react";
 import style from "./Berita.module.css";
 import { UserOutlined } from "@ant-design/icons";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import dateFormat from "../../../utils/helpers/dateFormat";
 import { Link } from "react-router-dom";
 import CitizenLayout from "../../../layouts/CitizenLayout";
 import { isAuthenticatedUser } from "../../../utils/helpers/Auth";
+import axiosInstance from "../../../networks/apis";
 
 export default function News() {
   const [state, setState] = useState({
@@ -30,12 +30,22 @@ export default function News() {
 
   const [news, setNews] = useState([]);
 
+  // useEffect(() => {
+  //   const loadNews = async () => {
+  //     const response = await axios.get(
+  //       "https://newsapi.org/v2/everything?q=covid&language=id&apiKey=23b92eb137c74f6eab5f15055aa1de69"
+  //     );
+  //     setNews(response.data.articles);
+  //   };
+  //   loadNews();
+  // }, []);
+
   useEffect(() => {
     const loadNews = async () => {
-      const response = await axios.get(
-        "https://newsapi.org/v2/everything?q=covid&language=id&apiKey=23b92eb137c74f6eab5f15055aa1de69"
-      );
-      setNews(response.data.articles);
+      const response = await axiosInstance
+        .get("/news", { data: "" })
+        .then((res) => res.data);
+      setNews(response.data);
     };
     loadNews();
   }, []);
@@ -57,10 +67,10 @@ export default function News() {
         <Col span={20} offset={2} style={{ paddingTop: "40px" }}>
           <Breadcrumb className={style.breadcrumb}>
             <Breadcrumb.Item>
-              <Link to="/">Home</Link>
+              <Link to='/'>Home</Link>
             </Breadcrumb.Item>
             <Breadcrumb.Item>
-              <Link to="/news">News</Link>
+              <Link to='/news'>News</Link>
             </Breadcrumb.Item>
           </Breadcrumb>
           <h1 style={{ marginTop: "24px", marginBottom: "48px" }}>
@@ -69,10 +79,9 @@ export default function News() {
         </Col>
 
         <Row
-          justify="center"
+          justify='center'
           gutter={[0, 24]}
-          style={{ gap: "16px", paddingBottom: "88px" }}
-        >
+          style={{ gap: "16px", paddingBottom: "88px" }}>
           {news.length > 0 &&
             news.slice(state.minValue, state.maxValue).map((item, itemTdx) => {
               return (
@@ -80,30 +89,27 @@ export default function News() {
                   lg={{ span: 5 }}
                   xs={{ span: 16 }}
                   key={itemTdx}
-                  className={style.col}
-                >
-                  <a href={item.url} target="_blank">
+                  className={style.col}>
+                  <a href={item.url} target='_blank'>
                     <Col>
                       <img
                         src={item.urlToImage}
-                        alt="berita"
+                        alt='berita'
                         className={style.img}
                       />
                       <p
-                        className="body3"
-                        style={{ marginTop: "14px", marginBottom: "8px" }}
-                      >
+                        className='body3'
+                        style={{ marginTop: "14px", marginBottom: "8px" }}>
                         {dateFormat(item.publishedAt, "date-month-year")}
                       </p>
                       <h4 style={{ marginBottom: "16px" }}>{item.title}</h4>
                       <p
-                        className="body2"
-                        style={{ textAlign: "justify", marginBottom: "8px" }}
-                      >
+                        className='body2'
+                        style={{ textAlign: "justify", marginBottom: "8px" }}>
                         {item.description.slice(0, 90) +
                           (item.description.length > 90 ? " . . ." : "")}
                       </p>
-                      <p className="body3" style={{ marginBottom: "8px" }}>
+                      <p className='body3' style={{ marginBottom: "8px" }}>
                         <UserOutlined className={style.icon} /> {item.author}
                       </p>
                     </Col>
