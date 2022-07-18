@@ -21,6 +21,7 @@ import CardBooking from "./CardBooking";
 import ListFamily from "./ListFamily";
 import AddFamily from "./AddFamily";
 import EditFamily from "./EditFamily";
+import VaccineTable from "./VaccineTable";
 
 export {
   CustomButton,
@@ -46,4 +47,5 @@ export {
   ListFamily,
   AddFamily,
   EditFamily,
+  VaccineTable,
 };
