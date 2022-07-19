@@ -1,152 +1,213 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AdminLayout from "../../../layouts/AdminLayout";
 import style from "./AdminProfileEdit.module.css";
 
-import { Col, Row, Image, message, Form, Upload, Divider, Input } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
+import { Col, Row, Image, Form, Spin, Input } from "antd";
 
-import { Content, Footer, Header } from "antd/lib/layout/layout";
-import { CustomButton, CustomInput } from "../../../components";
-import { Link } from "react-router-dom";
+import { CustomButton, CustomInput, UploadFile } from "../../../components";
+
+import { useEffect } from "react";
+import axiosInstance from "../../../networks/apis";
+import { getUserId } from "../../../utils/helpers/Auth";
 
 const AdminProfileEdit = () => {
-  const props = {
-    name: "file",
-    action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-    headers: {
-      authorization: "authorization-text",
-    },
+  const [facility, setFacility] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [baseImage, setBaseImage] = useState("");
+  const [dataUser, setDataUser] = useState([]);
 
-    onChange(info) {
-      if (info.file.status !== "uploading") {
-        console.log(info.file, info.fileList);
-      }
+  const navigate = useNavigate();
+  useEffect(() => {
+    axiosInstance
+      .get("/facility", { data: "" })
+      .then((response) => {
+        setFacility(response.data.data.filter((item) => item.profile.user_id === getUserId())[0]);
+        setLoading(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
-      if (info.file.status === "done") {
-        message.success(`${info.file.name} file uploaded successfully`);
-      } else if (info.file.status === "error") {
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
+  useEffect(() => {
+    axiosInstance
+      .get(`/user/${getUserId()}`, { data: "" })
+      .then((response) => {
+        setDataUser(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [facility]);
+
+  const onFinish = (values) => {
+    let base64File = baseImage.slice(23);
+    console.log("hasil", base64File);
+    const inputData = {
+      city: values.city,
+      district: values.district,
+      facility_name: values.facility_name,
+      image: {
+        base64: base64File === "" ? facility.image.base64 : base64File,
+        content_type: "image/jpeg",
+      },
+      office_number: values.office_number,
+      postal_code: values.postal_code,
+      profile: {
+        user_id: getUserId(),
+      },
+      province: values.city,
+      street_name: values.street_name,
+      village_name: values.village_name,
+    };
+
+    axiosInstance
+      .put(`/facility/${facility.id}`, inputData)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    navigate("/admin/profile");
   };
+
   return (
     <AdminLayout>
       <div className={style.content}>
-        <h2
-          style={{
-            fontWeight: "var(--font-h2-weight)",
-            textAlign: "center",
-            marginBottom: "14px",
-          }}
-        >
-          EDIT PROFILE
-        </h2>
-        <Row>
-          <Col span={16} offset={4}>
-            <div className={style.imgThumb}>
-              <Image src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
-            </div>
-          </Col>
-        </Row>
-        <Row>
-          <Col span={18} offset={3}>
-            <h3
+        {!loading ? (
+          <Spin size="middle" />
+        ) : (
+          <Form
+            layout="vertical"
+            requiredMark={false}
+            initialValues={{
+              facility_name: facility.facility_name,
+              street_name: facility.street_name,
+              village_name: facility.village_name,
+              office_number: facility.office_number,
+              district: facility.district,
+              city: facility.city,
+              postal_code: facility.postal_code,
+              username: dataUser.name,
+              password: dataUser.password,
+            }}
+            onFinish={onFinish}
+          >
+            <h2
               style={{
+                fontWeight: "var(--font-h2-weight)",
+                textAlign: "center",
                 marginBottom: "14px",
               }}
             >
-              Informasi Fasilitas Kesehatan
-            </h3>
+              EDIT PROFILE
+            </h2>
             <Row>
-              <Col style={{ marginBottom: "24px" }}>
-                <p className="body1">Nama</p>
-                <p className="body1-m">RSUD Majalaya</p>
+              <Col span={16} offset={4}>
+                <div className={style.imgThumb}>
+                  <Image src={`data:imgae/jpeg;base64, ${facility.image.base64}`} alt={`Foto ${facility.facility_name}`} className={style.img} />
+                </div>
               </Col>
             </Row>
-            <h5 className="h5-sb">Alamat Fasilitas Kesehatan</h5>
-            <Row justify="space-between" align="middle">
-              <Col span={8}>
-                <p className="body1">Jalan</p>
-                <p className="body1-m">Jl. Raya Cipaku</p>
-              </Col>
-              <Col span={8}>
-                <p className="body1">Nomor</p>
-                <p className="body1-m">87</p>
-              </Col>
-              <Col span={8}>
-                <p className="body1">Kode Pos</p>
-                <p className="body1-m">40616</p>
-              </Col>
-              <Col span={8}>
-                <p className="body1">Kelurahan</p>
-                <p className="body1-m">Ciputan</p>
-              </Col>
-              <Col span={8}>
-                <p className="body1">Kecamatan</p>
-                <p className="body1-m">Cipaku</p>
-              </Col>
-              <Col span={8}>
-                <p className="body1">Kota</p>
-                <p className="body1-m">Jember</p>
-              </Col>
-            </Row>
-            <p className="body1">Foto Fasilitas Kesehatan</p>
-
             <Row>
-              <Col>
-                <Upload {...props}>
-                  <div className={style.upload}>
-                    <CustomButton icon={<UploadOutlined />}>Click to Upload</CustomButton>
-                  </div>
-                </Upload>
-                <p
+              <Col span={18} offset={3}>
+                <h3
                   style={{
-                    fontSize: "12px",
+                    marginBottom: "14px",
                   }}
                 >
-                  *Foto harus berformat jpg, jpeg atau png <br /> *Ukuran file maksimal adalah 1 mb
-                </p>
-              </Col>
-            </Row>
-            <h3 style={{ marginBottom: "16px" }}>Informasi Akun</h3>
-            <Row>
-              <Col span={24}>
-                <Form layout="vertical" requiredMark={false}>
-                  <Form.Item
-                    label="Username"
-                    name="username"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please input your username!",
-                      },
-                    ]}
-                  >
-                    <CustomInput value="rsudmalajaya" />
-                  </Form.Item>
+                  Informasi Fasilitas Kesehatan
+                </h3>
+                <Row>
+                  <Col style={{ marginBottom: "24px" }}>
+                    <Form.Item name="facility_name" label="Nama">
+                      <CustomInput />
+                    </Form.Item>
+                  </Col>
+                </Row>
+                <p className="body1">Alamat Fasilitas Kesehatan</p>
+                <Row justify="space-between" align="middle">
+                  <Col span={7}>
+                    <Form.Item name="street_name" label="Jalan">
+                      <CustomInput />
+                    </Form.Item>
+                  </Col>
+                  <Col span={7}>
+                    <Form.Item name="office_number" label="Nomor">
+                      <CustomInput />
+                    </Form.Item>
+                  </Col>
+                  <Col span={7}>
+                    <Form.Item name="postal_code" label="Kode Pos">
+                      <CustomInput />
+                    </Form.Item>
+                  </Col>
+                  <Col span={7}>
+                    <Form.Item name="village_name" label="Kelurahan">
+                      <CustomInput />
+                    </Form.Item>
+                  </Col>
+                  <Col span={7}>
+                    <Form.Item name="district" label="Kecamatan">
+                      <CustomInput />
+                    </Form.Item>
+                  </Col>
+                  <Col span={7}>
+                    <Form.Item name="city" label="Kota">
+                      <CustomInput />
+                    </Form.Item>
+                  </Col>
+                </Row>
+                <p className="body1">Foto Fasilitas Kesehatan</p>
 
-                  <Form.Item
-                    label="Password"
-                    name="password"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please input your password!",
-                      },
-                    ]}
-                  >
-                    <Input.Password className="input" value="asraftakayuma" />
-                  </Form.Item>
-                  <Form.Item>
-                    <CustomButton htmlType="submit" variant="primary" block={true}>
-                      Simpan
-                    </CustomButton>
-                  </Form.Item>
-                </Form>
+                <Row>
+                  <Col span={12}>
+                    <Form.Item className="form" name="file_img">
+                      <UploadFile setBaseImage={setBaseImage} />
+                    </Form.Item>
+                  </Col>
+                </Row>
+                <h3 style={{ marginBottom: "16px" }}>Informasi Akun</h3>
+                <Row>
+                  <Col span={24}>
+                    <Form.Item
+                      label="Username"
+                      name="username"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please input your username!",
+                        },
+                      ]}
+                    >
+                      <CustomInput />
+                    </Form.Item>
+
+                    <Form.Item
+                      label="Password"
+                      name="password"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please input your password!",
+                        },
+                      ]}
+                    >
+                      <Input.Password className="input" />
+                    </Form.Item>
+                    <Form.Item>
+                      <CustomButton htmlType="submit" variant="primary" block={true} key="submit">
+                        Simpan
+                      </CustomButton>
+                    </Form.Item>
+                  </Col>
+                </Row>
               </Col>
             </Row>
-          </Col>
-        </Row>
+          </Form>
+        )}
       </div>
     </AdminLayout>
   );
