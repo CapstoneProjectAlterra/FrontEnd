@@ -47,15 +47,22 @@ export default function VaccineDetails() {
   ];
 
   // utils
-  const handleFamilyMemberChange = (event) => {
+  // const handleScheduleClcik = () => {
+  //   const inputValue = selectedSchedule
+  //   setSelectedSchedule(inputValue);
+  //   setError({ ...error, schedule: false });
+  // };
+
+  const handleFamilyMemberChange = (e) => {
     const currentList = selectedFamilyMember;
 
     const selectedMemberIndex = currentList.findIndex(
-      (data) => data.user_id == event.target.value
+      (data) => data.user_id == e.target.value
     );
-    currentList[selectedMemberIndex].selected = event.target.checked;
+    currentList[selectedMemberIndex].selected = e.target.checked;
     setError({ ...error, families: false });
-    console.log("eta", currentList[selectedMemberIndex], event.target.value);
+    // console.log("eta", currentList[selectedMemberIndex], event.target.value);
+    // console.log(selectedMemberIndex);
   };
 
   const checkFamilyAvailability = () => {
@@ -234,6 +241,7 @@ export default function VaccineDetails() {
     vaccineName,
     vaccineDosage,
     vaccineQuota,
+    clickHandler,
   }) => (
     <div className={style.schedule_item_container}>
       <label>
@@ -241,10 +249,8 @@ export default function VaccineDetails() {
           type="radio"
           name={inputName}
           value={inputValue}
-          onClick={() => {
-            setSelectedSchedule(inputValue);
-            setError({ ...error, schedule: false });
-          }}
+          checked={selectedSchedule == inputValue}
+          onClick={clickHandler}
         />
         <div className={style.schedule_item_card}>
           <div className={style.schedule_item__vaccine_time}>
@@ -303,6 +309,7 @@ export default function VaccineDetails() {
     memberPositionInFamily,
     memberNIK,
     memberId,
+    changeHandler,
   }) => (
     <div className={style.family_member__container}>
       <label>
@@ -310,7 +317,12 @@ export default function VaccineDetails() {
           type="checkbox"
           name={inputName}
           value={inputValue}
-          onChange={handleFamilyMemberChange}
+          checked={
+            selectedFamilyMember.findIndex(
+              (data) => data.user_id === inputValue && data.selected
+            ) !== -1
+          }
+          onChange={changeHandler}
         />
         <div className={style.family_member__data_container}>
           <div className={style.family_member__data__private_container}>
@@ -427,6 +439,10 @@ export default function VaccineDetails() {
                         vaccineName={session.vaccine.vaccine_name}
                         vaccineDosage={session.dose}
                         vaccineQuota={session.quota}
+                        clickHandler={() => {
+                          setSelectedSchedule(session.id);
+                          setError({ ...error, schedule: false });
+                        }}
                       />
                     ))}
                 </div>
@@ -445,6 +461,7 @@ export default function VaccineDetails() {
                       memberNIK={member.nik}
                       memberId={member.id}
                       memberPositionInFamily={member.status_in_family}
+                      changeHandler={handleFamilyMemberChange}
                     />
                   ))}
                 </div>
