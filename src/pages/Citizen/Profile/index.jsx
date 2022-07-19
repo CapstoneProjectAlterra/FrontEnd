@@ -11,9 +11,7 @@ import CitizenLayouts from "../../../layouts/CitizenLayout";
 import { ProfileSaya, ProfileKeluarga, ProfileUbahPassword } from "../../../components";
 import style from "./Profile.module.css";
 import { Link } from "react-router-dom";
-import { getUserId, isAuthenticatedUser } from "../../../utils/helpers/Auth";
-import axiosInstance from "../../../networks/apis";
-import { useEffect } from "react";
+import { isAuthenticatedUser } from "../../../utils/helpers/Auth";
 
 const Profile = () => {
   const [sideBar, setSidebar] = useState({ components: <ProfileSaya />, name: "ProfileSaya" });
