@@ -98,20 +98,29 @@ export default function VaccineDetails() {
       },
     };
     console.log(bookingInput);
-    const bookingId = await axiosInstance
-      .post("/booking", bookingInput)
-      .then((res) => res.data.data.id);
 
-    axiosInstance
-      .post("/detail", {
-        booking_id: bookingId,
-        family_id: familyId,
-        booking_status: "COMPLETED",
-      })
-      .then((res) => {
-        console.log("success");
-        console.log(res.data.data);
-      });
+    for (let i = 0; i < familyId.length; i++) {
+      const bookingId = await axiosInstance
+        .post("/booking", bookingInput)
+        .then((res) => res.data.data.id)
+        .catch((err) => {
+          console.log(err);
+        });
+
+      await axiosInstance
+        .post("/detail", {
+          booking_id: bookingId,
+          family_id: familyId[i],
+          booking_status: "COMPLETED",
+        })
+        .then((res) => {
+          console.log("success");
+          console.log(res.data.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   const handleFormSubmit = () => {
@@ -120,9 +129,7 @@ export default function VaccineDetails() {
       .filter((family) => family.selected === true)
       .map((item) => item.user_id);
 
-    familyMember.forEach((familyId) => {
-      bookingVaccination(scheduleId, familyId);
-    });
+    bookingVaccination(scheduleId, familyMember);
   };
 
   // mutator
