@@ -1,8 +1,9 @@
-import React, {useState} from "react";
-import {Button, Modal, Row, Col} from "antd";
-import {SuccessIlustration} from "../../assets";
+import React, { useState } from "react";
+import { Button, Modal, Row, Col } from "antd";
+import { SuccessIlustration } from "../../assets";
 import styles from "./successalert.module.css";
 import CustomButton from "../CustomButton";
+import { Link } from "react-router-dom";
 
 export default function SuccessAlert(props) {
   return (
@@ -13,14 +14,16 @@ export default function SuccessAlert(props) {
             <img
               src={SuccessIlustration}
               alt="success illustration"
-              style={{maxWidth: "152px", margin: "auto"}}
+              style={{ maxWidth: "152px", margin: "auto" }}
             />
             <div className={styles.separator}>
-              <span className={`h4-sb ${styles.primary}`}>Pemesanan Sukses!</span>
+              <span className={`h4-sb ${styles.primary}`}>
+                Pemesanan Sukses!
+              </span>
               <p>Tiket vaksinmu sudah dapat dilihat di halaman tiket.</p>
             </div>
-            <CustomButton variant="primary" onClick={props.onOk}>
-              Lihat Tiket
+            <CustomButton variant="primary">
+              <Link to="/ticket">Lihat Tiket</Link>
             </CustomButton>
           </Col>
         </Row>
