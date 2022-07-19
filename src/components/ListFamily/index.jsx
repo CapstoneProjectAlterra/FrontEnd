@@ -6,11 +6,24 @@ import { FaTrash } from "react-icons/fa";
 import style from "./ListFamily.module.css";
 import Item from "antd/lib/list/Item";
 import { useState } from "react";
+import axiosInstance from "../../networks/apis";
 
 export default function ListFamily({ dataFamily }) {
   const [refetchToggle, setRefetchToggle] = useState(false);
 
   console.log("send data", dataFamily);
+
+  const handleDelete = (values) => {
+    console.log("hapus item", values);
+    axiosInstance
+      .delete(`/family/${values}`, { data: "" })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return dataFamily === [] ? (
     "loading...."
@@ -30,7 +43,7 @@ export default function ListFamily({ dataFamily }) {
               </Col>
               <Col span={6} className={style.action}>
                 <EditFamily member={list} refetchToggle={refetchToggle} setRefetchToggle={setRefetchToggle} />
-                <Button type="primary" danger className={style.delete}>
+                <Button type="primary" danger className={style.delete} onClick={() => handleDelete(list.id)}>
                   <FaTrash style={{ width: "18px" }} />
                 </Button>
               </Col>
