@@ -4,6 +4,10 @@ import { CustomButton, CustomInput, Footer, Navbar } from "../../../components";
 import React from "react";
 import style from "./EditProfile.module.css";
 import { useLocation, useNavigate } from "react-router-dom";
+import CitizenLayouts from "../../../layouts/CitizenLayout";
+import { getUserId, isAuthenticatedUser } from "../../../utils/helpers/Auth";
+import moment from "moment";
+import axiosInstance from "../../../networks/apis";
 
 const EditProfile = () => {
   const { state } = useLocation();
@@ -12,8 +16,33 @@ const EditProfile = () => {
 
   const navigate = useNavigate();
   const onFinish = (values) => {
+    const inputData = {
+      date_of_birth: values.dateOfBirth.format("DD-MM-YYYY"),
+      email: values.email,
+      name: values.name,
+      gender: values.gender,
+      place_of_birth: values.placeOfBirth,
+      id_card_address: values.idCardAddress,
+      nik: values.nik,
+      phone_number: values.phoneNumber,
+      residence_address: values.residenceAddress,
+      status_in_family: values.statusInFamily,
+      profile: {
+        user_id: getUserId(),
+      },
+    };
+
+    axiosInstance
+      .put(`/family/${getUserId()}`, inputData)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     console.log("Recived data: ", values);
-    navigate("../profile");
+    console.log("Recived data: ", inputData);
+    navigate("/profile");
   };
 
   const onFinishFailed = (error) => {
@@ -21,12 +50,7 @@ const EditProfile = () => {
   };
 
   return (
-    <>
-      <Row className={style.navbar}>
-        <Col span={24}>
-          <Navbar />
-        </Col>
-      </Row>
+    <CitizenLayouts auth={isAuthenticatedUser()}>
       <Row>
         <Col span={20} offset={2}>
           <Breadcrumb className={style.linkPath}>
@@ -50,23 +74,23 @@ const EditProfile = () => {
                 form={form}
                 layout="vertical"
                 initialValues={{
-                  nama: state.data.nama,
-                  nik: state.data.nik,
-                  tempatLahir: state.data.tempatLahir,
-                  // tanggalLahir: "2020-06-09T12:40:14+0000",
-                  jenisKelamin: state.data.jenisKelamin,
-                  status: state.data.status,
-                  email: state.data.email,
-                  noHp: state.data.noHp,
-                  alamatKtp: state.data.alamatKtp,
-                  alamatSekarang: state.data.alamatSekarang,
+                  dateOfBirth: moment(state.dataUser.date_of_birth, "DD-MM-YYYY"),
+                  email: state.dataUser.email,
+                  gender: state.dataUser.gender,
+                  idCardAddress: state.dataUser.id_card_address,
+                  name: state.dataUser.name,
+                  nik: state.dataUser.nik,
+                  phoneNumber: state.dataUser.phone_number,
+                  placeOfBirth: state.dataUser.place_of_birth,
+                  residenceAddress: state.dataUser.residence_address,
+                  statusInFamily: state.dataUser.status_in_family,
                 }}
                 requiredMark={false}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
               >
                 <Form.Item
-                  name="nama"
+                  name="name"
                   label="Nama"
                   rules={[
                     {
@@ -93,7 +117,7 @@ const EditProfile = () => {
                 <Row>
                   <Col span={10}>
                     <Form.Item
-                      name="tempatLahir"
+                      name="placeOfBirth"
                       label="Tempat Lahir"
                       rules={[
                         {
@@ -107,7 +131,7 @@ const EditProfile = () => {
                   </Col>
                   <Col span={10} offset={4}>
                     <Form.Item
-                      name="tanggalLahir"
+                      name="dateOfBirth"
                       label="Tempat Lahir"
                       rules={[
                         {
@@ -116,12 +140,12 @@ const EditProfile = () => {
                         },
                       ]}
                     >
-                      <DatePicker className={style.datepicker} format="YYYY/MM/DD" />
+                      <DatePicker className={style.datepicker} format="DD-MM-YYYY" />
                     </Form.Item>
                   </Col>
                 </Row>
                 <Form.Item
-                  name="jenisKelamin"
+                  name="gender"
                   label="Jenis Kelamin"
                   rules={[
                     {
@@ -133,7 +157,7 @@ const EditProfile = () => {
                   <CustomInput />
                 </Form.Item>
                 <Form.Item
-                  name="status"
+                  name="statusInFamily"
                   label="Status dalam Keluarga"
                   rules={[
                     {
@@ -157,7 +181,7 @@ const EditProfile = () => {
                   <CustomInput />
                 </Form.Item>
                 <Form.Item
-                  name="noHp"
+                  name="phoneNumber"
                   label="NO. Hp"
                   rules={[
                     {
@@ -169,7 +193,7 @@ const EditProfile = () => {
                   <CustomInput />
                 </Form.Item>
                 <Form.Item
-                  name="alamatKtp"
+                  name="idCardAddress"
                   label="Alamat Rumah di KTP"
                   rules={[
                     {
@@ -181,7 +205,7 @@ const EditProfile = () => {
                   <CustomInput />
                 </Form.Item>
                 <Form.Item
-                  name="alamatSekarang"
+                  name="residenceAddress"
                   label="Alamat Rumah Saat ini"
                   rules={[
                     {
@@ -207,7 +231,7 @@ const EditProfile = () => {
           <Footer />
         </Col>
       </Row>
-    </>
+    </CitizenLayouts>
   );
 };
 
