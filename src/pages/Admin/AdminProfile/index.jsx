@@ -1,13 +1,23 @@
-import { Col, Row, Image, message, Form, Upload, Divider, Input, Spin } from "antd";
-import React from "react";
-import style from "./AdminProfile.module.css";
-import { CustomButton, CustomInput } from "../../../components";
-import AdminLayout from "../../../layouts/AdminLayout";
+/** React */
+import React, { useState, useEffect } from "react";
+
+/** React Router */
 import { Link } from "react-router-dom";
+
+/** Ant Design */
+import { Col, Row, Image, Form, Input, Spin } from "antd";
+
+/** Components */
+import { CustomButton, CustomInput } from "../../../components";
+
+/** Axios and GetUser */
 import axiosInstance from "../../../networks/apis";
-import { useState } from "react";
 import { getUserId } from "../../../utils/helpers/Auth";
-import { useEffect } from "react";
+
+/** Layout */
+import AdminLayout from "../../../layouts/AdminLayout";
+/** Style */
+import style from "./AdminProfile.module.css";
 
 const AdminProfile = () => {
   const [facility, setFacility] = useState([]);

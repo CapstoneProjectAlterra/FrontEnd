@@ -1,15 +1,24 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import AdminLayout from "../../../layouts/AdminLayout";
-import style from "./AdminProfileEdit.module.css";
+/** React */
+import React, { useState, useEffect } from "react";
 
+/** React Router */
+import { useNavigate } from "react-router-dom";
+
+/** Ant Design */
 import { Col, Row, Image, Form, Spin, Input, message } from "antd";
 
+/** Components */
 import { CustomButton, CustomInput, UploadFile } from "../../../components";
 
-import { useEffect } from "react";
+/** Axios and GetUser */
 import axiosInstance from "../../../networks/apis";
 import { getUserId } from "../../../utils/helpers/Auth";
+
+/** Layouts */
+import AdminLayout from "../../../layouts/AdminLayout";
+
+/** Style */
+import style from "./AdminProfileEdit.module.css";
 
 const AdminProfileEdit = () => {
   const [facility, setFacility] = useState([]);

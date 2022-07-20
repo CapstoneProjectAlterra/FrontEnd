@@ -1,7 +1,11 @@
-import { UploadOutlined } from "@ant-design/icons";
+/** React */
+import React, { useState } from "react";
+
+/** Ant Design & Ant Design Icons */
 import { message } from "antd";
-import React from "react";
-import { useState } from "react";
+import { UploadOutlined } from "@ant-design/icons";
+
+/** Style */
 import style from "./UploadFile.module.css";
 
 const UploadFile = ({ setBaseImage }) => {
