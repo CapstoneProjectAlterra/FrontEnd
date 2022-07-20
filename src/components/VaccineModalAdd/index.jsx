@@ -154,11 +154,7 @@ const VaccineModalAdd = ({ refetchToggle, setRefetchToggle }) => {
               },
             ]}
           >
-<<<<<<< HEAD
             <InputNumber min={0} className="input" placeholder="Masukkan Kuota Vaksin" style={{ padding: "4px 16px", width: "100%" }} />
-=======
-            <InputNumber min={0} className="input" placeholder="Masukkan Kuota" style={{ padding: "4px 16px", width: "100%" }} />
->>>>>>> a7a923f (slicing design and opertional function on vaccine admin)
           </Form.Item>
         </Form>
       </Modal>

@@ -22,11 +22,15 @@ import ListFamily from "./ListFamily";
 import AddFamily from "./AddFamily";
 import EditFamily from "./EditFamily";
 import VaccineTable from "./VaccineTable";
+<<<<<<< HEAD
 import UploadFile from "./UploadFile";
+=======
+>>>>>>> 6dbaa25 (update slicing profile citizen)
 import ProfileSaya from "./ProfileSaya";
 import ProfileUbahPassword from "./ProfileUbahPassword";
 import ProfileKeluarga from "./ProfileKeluarga";
 
+<<<<<<< HEAD
 export {
   CustomButton,
   CustomInput,
@@ -57,3 +61,6 @@ export {
   ProfileSaya,
   ProfileUbahPassword,
 };
+=======
+export { CustomButton, CustomInput, TicketModal, TicketCard, TicketList, Navbar, CustomAlert, Footer, Sidebar, BreadCrumbAdmin, VaccineTable, ProfileKeluarga, ProfileSaya, ProfileUbahPassword };
+>>>>>>> 6dbaa25 (update slicing profile citizen)
