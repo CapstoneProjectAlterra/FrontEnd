@@ -29,6 +29,8 @@ import UploadFile from "./UploadFile";
 import ProfileSaya from "./ProfileSaya";
 import ProfileUbahPassword from "./ProfileUbahPassword";
 import ProfileKeluarga from "./ProfileKeluarga";
+import SuccessAlertProfile from "./SuccessAlertProfile";
+import SuccessAlertPassword from "./SuccessAlertPassword";
 
 <<<<<<< HEAD
 export {
@@ -60,6 +62,8 @@ export {
   ProfileKeluarga,
   ProfileSaya,
   ProfileUbahPassword,
+  SuccessAlertProfile,
+  SuccessAlertPassword,
 };
 =======
 export { CustomButton, CustomInput, TicketModal, TicketCard, TicketList, Navbar, CustomAlert, Footer, Sidebar, BreadCrumbAdmin, VaccineTable, ProfileKeluarga, ProfileSaya, ProfileUbahPassword };
