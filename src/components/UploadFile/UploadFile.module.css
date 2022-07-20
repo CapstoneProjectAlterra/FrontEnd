@@ -1,0 +1,25 @@
+.uploadFile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.uploadFile+label {
+  display: block;
+  position: relative;
+  width: 170px;
+  height: 35px;
+  border-radius: 8px;
+  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-gray-60);
+  font-weight: var(--font-h5-weight);
+  cursor: pointer;
+  transition: transform .2s ease-out;
+  margin-right: 10px;
+}
