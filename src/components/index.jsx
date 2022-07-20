@@ -22,6 +22,7 @@ import ListFamily from "./ListFamily";
 import AddFamily from "./AddFamily";
 import EditFamily from "./EditFamily";
 import VaccineTable from "./VaccineTable";
+import UploadFile from "./UploadFile";
 
 export {
   CustomButton,
@@ -48,4 +49,5 @@ export {
   AddFamily,
   EditFamily,
   VaccineTable,
+  UploadFile,
 };
