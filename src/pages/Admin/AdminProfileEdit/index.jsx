@@ -125,7 +125,7 @@ const AdminProfileEdit = () => {
                   Informasi Fasilitas Kesehatan
                 </h3>
                 <Row>
-                  <Col style={{ marginBottom: "24px" }}>
+                  <Col sm={24} xl={24}>
                     <Form.Item name="facility_name" label="Nama">
                       <CustomInput />
                     </Form.Item>
