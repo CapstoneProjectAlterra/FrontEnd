@@ -1,1 +1,1 @@
-/api/* http://ec2-3-237-105-224.compute-1.amazonaws.com:8080/api/:splat 200!
+/api/* http://ec2-3-237-105-224.compute-1.amazonaws.com/api/:splat 200!
