@@ -24,7 +24,7 @@ export default function DashboardRegistrantTable({ activities }) {
         booking_time: moment(value.booking?.booking_date, "hh:mm").format(
           "HH:mm"
         ),
-        booking_date: moment(value.booking?.booking_date, "dd-mm-yyy").format(
+        booking_date: moment(value.booking?.booking_date, "DD-MM-YYYY").format(
           "DD-MM-YYYY"
         ),
         schedule_id: value.booking?.schedule?.id,

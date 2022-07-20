@@ -16,17 +16,39 @@
 }
 
 .linkPathBold {
-  color: #06919D;
+  color: #06919d;
 }
 
 .contentForm {
   margin-bottom: 86px;
 }
 
-.form :global(.ant-form-item-label>label) {
+.form :global(.ant-form-item-label > label) {
   font-size: 28px;
 }
 
 .btnEdit {
   margin-top: 36px;
+}
+
+.form
+  :global(.ant-select:not(.ant-select-customize-input) .ant-select-selector) {
+  height: 40px;
+  padding: 8px 16px;
+  align-items: center;
+  border-radius: 8px;
+}
+
+.linkPath:global(.ant-breadcrumb a) {
+  color: var(--color-text-link-disabled);
+  font-weight: var(--font-body-1-weight);
+  line-height: var(--font-body-1-lh);
+  font-size: var(--font-body-1-size);
+}
+
+.linkPath:global(.ant-breadcrumb li:last-child a) {
+  color: var(--color-primary);
+  font-weight: var(--font-h5-weight);
+  line-height: var(--font-h5-lh);
+  font-size: var(--font-h5-size);
 }

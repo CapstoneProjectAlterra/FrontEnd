@@ -1,9 +1,9 @@
 import React from "react";
-import {Helmet} from "react-helmet-async";
-import {useLocation, useParams} from "react-router-dom";
+import { Helmet } from "react-helmet-async";
+import { useLocation, useParams } from "react-router-dom";
 
 export default function ReactHelmet() {
-  const {sessionId, id, hospitalId} = useParams();
+  const { sessionId, id, hospitalId, profileId } = useParams();
   const location = useLocation();
   const LIST_PAGE_NAME = {
     "/": "Home",
@@ -20,6 +20,7 @@ export default function ReactHelmet() {
     "/ticket": "Tiket Vaksin",
     "/admin": "Dashboard Admin",
     "/admin/profile": "Profil Admin",
+    [`/admin/profile/${profileId}`]: "Edit Profil Admin",
     "/admin/vaccine": "Kelola Vaksin",
     "/admin/session": "Kelola Sesi",
     [`/admin/session/${sessionId}`]: "Detail Sesi",

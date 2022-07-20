@@ -273,13 +273,18 @@ export default function Home() {
                 </CustomButton>
               </div>
             </div>
+
             {loading ? (
               <Row className={style.mainCardContainer}>
                 <Spin size="large" style={{ padding: "56px" }} />
               </Row>
             ) : (
               <>
-                <Row className="layout-padding" gutter={[48, 48]}>
+                <Row
+                  // justify="space-between"
+                  className="layout-padding"
+                  gutter={[48, 48]}
+                >
                   {dataRS.length > 0 ? (
                     dataRS
                       .slice(state.minValue, state.maxValue)
@@ -376,11 +381,16 @@ export default function Home() {
                 <div className={style.pagination}>
                   <Pagination
                     defaultCurrent={1}
-                    defaultPageSize={3}
+                    defaultPageSize={9}
                     onChange={handleChange}
                     total={dataRS.length}
                   />
                 </div>
+                <WarningAlert
+                  type="reminder"
+                  visible={warningAlert}
+                  setVisible={setWarningAlert}
+                />
               </>
             )}
           </>

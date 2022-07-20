@@ -36,7 +36,6 @@ const VaccineTable = () => {
       .then((response) => {
         setLoading(false);
         setRawData(response.data.data.filter((item) => item.facility.profile.user_id === getUserId()));
-        // console.log(response.data.data.filter((item) => item.facility.profile.user_id === getUserId() && item.stock >= 0));
       })
       .catch((error) => {
         setLoading(false);
