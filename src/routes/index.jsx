@@ -4,8 +4,7 @@ import PrivateRouteCitizen from "./PrivateRouteCitizen";
 import ProtectedRouteCitizen from "./ProtectedRouteCitizen";
 import ProtectedRouteAdmin from "./ProtectedRouteAdmin";
 import { About, EditProfile, Home, News, NotFound, Profile, Register, Ticket, Vaccine, VaccineDetails, Login, DataPrivacy } from "../pages/Citizen";
-
-import { AdminDashboard, AdminLogin, AdminProfile, AdminSession, AdminSessionDetail, AdminVaccine } from "../pages/Admin";
+import { AdminDashboard, AdminLogin, AdminProfile, AdminProfileEdit, AdminSession, AdminSessionDetail, AdminVaccine } from "../pages/Admin";
 import Faq from "../pages/Citizen/Faq";
 
 export default function RouteList() {
@@ -36,6 +35,7 @@ export default function RouteList() {
       <Route element={<PrivateRouteAdmin />}>
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/profile" element={<AdminProfile />} />
+        <Route path="/admin/profile/:profileId" element={<AdminProfileEdit />} />
         <Route path="/admin/vaccine" element={<AdminVaccine />} />
         <Route path="/admin/session" element={<AdminSession />} />
         <Route path="/admin/session/:sessionId" element={<AdminSessionDetail />} />
