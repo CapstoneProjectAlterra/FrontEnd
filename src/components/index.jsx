@@ -25,6 +25,8 @@ import VaccineTable from "./VaccineTable";
 import ProfileSaya from "./ProfileSaya";
 import ProfileUbahPassword from "./ProfileUbahPassword";
 import ProfileKeluarga from "./ProfileKeluarga";
+import SuccessAlertProfile from "./SuccessAlertProfile";
+import SuccessAlertPassword from "./SuccessAlertPassword";
 
 export {
   CustomButton,
@@ -54,4 +56,6 @@ export {
   ProfileKeluarga,
   ProfileSaya,
   ProfileUbahPassword,
+  SuccessAlertProfile,
+  SuccessAlertPassword,
 };

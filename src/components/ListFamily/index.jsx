@@ -11,8 +11,6 @@ import axiosInstance from "../../networks/apis";
 export default function ListFamily({ dataFamily }) {
   const [refetchToggle, setRefetchToggle] = useState(false);
 
-  console.log("send data", dataFamily);
-
   const handleDelete = (values) => {
     console.log("hapus item", values);
     axiosInstance
@@ -32,23 +30,29 @@ export default function ListFamily({ dataFamily }) {
       {dataFamily.map((list, key) => {
         return (
           // <Checkbox key={list.id} onChange={handleChangeFams}>
-          <Checkbox key={list.id} value={list.name}>
-            <Row className={style.rowFamily}>
-              <Col span={18}>
-                <div className={style.familyName}>
-                  <h4>{list.name}</h4>
-                  <p>{list.status_in_family}</p>
-                </div>
-                <p style={{ padding: "0px 0px 0px 16px" }}>{list.nik}</p>
-              </Col>
-              <Col span={6} className={style.action}>
-                <EditFamily member={list} refetchToggle={refetchToggle} setRefetchToggle={setRefetchToggle} />
-                <Button type="primary" danger className={style.delete} onClick={() => handleDelete(list.id)}>
-                  <FaTrash style={{ width: "18px" }} />
-                </Button>
-              </Col>
-            </Row>
-          </Checkbox>
+          <Row>
+            <Col>
+              <Checkbox key={list.id} value={list.name}>
+                <Col span={12}>
+                  <Row className={style.rowFamily}>
+                    <Col span={18}>
+                      <div className={style.familyName}>
+                        <h4>{list.name}</h4>
+                        <p>{list.status_in_family}</p>
+                      </div>
+                      <p style={{ padding: "0px 0px 0px 16px" }}>{list.nik}</p>
+                    </Col>
+                    <Col span={6} className={style.action}>
+                      <EditFamily member={list} refetchToggle={refetchToggle} setRefetchToggle={setRefetchToggle} />
+                      <Button type="primary" danger className={style.delete} onClick={() => handleDelete(list.id)}>
+                        <FaTrash style={{ width: "18px" }} />
+                      </Button>
+                    </Col>
+                  </Row>
+                </Col>
+              </Checkbox>
+            </Col>
+          </Row>
         );
       })}
     </Checkbox.Group>
