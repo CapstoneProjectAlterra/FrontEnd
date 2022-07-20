@@ -39,7 +39,7 @@ export default function AdminLogin() {
           setAlertToggle(true);
           setTimeout(() => {
             setAlertToggle(false);
-          }, 2000);
+          }, 5000);
         }
       })
       .catch((error) => {
@@ -48,7 +48,7 @@ export default function AdminLogin() {
         setAlertToggle(true);
         setTimeout(() => {
           setAlertToggle(false);
-        }, 2000);
+        }, 5000);
       });
   };
 
