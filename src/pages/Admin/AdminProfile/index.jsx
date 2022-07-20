@@ -28,7 +28,11 @@ const AdminProfile = () => {
     axiosInstance
       .get("/facility", { data: "" })
       .then((response) => {
-        setFacility(response.data.data.filter((item) => item.profile.user_id === getUserId())[0]);
+        setFacility(
+          response.data.data.filter(
+            (item) => item.profile.user_id === getUserId()
+          )[0]
+        );
         setLoading(true);
       })
       .catch((error) => {
@@ -69,7 +73,11 @@ const AdminProfile = () => {
           <Row>
             <Col span={16} offset={4}>
               <div className={style.imgThumb}>
-                <Image src={`data:imgae/jpeg;base64, ${facility.image.base64}`} alt={`Foto ${facility.facility_name}`} className={style.img} />
+                <Image
+                  src={`data:${facility.image.content_type};base64, ${facility.image.base64}`}
+                  alt={`Foto ${facility.facility_name}`}
+                  className={style.img}
+                />
               </div>
             </Col>
           </Row>
@@ -118,7 +126,14 @@ const AdminProfile = () => {
               <h3 style={{ marginBottom: "16px" }}>Informasi Akun</h3>
               <Row>
                 <Col span={24}>
-                  <Form layout="vertical" requiredMark={false} initialValues={{ username: dataUser.name, password: dataUser.password }}>
+                  <Form
+                    layout="vertical"
+                    requiredMark={false}
+                    initialValues={{
+                      username: dataUser.username,
+                      password: dataUser.password,
+                    }}
+                  >
                     <Form.Item
                       label="Username"
                       name="username"
@@ -129,7 +144,7 @@ const AdminProfile = () => {
                         },
                       ]}
                     >
-                      <CustomInput />
+                      <CustomInput disabled />
                     </Form.Item>
 
                     <Form.Item
@@ -142,11 +157,18 @@ const AdminProfile = () => {
                         },
                       ]}
                     >
-                      <Input.Password className="input" />
+                      <Input.Password className="input" disabled />
                     </Form.Item>
                     <Form.Item>
-                      <CustomButton htmlType="submit" variant="primary" block={true}>
-                        <Link to={`/admin/profile/${getUserId()}`} state={{ facility }}>
+                      <CustomButton
+                        htmlType="submit"
+                        variant="primary"
+                        block={true}
+                      >
+                        <Link
+                          to={`/admin/profile/${getUserId()}`}
+                          state={{ facility }}
+                        >
                           Edit
                         </Link>
                       </CustomButton>

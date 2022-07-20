@@ -40,14 +40,19 @@ const UploadFile = ({ setBaseImage }) => {
           className={style.uploadFile}
           type="file"
           onChange={(e) => {
-            console.log();
-            if (e.target.files[0].size < 100001) {
+            if (
+              e.target.files[0].type !== "image/jpeg" &&
+              e.target.files[0].type !== "image/png"
+            ) {
+              message.error("Format gambar harus jpg, jpeg atau png.");
+            } else if (e.target.files[0].size > 100000) {
+              message.error("Size gambar lebih dari 100Kb");
+            } else {
               setNameFile(e.target.files[0]);
               uploadImage(e);
-            } else {
-              message.error("Size gambar lebih dari 100Kb");
             }
           }}
+          accept="image/jpeg, image/png"
         />
         <label htmlFor="file">
           <UploadOutlined style={{ marginRight: "8px" }} />
@@ -62,7 +67,8 @@ const UploadFile = ({ setBaseImage }) => {
           marginTop: "10px",
         }}
       >
-        *Foto harus berformat jpg, jpeg atau png <br /> *Ukuran file maksimal adalah 1 mb
+        *Foto harus berformat jpg, jpeg atau png <br /> *Ukuran file maksimal
+        adalah 100kb
       </p>
     </>
   );

@@ -31,7 +31,11 @@ const AdminProfileEdit = () => {
     axiosInstance
       .get("/facility", { data: "" })
       .then((response) => {
-        setFacility(response.data.data.filter((item) => item.profile.user_id === getUserId())[0]);
+        setFacility(
+          response.data.data.filter(
+            (item) => item.profile.user_id === getUserId()
+          )[0]
+        );
         setLoading(true);
       })
       .catch((error) => {
@@ -49,15 +53,17 @@ const AdminProfileEdit = () => {
   }, []);
 
   const onFinish = (values) => {
-    let base64File = baseImage.slice(23);
-    console.log("hasil", base64File);
+    let base64File = baseImage.split(",", 23)[1];
+    let contentType = baseImage.split(",", 23)[0].split(";")[0].split(":")[1];
+
     const inputData = {
       city: values.city,
       district: values.district,
       facility_name: values.facility_name,
       image: {
         base64: base64File === "" ? facility.image.base64 : base64File,
-        content_type: "image/jpeg",
+        content_type:
+          base64File === "" ? facility.image.content_type : contentType,
       },
       office_number: values.office_number,
       postal_code: values.postal_code,
@@ -73,7 +79,26 @@ const AdminProfileEdit = () => {
       .put(`/facility/${facility.id}`, inputData)
       .then((response) => {
         // console.log(response.data);
-        message.success("Data berhasil diubah");
+        if (values.password) {
+          axiosInstance
+            .put(`/user/${getUserId()}`, {
+              username: dataUser.username,
+              name: dataUser.name,
+              email: dataUser.email,
+              password: values.password,
+              profile: {
+                role: "ADMIN",
+              },
+            })
+            .then((response) => {
+              message.success("Data berhasil diubah");
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        } else {
+          message.success("Data berhasil diubah");
+        }
       })
       .catch((error) => {
         // console.log(error);
@@ -102,8 +127,7 @@ const AdminProfileEdit = () => {
             district: facility.district,
             city: facility.city,
             postal_code: facility.postal_code,
-            username: dataUser.name,
-            password: dataUser.password,
+            username: dataUser.username,
           }}
           onFinish={onFinish}
         >
@@ -120,7 +144,11 @@ const AdminProfileEdit = () => {
             <Row>
               <Col span={16} offset={4}>
                 <div className={style.imgThumb}>
-                  <Image src={`data:imgae/jpeg;base64, ${facility.image.base64}`} alt={`Foto ${facility.facility_name}`} className={style.img} />
+                  <Image
+                    src={`data:${facility.image.content_type};base64, ${facility.image.base64}`}
+                    alt={`Foto ${facility.facility_name}`}
+                    className={style.img}
+                  />
                 </div>
               </Col>
             </Row>
@@ -191,27 +219,26 @@ const AdminProfileEdit = () => {
                       rules={[
                         {
                           required: true,
-                          message: "Please input your username!",
+                          message: "Username tidak boleh kosong",
                         },
                       ]}
                     >
-                      <CustomInput />
+                      <CustomInput disabled />
                     </Form.Item>
 
-                    <Form.Item
-                      label="Password"
-                      name="password"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please input your password!",
-                        },
-                      ]}
-                    >
-                      <Input.Password className="input" />
+                    <Form.Item label="Password" name="password">
+                      <Input.Password
+                        className="input"
+                        placeholder="Kosongkan jika tidak ingin diubah"
+                      />
                     </Form.Item>
                     <Form.Item>
-                      <CustomButton htmlType="submit" variant="primary" block={true} key="submit">
+                      <CustomButton
+                        htmlType="submit"
+                        variant="primary"
+                        block={true}
+                        key="submit"
+                      >
                         Simpan
                       </CustomButton>
                     </Form.Item>
