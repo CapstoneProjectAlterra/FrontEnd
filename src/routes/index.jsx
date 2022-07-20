@@ -3,29 +3,9 @@ import PrivateRouteAdmin from "./PrivateRouteAdmin";
 import PrivateRouteCitizen from "./PrivateRouteCitizen";
 import ProtectedRouteCitizen from "./ProtectedRouteCitizen";
 import ProtectedRouteAdmin from "./ProtectedRouteAdmin";
-import {
-  About,
-  EditProfile,
-  Home,
-  News,
-  NotFound,
-  Profile,
-  Register,
-  Ticket,
-  Vaccine,
-  VaccineDetails,
-  Login,
-  DataPrivacy,
-} from "../pages/Citizen";
+import { About, EditProfile, Home, News, NotFound, Profile, Register, Ticket, Vaccine, VaccineDetails, Login, DataPrivacy } from "../pages/Citizen";
 
-import {
-  AdminDashboard,
-  AdminLogin,
-  AdminProfile,
-  AdminSession,
-  AdminSessionDetail,
-  AdminVaccine,
-} from "../pages/Admin";
+import { AdminDashboard, AdminLogin, AdminProfile, AdminSession, AdminSessionDetail, AdminVaccine } from "../pages/Admin";
 import Faq from "../pages/Citizen/Faq";
 
 export default function RouteList() {
@@ -48,10 +28,7 @@ export default function RouteList() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/editprofile/:id" element={<EditProfile />} />
         <Route path="/vaccine" element={<Vaccine />} />
-        <Route
-          path="/vaccineDetails/:hospitalId"
-          element={<VaccineDetails />}
-        />
+        <Route path="/vaccineDetails/:hospitalId" element={<VaccineDetails />} />
         <Route path="/ticket" element={<Ticket />} />
       </Route>
 
@@ -61,10 +38,7 @@ export default function RouteList() {
         <Route path="/admin/profile" element={<AdminProfile />} />
         <Route path="/admin/vaccine" element={<AdminVaccine />} />
         <Route path="/admin/session" element={<AdminSession />} />
-        <Route
-          path="/admin/session/:sessionId"
-          element={<AdminSessionDetail />}
-        />
+        <Route path="/admin/session/:sessionId" element={<AdminSessionDetail />} />
       </Route>
 
       <Route element={<ProtectedRouteAdmin />}>

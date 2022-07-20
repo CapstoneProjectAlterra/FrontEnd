@@ -1,0 +1,15 @@
+.content {
+  background: #fff;
+  padding: 16px;
+  margin-top: 40px;
+  border-radius: 16px;
+}
+
+.imgThumb {
+  width: 192px;
+  height: 192px;
+  border-radius: 50%;
+  object-fit: cover;
+  overflow: hidden;
+  margin: 0 auto 24px;
+}
