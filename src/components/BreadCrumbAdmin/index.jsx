@@ -4,12 +4,13 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import style from "./BreadCrumbAdmin.module.css";
 
 export default function BreadCrumbAdmin() {
-  const { sessionId } = useParams();
+  const { sessionId, profileId } = useParams();
   const breadcrumbNameMap = {
     "/admin": "Dashboard",
     "/admin/session": "Kelola Sesi",
     "/admin/vaccine": "Kelola Vaksin",
     "/admin/profile": "Profil Admin",
+    [`/admin/profile/${profileId}`]: "Edit Profil Admin",
     [`/admin/session/${sessionId}`]: "Detail Sesi",
   };
   const location = useLocation();
