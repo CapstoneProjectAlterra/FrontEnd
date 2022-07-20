@@ -1,7 +1,4 @@
 import { Col, Row, Image, message, Form, Upload, Divider, Input, Spin } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
-
-import { Content, Footer, Header } from "antd/lib/layout/layout";
 import React from "react";
 import style from "./AdminProfile.module.css";
 import { CustomButton, CustomInput } from "../../../components";
