@@ -45,12 +45,6 @@ const ProfileUbahPassword = () => {
       .then((response) => {
         console.log(response);
         setVisible(true);
-        setTimeout(() => {
-          setVisible(false);
-          Cookies.remove("token");
-          Cookies.remove("user");
-          navigate("/login");
-        }, 3000);
       })
       .catch((error) => {
         console.log(error);
@@ -79,7 +73,15 @@ const ProfileUbahPassword = () => {
             </div>
             <Row>
               <Col span={24}>
-                <Form name="ubahpassword" layout="vertical" form={form} requiredMark={false} onFinish={onFinish} onFinishFailed={onFinishFailed} className={style.form}>
+                <Form
+                  name="ubahpassword"
+                  layout="vertical"
+                  form={form}
+                  requiredMark={false}
+                  onFinish={onFinish}
+                  onFinishFailed={onFinishFailed}
+                  className={style.form}
+                >
                   {/* <Form.Item
               name="passwordlama"
               label="Password Lama"
@@ -102,7 +104,10 @@ const ProfileUbahPassword = () => {
                       },
                     ]}
                   >
-                    <Input.Password className="input" placeholder="Masukkan Password Baru" />
+                    <Input.Password
+                      className="input"
+                      placeholder="Masukkan Password Baru"
+                    />
                   </Form.Item>
                   <Form.Item
                     name="confirmpassword"
@@ -114,13 +119,23 @@ const ProfileUbahPassword = () => {
                       },
                     ]}
                   >
-                    <Input.Password className="input" placeholder="Masukkan Password Baru Kembali" />
+                    <Input.Password
+                      className="input"
+                      placeholder="Masukkan Password Baru Kembali"
+                    />
                   </Form.Item>
                   <Form.Item>
-                    <CustomButton variant="primary" htmlType="submit" block={true}>
+                    <CustomButton
+                      variant="primary"
+                      htmlType="submit"
+                      block={true}
+                    >
                       Simpan
                     </CustomButton>
-                    <SuccessAlertPassword visible={visible} onCancel={handleCancel} />
+                    <SuccessAlertPassword
+                      visible={visible}
+                      onCancel={handleCancel}
+                    />
                   </Form.Item>
                 </Form>
               </Col>

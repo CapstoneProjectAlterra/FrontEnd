@@ -10,18 +10,24 @@ import style from "./ProfileKeluarga.module.css";
 const ProfileKeluarga = () => {
   const [family, setFamily] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [refetchToggle, setRefetchToggle] = useState(false);
 
   useEffect(() => {
     axiosInstance
       .get("/family", { data: "" })
       .then((response) => {
-        setFamily(response.data.data.filter((item) => item.profile.user_id === getUserId() && item.id !== getUserId()));
+        setFamily(
+          response.data.data.filter(
+            (item) =>
+              item.profile.user_id === getUserId() && item.id !== getUserId()
+          )
+        );
         setLoading(false);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [refetchToggle]);
 
   return (
     <>
@@ -38,12 +44,19 @@ const ProfileKeluarga = () => {
               </div>
             </Col>
             <Col>
-              <AddFamily />
+              <AddFamily
+                refetchToggle={refetchToggle}
+                setRefetchToggle={setRefetchToggle}
+              />
             </Col>
           </Row>
           <Row>
             <Col>
-              <ListFamily dataFamily={family} />
+              <ListFamily
+                dataFamily={family}
+                refetchToggle={refetchToggle}
+                setRefetchToggle={setRefetchToggle}
+              />
             </Col>
           </Row>
         </>

@@ -1,9 +1,24 @@
-import { Col, DatePicker, Form, Row, Input, Button, Breadcrumb, Select } from "antd";
+import {
+  Col,
+  DatePicker,
+  Form,
+  Row,
+  Input,
+  Button,
+  Breadcrumb,
+  Select,
+} from "antd";
 import BreadcrumbItem from "antd/lib/breadcrumb/BreadcrumbItem";
-import { CustomButton, CustomInput, Footer, Navbar, SuccessAlertProfile } from "../../../components";
+import {
+  CustomButton,
+  CustomInput,
+  Footer,
+  Navbar,
+  SuccessAlertProfile,
+} from "../../../components";
 import React from "react";
 import style from "./EditProfile.module.css";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import CitizenLayouts from "../../../layouts/CitizenLayout";
 import { getUserId, isAuthenticatedUser } from "../../../utils/helpers/Auth";
 import moment from "moment";
@@ -37,7 +52,7 @@ const EditProfile = () => {
     };
 
     axiosInstance
-      .put(`/family/${getUserId()}`, inputData)
+      .put(`/family/${state.dataUser.id}`, inputData)
       .then((response) => {
         console.log(response);
       })
@@ -71,12 +86,18 @@ const EditProfile = () => {
 
   return (
     <CitizenLayouts auth={isAuthenticatedUser()}>
-      <Row>
+      <Row style={{ paddingTop: "36px" }}>
         <Col span={20} offset={2}>
           <Breadcrumb className={style.linkPath}>
-            <BreadcrumbItem>Home</BreadcrumbItem>
-            <BreadcrumbItem>Profile Saya</BreadcrumbItem>
-            <BreadcrumbItem className={style.linkPathBold}>Edit Profile</BreadcrumbItem>
+            <BreadcrumbItem>
+              <Link to="/">Home</Link>
+            </BreadcrumbItem>
+            <BreadcrumbItem>
+              <Link to="/profile">Profile Saya</Link>
+            </BreadcrumbItem>
+            <BreadcrumbItem className={style.linkPathBold}>
+              Edit Profile
+            </BreadcrumbItem>
           </Breadcrumb>
         </Col>
       </Row>
@@ -94,7 +115,9 @@ const EditProfile = () => {
                 form={form}
                 layout="vertical"
                 initialValues={{
-                  dateOfBirth: moment(state.dataUser.date_of_birth, "DD-MM-YYYY"),
+                  dateOfBirth: state.dataUser.date_of_birth
+                    ? moment(state.dataUser.date_of_birth, "DD-MM-YYYY")
+                    : "",
                   email: state.dataUser.email,
                   gender: state.dataUser.gender,
                   idCardAddress: state.dataUser.id_card_address,
@@ -146,7 +169,7 @@ const EditProfile = () => {
                         },
                       ]}
                     >
-                      <CustomInput />
+                      <CustomInput placeholder="Pilih tempat lahir anda" />
                     </Form.Item>
                   </Col>
                   <Col span={10} offset={4}>
@@ -160,7 +183,11 @@ const EditProfile = () => {
                         },
                       ]}
                     >
-                      <DatePicker className={style.datepicker} format="DD-MM-YYYY" />
+                      <DatePicker
+                        className={style.datepicker}
+                        format="DD-MM-YYYY"
+                        placeholder="Pilih tanggal lahir anda"
+                      />
                     </Form.Item>
                   </Col>
                 </Row>
@@ -219,7 +246,7 @@ const EditProfile = () => {
                     },
                   ]}
                 >
-                  <CustomInput />
+                  <CustomInput placeholder="Isi nomor HP anda" />
                 </Form.Item>
                 <Form.Item
                   name="idCardAddress"
@@ -231,7 +258,7 @@ const EditProfile = () => {
                     },
                   ]}
                 >
-                  <CustomInput />
+                  <CustomInput placeholder="Isi Alamat KTP anda" />
                 </Form.Item>
                 <Form.Item
                   name="residenceAddress"
@@ -243,22 +270,25 @@ const EditProfile = () => {
                     },
                   ]}
                 >
-                  <CustomInput />
+                  <CustomInput placeholder="Isi Alamat Rumah anda" />
                 </Form.Item>
                 <Form.Item className={style.btnEdit}>
-                  <CustomButton htmlType="submit" variant="primary" block="true">
+                  <CustomButton
+                    htmlType="submit"
+                    variant="primary"
+                    block="true"
+                  >
                     Simpan
                   </CustomButton>
-                  <SuccessAlertProfile visible={visible} onCancel={handleCancel} />;
+                  <SuccessAlertProfile
+                    visible={visible}
+                    onCancel={handleCancel}
+                  />
+                  ;
                 </Form.Item>
               </Form>
             </Col>
           </Row>
-        </Col>
-      </Row>
-      <Row>
-        <Col span={24}>
-          <Footer />
         </Col>
       </Row>
     </CitizenLayouts>
