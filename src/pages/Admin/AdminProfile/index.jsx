@@ -43,7 +43,11 @@ const AdminProfile = () => {
   return (
     <AdminLayout>
       {!loading ? (
-        <Spin size="middle" />
+        <Row align="middle" justify="center" style={{ paddingTop: "80px" }}>
+          <Col>
+            <Spin size="middle" />
+          </Col>
+        </Row>
       ) : (
         <div className={style.content}>
           <h2
@@ -79,27 +83,27 @@ const AdminProfile = () => {
               </Row>
               <h5 className="h5-sb">Alamat Fasilitas Kesehatan</h5>
               <Row justify="space-between" align="middle">
-                <Col span={7}>
+                <Col sm={24} lg={7} md={12}>
                   <p className="body1">Jalan</p>
                   <p className={style.body1M}>{facility.street_name}</p>
                 </Col>
-                <Col span={7}>
+                <Col sm={24} lg={7} md={12}>
                   <p className="body1">Nomor</p>
                   <p className={style.body1M}>{facility.office_number}</p>
                 </Col>
-                <Col span={7}>
+                <Col sm={24} lg={7} md={12}>
                   <p className="body1">Kode Pos</p>
                   <p className={style.body1M}>{facility.postal_code}</p>
                 </Col>
-                <Col span={7}>
+                <Col sm={24} lg={7} md={12}>
                   <p className="body1">Kelurahan</p>
                   <p className={style.body1M}>{facility.village_name}</p>
                 </Col>
-                <Col span={7}>
+                <Col sm={24} lg={7} md={12}>
                   <p className="body1">Kecamatan</p>
                   <p className={style.body1M}>{facility.district}</p>
                 </Col>
-                <Col span={7}>
+                <Col sm={24} lg={7} md={12}>
                   <p className="body1">Kota</p>
                   <p className={style.body1M}>{facility.city}</p>
                 </Col>

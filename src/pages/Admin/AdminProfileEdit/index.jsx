@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import AdminLayout from "../../../layouts/AdminLayout";
 import style from "./AdminProfileEdit.module.css";
 
-import { Col, Row, Image, Form, Spin, Input } from "antd";
+import { Col, Row, Image, Form, Spin, Input, message } from "antd";
 
 import { CustomButton, CustomInput, UploadFile } from "../../../components";
 
@@ -28,9 +28,7 @@ const AdminProfileEdit = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
 
-  useEffect(() => {
     axiosInstance
       .get(`/user/${getUserId()}`, { data: "" })
       .then((response) => {
@@ -39,7 +37,7 @@ const AdminProfileEdit = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, [facility]);
+  }, []);
 
   const onFinish = (values) => {
     let base64File = baseImage.slice(23);
@@ -65,36 +63,42 @@ const AdminProfileEdit = () => {
     axiosInstance
       .put(`/facility/${facility.id}`, inputData)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
+        message.success("Data berhasil diubah");
       })
       .catch((error) => {
-        console.log(error);
-      });
+        // console.log(error);
+        message.error("Data gagal diubah");
+      }, []);
     navigate("/admin/profile");
   };
 
   return (
     <AdminLayout>
-      <div className={style.content}>
-        {!loading ? (
-          <Spin size="middle" />
-        ) : (
-          <Form
-            layout="vertical"
-            requiredMark={false}
-            initialValues={{
-              facility_name: facility.facility_name,
-              street_name: facility.street_name,
-              village_name: facility.village_name,
-              office_number: facility.office_number,
-              district: facility.district,
-              city: facility.city,
-              postal_code: facility.postal_code,
-              username: dataUser.name,
-              password: dataUser.password,
-            }}
-            onFinish={onFinish}
-          >
+      {!loading ? (
+        <Row align="middle" justify="center" style={{ paddingTop: "80px" }}>
+          <Col>
+            <Spin size="middle" />
+          </Col>
+        </Row>
+      ) : (
+        <Form
+          layout="vertical"
+          requiredMark={false}
+          initialValues={{
+            facility_name: facility.facility_name,
+            street_name: facility.street_name,
+            village_name: facility.village_name,
+            office_number: facility.office_number,
+            district: facility.district,
+            city: facility.city,
+            postal_code: facility.postal_code,
+            username: dataUser.name,
+            password: dataUser.password,
+          }}
+          onFinish={onFinish}
+        >
+          <div className={style.content}>
             <h2
               style={{
                 fontWeight: "var(--font-h2-weight)",
@@ -129,32 +133,32 @@ const AdminProfileEdit = () => {
                 </Row>
                 <p className="body1">Alamat Fasilitas Kesehatan</p>
                 <Row justify="space-between" align="middle">
-                  <Col span={7}>
+                  <Col sm={24} lg={7} md={11}>
                     <Form.Item name="street_name" label="Jalan">
                       <CustomInput />
                     </Form.Item>
                   </Col>
-                  <Col span={7}>
+                  <Col sm={24} lg={7} md={11}>
                     <Form.Item name="office_number" label="Nomor">
                       <CustomInput />
                     </Form.Item>
                   </Col>
-                  <Col span={7}>
+                  <Col sm={24} lg={7} md={11}>
                     <Form.Item name="postal_code" label="Kode Pos">
                       <CustomInput />
                     </Form.Item>
                   </Col>
-                  <Col span={7}>
+                  <Col sm={24} lg={7} md={11}>
                     <Form.Item name="village_name" label="Kelurahan">
                       <CustomInput />
                     </Form.Item>
                   </Col>
-                  <Col span={7}>
+                  <Col sm={24} lg={7} md={11}>
                     <Form.Item name="district" label="Kecamatan">
                       <CustomInput />
                     </Form.Item>
                   </Col>
-                  <Col span={7}>
+                  <Col sm={24} lg={7} md={11}>
                     <Form.Item name="city" label="Kota">
                       <CustomInput />
                     </Form.Item>
@@ -163,7 +167,7 @@ const AdminProfileEdit = () => {
                 <p className="body1">Foto Fasilitas Kesehatan</p>
 
                 <Row>
-                  <Col span={12}>
+                  <Col lg={12} sm={20}>
                     <Form.Item className="form" name="file_img">
                       <UploadFile setBaseImage={setBaseImage} />
                     </Form.Item>
@@ -206,9 +210,9 @@ const AdminProfileEdit = () => {
                 </Row>
               </Col>
             </Row>
-          </Form>
-        )}
-      </div>
+          </div>
+        </Form>
+      )}
     </AdminLayout>
   );
 };
